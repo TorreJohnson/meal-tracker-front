@@ -23,12 +23,25 @@ class MealEntryForm extends React.Component {
 		{ key: "quart", text: "Quart", value: "quart" }
 	];
 
-	handleChange = (e, value) => {
-		console.log(value);
+	handleUpcChange = e => {
 		this.setState({
-			[e.target.name]: e.target.value
+			upc1: e.target.value
 		});
 	};
+
+	handleQuantityChange = (e, value) => {
+		this.setState({
+			quantity1: value.value
+		});
+	};
+
+	handleUnitChange = (e, value) => {
+		this.setState({
+			unitType1: value.value
+		});
+	};
+
+	addAnotherRow = () => {};
 
 	render() {
 		console.log(this.state);
@@ -40,7 +53,7 @@ class MealEntryForm extends React.Component {
 							fluid
 							label="UPC Code"
 							name="upc1"
-							onChange={this.handleChange}
+							onChange={this.handleUpcChange}
 							value={this.state.upc1}
 							placeholder="UPC..."
 						/>
@@ -48,7 +61,7 @@ class MealEntryForm extends React.Component {
 							fluid
 							label="Quantity"
 							name="quantity1"
-							onChange={this.handleChange}
+							onChange={this.handleQuantityChange}
 							value={this.state.quantity1}
 							options={this.quantityOptions}
 							placeholder="Quantity"
@@ -57,12 +70,13 @@ class MealEntryForm extends React.Component {
 							fluid
 							label="Unit of Measurement"
 							name="unitType1"
-							onChange={this.handleChange}
+							onChange={this.handleUnitChange}
 							value={this.state.unitType1}
 							options={this.unitOptions}
 							placeholder="Unit"
 						/>
 					</Form.Group>
+					<Form.Button>Add Another Item</Form.Button>
 					<Form.Button>Submit</Form.Button>
 				</Form>
 			</div>

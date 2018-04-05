@@ -1,7 +1,7 @@
 export default function reducer(
 	state = {
 		user: {},
-		upc: "02190874329",
+		upc: "021908743295",
 		nutrients: []
 	},
 	action

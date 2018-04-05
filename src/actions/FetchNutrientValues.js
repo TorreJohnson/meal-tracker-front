@@ -6,15 +6,15 @@ export const fetchNutrients = upc => {
 		let options = {
 			method: "GET",
 			headers: {
-				"x-app-id": "XXXXXXX",
-				"x-app-key": "XXXXXXXX",
+				"x-app-id": "xxxxx",
+				"x-app-key": "xxxxx",
 				"content-type": "application/json",
 				accept: "application/json",
 				"x-remote-user-id": "0"
 			}
 		};
 		return fetch(
-			`https://trackapi.nutritionix.com/v2/search/item?upc=021908743295`,
+			`https://trackapi.nutritionix.com/v2/search/item?upc=${upc}`,
 			options
 		)
 			.then(res => res.json())

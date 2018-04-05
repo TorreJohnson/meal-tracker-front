@@ -1,18 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/FetchNutrientValues";
-import MealEntryForm from "./MealEntryForm";
 
 class Home extends React.Component {
 	componentDidMount() {
 		// this.props.fetchNutrients(this.props.upc);
 	}
 	render() {
-		return (
-			<div>
-				<MealEntryForm />
-			</div>
-		);
+		return <div>Home</div>;
 	}
 }
 

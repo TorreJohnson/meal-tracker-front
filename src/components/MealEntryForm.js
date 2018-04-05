@@ -1,12 +1,14 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 class MealEntryForm extends React.Component {
 	state = {
 		items: [],
 		upc1: "",
 		quantity1: "",
-		unitType1: ""
+		unitType1: "",
+		rows: ["row"]
 	};
 
 	quantityOptions = [
@@ -37,46 +39,75 @@ class MealEntryForm extends React.Component {
 
 	handleUnitChange = (e, value) => {
 		this.setState({
-			unitType1: value.value
+			unitType1: value.value,
+			items: [
+				...this.state.items,
+				{
+					upc: this.state.upc1,
+					quantity: this.state.quantity1,
+					unit: value.value
+				}
+			]
 		});
 	};
 
-	addAnotherRow = () => {};
+	handleClick = () => {
+		console.log("clicked");
+		this.setState({
+			rows: [...this.state.rows, "row"]
+		});
+	};
+
+	addRow = () => {
+		return this.state.rows.map(row => {
+			return (
+				<Form.Group widths="equal">
+					<Form.Input
+						fluid
+						label="UPC Code"
+						name="upc1"
+						onChange={this.handleUpcChange}
+						placeholder="UPC..."
+					/>
+					<Form.Select
+						fluid
+						label="Quantity"
+						name="quantity1"
+						onChange={this.handleQuantityChange}
+						options={this.quantityOptions}
+						placeholder="Quantity"
+					/>
+					<Form.Select
+						fluid
+						label="Unit of Measurement"
+						name="unitType1"
+						onChange={this.handleUnitChange}
+						options={this.unitOptions}
+						placeholder="Unit"
+					/>
+				</Form.Group>
+			);
+		});
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+		console.log("hitting handleSubmit");
+		this.props.dispatch({
+			type: "ADD_NUTRIENTS",
+			payload: {
+				nutrients: this.state.items
+			}
+		});
+	};
 
 	render() {
 		console.log(this.state);
 		return (
 			<div>
-				<Form>
-					<Form.Group widths="equal">
-						<Form.Input
-							fluid
-							label="UPC Code"
-							name="upc1"
-							onChange={this.handleUpcChange}
-							value={this.state.upc1}
-							placeholder="UPC..."
-						/>
-						<Form.Select
-							fluid
-							label="Quantity"
-							name="quantity1"
-							onChange={this.handleQuantityChange}
-							value={this.state.quantity1}
-							options={this.quantityOptions}
-							placeholder="Quantity"
-						/>
-						<Form.Select
-							fluid
-							label="Unit of Measurement"
-							name="unitType1"
-							onChange={this.handleUnitChange}
-							value={this.state.unitType1}
-							options={this.unitOptions}
-							placeholder="Unit"
-						/>
-					</Form.Group>
-					<Form.Button>Add Another Item</Form.Button>
+				<Button onClick={this.handleClick}>Add Another Item</Button>
+				<Form onSubmit={this.handleSubmit}>
+					<this.addRow />
 					<Form.Button>Submit</Form.Button>
 				</Form>
 			</div>
@@ -84,4 +115,4 @@ class MealEntryForm extends React.Component {
 	}
 }
 
-export default MealEntryForm;
+export default connect(null)(MealEntryForm);

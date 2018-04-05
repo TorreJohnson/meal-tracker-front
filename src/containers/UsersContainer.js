@@ -1,6 +1,8 @@
 import React from "react";
-import { Input, Menu, Segment } from "semantic-ui-react";
+import { Menu, Segment } from "semantic-ui-react";
 import Home from "../components/Home";
+import Messages from "../components/Messages";
+import MealEntryForm from "../components/MealEntryForm";
 
 class UsersContainer extends React.Component {
 	state = {
@@ -25,20 +27,26 @@ class UsersContainer extends React.Component {
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Item
-						name="friends"
-						active={activeItem === "friends"}
+						name="diary"
+						active={activeItem === "diary"}
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Menu position="right">
-						<Menu.Item>
-							<Input icon="search" placeholder="Search..." />
-						</Menu.Item>
+						<Menu.Item
+							name="logout"
+							active={activeItem === "logout"}
+							onClick={this.handleItemClick}
+						/>
 					</Menu.Menu>
 				</Menu>
 
 				<Segment>
 					<div>
-						<Home store={this.props.store} />
+						{this.state.activeItem === "home" ? (
+							<Home store={this.props.store} />
+						) : null}
+						{this.state.activeItem === "messages" ? <Messages /> : null}
+						{this.state.activeItem === "diary" ? <MealEntryForm /> : null}
 					</div>
 				</Segment>
 			</div>

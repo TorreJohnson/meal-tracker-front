@@ -5,7 +5,7 @@ import SignUp from "./SignUp";
 
 class Home extends React.Component {
 	componentDidMount() {
-		// this.props.fetchNutrients(this.props.upc);
+		this.props.fetchNutrients("021908743295");
 	}
 	render() {
 		return (

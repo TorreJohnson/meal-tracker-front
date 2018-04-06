@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { createStore, applyMiddleware, compose } from "redux";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import reducer from "./reducers/Reducer";
 import thunk from "redux-thunk";
@@ -21,9 +22,11 @@ const store = createStore(
 console.log(store.getState());
 
 ReactDOM.render(
-	<Provider store={store}>
-		<App store={store} />
-	</Provider>,
+	<Router>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</Router>,
 	document.getElementById("root")
 );
 registerServiceWorker();

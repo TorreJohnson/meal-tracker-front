@@ -9,7 +9,6 @@ export const fetchNutrients = upc => {
 			type: "LOADING"
 		});
 		let options = {
-			method: "GET",
 			headers: {
 				"x-app-id": id,
 				"x-app-key": key,

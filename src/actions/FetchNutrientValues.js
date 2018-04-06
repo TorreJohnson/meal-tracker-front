@@ -1,3 +1,8 @@
+import { config } from "../config.js";
+
+let id = config.id;
+let key = config.key;
+
 export const fetchNutrients = upc => {
 	return dispatch => {
 		dispatch({
@@ -6,8 +11,8 @@ export const fetchNutrients = upc => {
 		let options = {
 			method: "GET",
 			headers: {
-				"x-app-id": "xxxxx",
-				"x-app-key": "xxxxx",
+				"x-app-id": id,
+				"x-app-key": key,
 				"content-type": "application/json",
 				accept: "application/json",
 				"x-remote-user-id": "0"

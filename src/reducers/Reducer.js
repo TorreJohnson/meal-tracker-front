@@ -1,7 +1,7 @@
 export default function reducer(
 	state = {
 		user: {},
-		nutrients: []
+		items: []
 	},
 	action
 ) {
@@ -9,7 +9,7 @@ export default function reducer(
 		case "ADD_NUTRIENTS":
 			return {
 				...state,
-				nutrients: action.payload.nutrients
+				items: [...state.items, action.payload]
 			};
 		default:
 			return { ...state };

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { fetchNutrients } from "../actions/FetchNutrientValues";
 
 class MealEntryForm extends React.Component {
 	state = {
@@ -52,7 +53,6 @@ class MealEntryForm extends React.Component {
 	};
 
 	handleClick = () => {
-		console.log("clicked");
 		this.setState({
 			rows: [...this.state.rows, "row"]
 		});
@@ -93,11 +93,13 @@ class MealEntryForm extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		console.log("hitting handleSubmit");
-		this.props.dispatch({
-			type: "ADD_NUTRIENTS",
-			payload: {
-				nutrients: this.state.items
-			}
+		this.state.items.forEach(item => {
+			this.props.fetchNutrients({
+				type: "ADD_NUTRIENTS",
+				payload: {
+					...item
+				}
+			});
 		});
 	};
 
@@ -115,4 +117,4 @@ class MealEntryForm extends React.Component {
 	}
 }
 
-export default connect(null)(MealEntryForm);
+export default connect(null, { fetchNutrients })(MealEntryForm);

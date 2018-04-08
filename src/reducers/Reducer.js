@@ -1,6 +1,7 @@
 export default function reducer(
 	state = {
-		user: {},
+		currentUser: null,
+		loggedIn: false,
 		items: []
 	},
 	action
@@ -10,6 +11,18 @@ export default function reducer(
 			return {
 				...state,
 				items: [...state.items, action.payload]
+			};
+		case "GET_USER":
+			return {
+				...state,
+				currentUser: action.payload,
+				loggedIn: true
+			};
+		case "LOG_OUT":
+			return {
+				...state,
+				currentUser: null,
+				loggedIn: false
 			};
 		default:
 			return { ...state };

@@ -1,16 +1,26 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { fetchNutrients } from "../actions/FetchNutrientValues";
+import { fetchNutrients } from "../actions/Actions";
+import withAuth from "./WithAuth";
 
 class MealEntryForm extends React.Component {
 	state = {
-		items: [],
-		upc1: "",
-		quantity1: "",
-		unitType1: "",
-		rows: ["row"]
+		items: [
+			{
+				upc: "",
+				quantity: "",
+				unit: ""
+			}
+		],
+		rows: 1
 	};
+
+	componentDidMount() {
+		if (!this.props.currentUser) {
+			this.props.history.push("/login");
+		}
+	}
 
 	quantityOptions = [
 		{ key: ".25", text: "1/4", value: 1 / 4 },
@@ -27,52 +37,83 @@ class MealEntryForm extends React.Component {
 	];
 
 	handleUpcChange = e => {
+		let index = e.target.name.slice(-1);
 		this.setState({
-			upc1: e.target.value
+			items: [
+				...this.state.items.slice(0, index),
+				{
+					upc: e.target.value,
+					quantity: this.state.items[index].quantity,
+					unit: this.state.items[index].unit
+				},
+				...this.state.items.slice(index + 1)
+			]
 		});
 	};
 
 	handleQuantityChange = (e, value) => {
+		let index = parseInt(value.name.slice(-1), 10);
+		console.log(typeof index);
 		this.setState({
-			quantity1: value.value
+			items: [
+				...this.state.items.slice(0, index),
+				{
+					upc: this.state.items[index].upc,
+					quantity: value.value,
+					unit: this.state.items[index].unit
+				},
+				...this.state.items.slice(index + 1)
+			]
 		});
 	};
 
 	handleUnitChange = (e, value) => {
+		let index = value.name.slice(-1);
 		this.setState({
-			unitType1: value.value,
+			items: [
+				...this.state.items.slice(0, index),
+				{
+					upc: this.state.items[index].upc,
+					quantity: this.state.items[index].quantity,
+					unit: value.value
+				},
+				...this.state.items.slice(index + 1)
+			]
+		});
+	};
+
+	handleAdditionalRowClick = () => {
+		this.setState({
+			rows: this.state.rows + 1,
 			items: [
 				...this.state.items,
 				{
-					upc: this.state.upc1,
-					quantity: this.state.quantity1,
-					unit: value.value
+					upc: "",
+					quantity: "",
+					unit: ""
 				}
 			]
 		});
 	};
 
-	handleClick = () => {
-		this.setState({
-			rows: [...this.state.rows, "row"]
-		});
-	};
-
 	addRow = () => {
-		return this.state.rows.map(row => {
-			return (
+		let rows = [];
+		console.log(this.state.items);
+		console.log(this.state.items.length);
+		for (let i = 0; i < this.state.rows; i++) {
+			rows.push(
 				<Form.Group widths="equal">
 					<Form.Input
 						fluid
 						label="UPC Code"
-						name="upc1"
+						name={`upc${i}`}
 						onChange={this.handleUpcChange}
 						placeholder="UPC..."
 					/>
 					<Form.Select
 						fluid
 						label="Quantity"
-						name="quantity1"
+						name={`quantity${i}`}
 						onChange={this.handleQuantityChange}
 						options={this.quantityOptions}
 						placeholder="Quantity"
@@ -80,14 +121,15 @@ class MealEntryForm extends React.Component {
 					<Form.Select
 						fluid
 						label="Unit of Measurement"
-						name="unitType1"
+						name={`unit${i}`}
 						onChange={this.handleUnitChange}
 						options={this.unitOptions}
 						placeholder="Unit"
 					/>
 				</Form.Group>
 			);
-		});
+		}
+		return rows;
 	};
 
 	handleSubmit = e => {
@@ -104,10 +146,11 @@ class MealEntryForm extends React.Component {
 	};
 
 	render() {
-		console.log(this.state);
 		return (
 			<div>
-				<Button onClick={this.handleClick}>Add Another Item</Button>
+				<Button onClick={this.handleAdditionalRowClick}>
+					Add Another Item
+				</Button>
 				<Form onSubmit={this.handleSubmit}>
 					<this.addRow />
 					<Form.Button>Submit</Form.Button>
@@ -117,4 +160,12 @@ class MealEntryForm extends React.Component {
 	}
 }
 
-export default connect(null, { fetchNutrients })(MealEntryForm);
+export default connect(
+	state => {
+		return {
+			currentUser: state.currentUser,
+			loggedIn: state.loggedIn
+		};
+	},
+	{ fetchNutrients }
+)(withAuth(MealEntryForm));

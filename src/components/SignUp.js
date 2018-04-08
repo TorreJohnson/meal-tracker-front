@@ -1,7 +1,9 @@
 import React from "react";
+import { signUp } from "../actions/Actions";
+import { connect } from "react-redux";
 import { Button, Form } from "semantic-ui-react";
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 	state = {
 		name: "",
 		username: "",
@@ -20,10 +22,19 @@ export default class SignUp extends React.Component {
 		});
 	};
 
+	handleSubmit = e => {
+		e.preventDefault();
+		this.props.signUp(
+			this.state.name,
+			this.state.username,
+			this.state.password,
+			this.props.history
+		);
+	};
+
 	render() {
-		console.log(this.state);
 		return (
-			<Form>
+			<Form onSubmit={this.handleSubmit}>
 				<Form.Group>
 					<Form.Input
 						label="Name"
@@ -110,8 +121,10 @@ export default class SignUp extends React.Component {
 						width={12}
 					/>
 				</Form.Group>
-				<Button type="submit">Submit</Button>
+				<Button type="submit">Create Account</Button>
 			</Form>
 		);
 	}
 }
+
+export default connect(null, { signUp })(SignUp);

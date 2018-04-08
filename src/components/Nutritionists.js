@@ -1,13 +1,18 @@
 import React from "react";
 import { NutritionistCard } from "./NutritionistCard";
+import { connect } from "react-redux";
+import withAuth from "./WithAuth";
 import cuid from "cuid";
 
-export default class Nutritionists extends React.Component {
+class Nutritionists extends React.Component {
 	state = {
 		nutritionists: []
 	};
 
 	componentDidMount() {
+		if (!this.props.currentUser) {
+			this.props.history.push("/login");
+		}
 		this.fetchNutritionists();
 	}
 
@@ -31,3 +36,10 @@ export default class Nutritionists extends React.Component {
 		return <div>{this.createNutritionistCards()}</div>;
 	}
 }
+
+export default connect(state => {
+	return {
+		currentUser: state.currentUser,
+		loggedIn: state.loggedIn
+	};
+})(withAuth(Nutritionists));

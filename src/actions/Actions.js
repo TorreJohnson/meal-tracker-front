@@ -50,7 +50,7 @@ export const fetchNutrients = (action, userId, NdbNos, history) => {
 					food_item: {
 						user_id: userId,
 						meal_type: "lunch",
-						date: "2018-04-09 13:00:00",
+						date: "2018-04-01 13:00:00",
 						name: json.foods[0].food_name,
 						upc: action.payload.upc,
 						measurement: 1,

@@ -2,9 +2,10 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
+import { NdbNos } from "./NdbNos";
 import withAuth from "./WithAuth";
 
-class MealEntryForm extends React.Component {
+class FoodItemEntryForm extends React.Component {
 	state = {
 		items: [
 			{
@@ -165,4 +166,4 @@ export default connect(
 		};
 	},
 	{ fetchNutrients }
-)(withAuth(MealEntryForm));
+)(withAuth(FoodItemEntryForm));

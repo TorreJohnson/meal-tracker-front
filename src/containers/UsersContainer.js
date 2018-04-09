@@ -4,21 +4,11 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Home from "../components/Home";
 import Messages from "../components/Messages";
-import MealEntryForm from "../components/MealEntryForm";
+import FoodItemEntryForm from "../components/FoodItemEntryForm";
 import Nutritionists from "../components/Nutritionists";
-import SignUp from "../components/SignUp";
-import LogIn from "../components/LogIn";
-import { getUser, logOut } from "../actions/Actions";
+import { logOut } from "../actions/Actions";
 
 class UsersContainer extends React.Component {
-	componentDidMount() {
-		let jwt = localStorage.getItem("token");
-
-		if (jwt && !this.props.currentUser) {
-			this.props.getUser(jwt, this.props.history);
-		}
-	}
-
 	state = {
 		activeItem: "home"
 	};
@@ -75,11 +65,9 @@ class UsersContainer extends React.Component {
 				<Segment>
 					<div>
 						<Route exact path="/" component={Home} />
-						<Route exact path="/journal" component={MealEntryForm} />
+						<Route exact path="/journal" component={FoodItemEntryForm} />
 						<Route exact path="/messages" component={Messages} />
 						<Route exact path="/nutritionist" component={Nutritionists} />
-						<Route exact path="/signup" component={SignUp} />
-						<Route exace path="/login" component={LogIn} />
 					</div>
 				</Segment>
 			</div>
@@ -92,6 +80,6 @@ export default withRouter(
 		state => {
 			return { currentUser: state.currentUser, loggedIn: state.loggedIn };
 		},
-		{ getUser, logOut }
+		{ logOut }
 	)(UsersContainer)
 );

@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export const fetchNutrients = action => {
+export const fetchNutrients = (action, userId, NdbNos) => {
 	return dispatch => {
 		let id = config.id;
 		let key = config.key;
@@ -13,7 +13,7 @@ export const fetchNutrients = action => {
 				"x-remote-user-id": "0"
 			}
 		};
-		return fetch(
+		fetch(
 			`https://trackapi.nutritionix.com/v2/search/item?upc=${
 				action.payload.upc
 			}`,
@@ -40,7 +40,47 @@ export const fetchNutrients = action => {
 					type: "ADD_NUTRIENTS",
 					payload
 				});
+				let nutrients = json.foods[0].full_nutrients.map(nutrient => {
+					return { [NdbNos[nutrient.attr_id]]: nutrient.value };
+				});
+				let body = {
+					food_item: {
+						user_id: userId,
+						meal_type: 1,
+						date: 1,
+						name: json.foods[0].food_name,
+						upc: action.payload.upc,
+						measurement: 1,
+						quantity: 1,
+						beta_carotene: 1,
+						caffeine: 1,
+						calcium: 1,
+						carbohydrate: 1,
+						cholesterol: 1,
+						calories: 1,
+						fat: 1,
+						fiber: 1,
+						folic_acid: 1,
+						iron: 1,
+						niacin: 1,
+						potassium: 1,
+						protein: 1,
+						riboflavin: 1,
+						sodium: 1,
+						sugars: 1,
+						thiamin: 1,
+						vitamin_a: 1,
+						vitamin_b12: 1,
+						vitamin_c: 1,
+						vitamin_d: 1,
+						vitamin_e: 1,
+						vitamin_k: 1,
+						zinc: 1
+					}
+				};
 			});
+
+		// fetch("http://localhost:3000")
 	};
 };
 

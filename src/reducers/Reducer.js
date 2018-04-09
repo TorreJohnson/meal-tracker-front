@@ -10,7 +10,10 @@ export default function reducer(
 		case "ADD_NUTRIENTS":
 			return {
 				...state,
-				items: [...state.items, action.payload]
+				currentUser: {
+					...state.currentUser,
+					food_items: [...state.currentUser.food_items, action.payload]
+				}
 			};
 		case "GET_USER":
 			return {

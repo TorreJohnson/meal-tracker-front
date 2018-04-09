@@ -134,12 +134,17 @@ class FoodItemEntryForm extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		this.state.items.forEach(item => {
-			this.props.fetchNutrients({
-				type: "ADD_NUTRIENTS",
-				payload: {
-					...item
-				}
-			});
+			this.props.fetchNutrients(
+				{
+					type: "ADD_NUTRIENTS",
+					payload: {
+						...item
+					}
+				},
+				this.props.currentUser.id,
+				NdbNos,
+				this.props.history
+			);
 		});
 	};
 

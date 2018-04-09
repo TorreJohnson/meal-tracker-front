@@ -1,8 +1,7 @@
 export default function reducer(
 	state = {
 		currentUser: null,
-		loggedIn: false,
-		items: []
+		loggedIn: false
 	},
 	action
 ) {

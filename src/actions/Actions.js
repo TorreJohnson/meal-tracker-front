@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export const fetchNutrients = (action, userId, NdbNos) => {
+export const fetchNutrients = (action, userId, NdbNos, history) => {
 	return dispatch => {
 		let id = config.id;
 		let key = config.key;
@@ -40,47 +40,61 @@ export const fetchNutrients = (action, userId, NdbNos) => {
 					type: "ADD_NUTRIENTS",
 					payload
 				});
-				let nutrients = json.foods[0].full_nutrients.map(nutrient => {
-					return { [NdbNos[nutrient.attr_id]]: nutrient.value };
+				let nutrients = {};
+				json.foods[0].full_nutrients.forEach(nutrient => {
+					nutrients = Object.assign({}, nutrients, {
+						[NdbNos[nutrient.attr_id]]: nutrient.value
+					});
 				});
 				let body = {
 					food_item: {
 						user_id: userId,
-						meal_type: 1,
-						date: 1,
+						meal_type: "lunch",
+						date: "2018-04-09 13:00:00",
 						name: json.foods[0].food_name,
 						upc: action.payload.upc,
 						measurement: 1,
 						quantity: 1,
-						beta_carotene: 1,
-						caffeine: 1,
-						calcium: 1,
-						carbohydrate: 1,
-						cholesterol: 1,
-						calories: 1,
-						fat: 1,
-						fiber: 1,
-						folic_acid: 1,
-						iron: 1,
-						niacin: 1,
-						potassium: 1,
-						protein: 1,
-						riboflavin: 1,
-						sodium: 1,
-						sugars: 1,
-						thiamin: 1,
-						vitamin_a: 1,
-						vitamin_b12: 1,
-						vitamin_c: 1,
-						vitamin_d: 1,
-						vitamin_e: 1,
-						vitamin_k: 1,
-						zinc: 1
+						beta_carotene: nutrients.beta_carotene || 0,
+						caffeine: nutrients.caffeine || 0,
+						calcium: nutrients.calcium || 0,
+						carbohydrate: nutrients.carbohydrate || 0,
+						cholesterol: nutrients.cholesterol || 0,
+						calories: nutrients.calories || 0,
+						fat: nutrients.fat || 0,
+						fiber: nutrients.fiber || 0,
+						folic_acid: nutrients.folic_acid || 0,
+						iron: nutrients.iron || 0,
+						niacin: nutrients.niacin || 0,
+						potassium: nutrients.potassium || 0,
+						protein: nutrients.protein || 0,
+						riboflavin: nutrients.riboflavin || 0,
+						sodium: nutrients.sodium || 0,
+						sugars: nutrients.sugars || 0,
+						thiamin: nutrients.thiamin || 0,
+						vitamin_a: nutrients.vitamin_a || 0,
+						vitamin_b12: nutrients.vitamin_b12 || 0,
+						vitamin_c: nutrients.vitamin_c || 0,
+						vitamin_d: nutrients.vitamin_d || 0,
+						vitamin_e: nutrients.vitamin_e || 0,
+						vitamin_k: nutrients.vitamin_k || 0,
+						zinc: nutrients.zinc || 0
 					}
 				};
+				fetch("http://localhost:3000/api/v1/food_items", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						accept: "application/json"
+					},
+					body: JSON.stringify(body)
+				})
+					.then(res => res.json())
+					.then(console.log)
+					.then(() => {
+						history.push("/");
+					});
 			});
-
-		// fetch("http://localhost:3000")
 	};
 };
 

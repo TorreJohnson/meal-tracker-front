@@ -77,7 +77,7 @@ class CalorieGraph extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>Horizontal Bar Example</h2>
+				<h2>Calories</h2>
 				<HorizontalBar
 					data={this.props.recValues ? this.data2() : this.data()}
 				/>

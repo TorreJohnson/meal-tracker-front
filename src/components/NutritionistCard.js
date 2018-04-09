@@ -7,13 +7,11 @@ export const NutritionistCard = props => {
 		<Card>
 			<Image src="" />
 			<Card.Content>
-				<Card.Header>{props.nutritionist.attributes.name}</Card.Header>
+				<Card.Header>{props.nutritionist.name}</Card.Header>
 				<Card.Meta>
-					<span>{props.nutritionist.attributes.office_address}</span>
+					<span>{props.nutritionist.office_address}</span>
 				</Card.Meta>
-				<Card.Description>
-					{props.nutritionist.attributes.biography}
-				</Card.Description>
+				<Card.Description>{props.nutritionist.biography}</Card.Description>
 			</Card.Content>
 			<Card.Content extra>
 				<a>

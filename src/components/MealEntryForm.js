@@ -37,7 +37,7 @@ class MealEntryForm extends React.Component {
 	];
 
 	handleUpcChange = e => {
-		let index = e.target.name.slice(-1);
+		let index = parseInt(e.target.name.slice(-1), 10);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
@@ -68,7 +68,7 @@ class MealEntryForm extends React.Component {
 	};
 
 	handleUnitChange = (e, value) => {
-		let index = value.name.slice(-1);
+		let index = parseInt(value.name.slice(-1), 10);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
@@ -98,8 +98,6 @@ class MealEntryForm extends React.Component {
 
 	addRow = () => {
 		let rows = [];
-		console.log(this.state.items);
-		console.log(this.state.items.length);
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
 				<Form.Group widths="equal">
@@ -134,7 +132,6 @@ class MealEntryForm extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
-		console.log("hitting handleSubmit");
 		this.state.items.forEach(item => {
 			this.props.fetchNutrients({
 				type: "ADD_NUTRIENTS",

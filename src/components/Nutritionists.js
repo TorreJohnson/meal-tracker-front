@@ -22,7 +22,7 @@ class Nutritionists extends React.Component {
 			.then(json => {
 				console.log(json);
 				this.setState({
-					nutritionists: json.data
+					nutritionists: json
 				});
 			});
 	};

@@ -107,7 +107,7 @@ export function getUser(jwt, history) {
 			.then(response => {
 				dispatch({
 					type: "GET_USER",
-					payload: response.data
+					payload: response
 				});
 			})
 			.then(() => {

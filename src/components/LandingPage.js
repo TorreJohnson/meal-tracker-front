@@ -12,6 +12,9 @@ class LandingPage extends React.Component {
 				<Button as={Link} to="/login">
 					Log In
 				</Button>
+				<Button as={Link} to="/nutritionists">
+					Nutritionist?
+				</Button>
 			</div>
 		);
 	}

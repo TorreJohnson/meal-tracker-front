@@ -26,6 +26,22 @@ export default function reducer(
 				currentUser: null,
 				loggedIn: false
 			};
+		case "ADD_MESSAGE":
+			return {
+				...state,
+				currentUser: {
+					...state.currentUser,
+					messages: [...state.currentUser.messages, action.payload]
+				}
+			};
+		case "UPDATE_NUTRITIONIST":
+			return {
+				...state,
+				currentUser: {
+					...state.currentUser,
+					nutritionist_id: action.payload
+				}
+			};
 		default:
 			return { ...state };
 	}

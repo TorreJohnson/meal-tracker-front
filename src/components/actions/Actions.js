@@ -183,7 +183,7 @@ export function logOut(history) {
 	};
 }
 
-export function postMessage(payload, currentUser) {
+export function postMessage(payload, currentUser, onClick) {
 	return dispatch => {
 		let body = {
 			user_id: currentUser.id,
@@ -202,6 +202,42 @@ export function postMessage(payload, currentUser) {
 			body: JSON.stringify(body)
 		})
 			.then(res => res.json())
-			.then(console.log);
+			.then(response => {
+				dispatch({
+					type: "ADD_MESSAGE",
+					payload: response
+				});
+				onClick();
+			});
+	};
+}
+
+export function hireFireNutritionist(currentUser, nutritionistId) {
+	return dispatch => {
+		let body;
+		if (currentUser.nutritionist_id) {
+			if (currentUser.nutritionist_id === nutritionistId) {
+				body = { nutritionist_id: null };
+			} else if (currentUser.nutritionist_id !== nutritionistId) {
+				alert("You already have a nutritionist");
+			}
+		} else {
+			body = { nutritionist_id: nutritionistId };
+		}
+		fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_NUTRITIONIST",
+					payload: response.nutritionist_id
+				});
+			});
 	};
 }

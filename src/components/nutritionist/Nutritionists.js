@@ -1,7 +1,7 @@
 import React from "react";
-import { NutritionistCard } from "./NutritionistCard";
+import NutritionistCard from "./NutritionistCard";
 import { connect } from "react-redux";
-import withAuth from "../WithAuth";
+import withAuth from "../authentication/WithAuth";
 import cuid from "cuid";
 
 class Nutritionists extends React.Component {

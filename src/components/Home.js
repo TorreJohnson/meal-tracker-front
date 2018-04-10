@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "./WithAuth";
+import withAuth from "./authentication/WithAuth";
 import { Dropdown, Header, Icon } from "semantic-ui-react";
 import CalorieGraph from "./graphs/CalorieGraph";
 import GramGraph from "./graphs/GramGraph";

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "../WithAuth";
+import withAuth from "../authentication/WithAuth";
 import { Line } from "react-chartjs-2";
 import { Dropdown } from "semantic-ui-react";
 

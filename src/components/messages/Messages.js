@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "../WithAuth";
+import withAuth from "../authentication/WithAuth";
 import { Button } from "semantic-ui-react";
 import { MessageCard } from "./MessageCard";
 import NewMessage from "./NewMessage";
+import cuid from "cuid";
 
 class Messages extends React.Component {
 	state = {
@@ -18,7 +19,7 @@ class Messages extends React.Component {
 
 	messageCards = () => {
 		return this.props.currentUser.messages.map(message => (
-			<MessageCard message={message} />
+			<MessageCard message={message} key={cuid()} />
 		));
 	};
 
@@ -32,7 +33,7 @@ class Messages extends React.Component {
 		return (
 			<div>
 				{this.state.composeMessage ? (
-					<NewMessage />
+					<NewMessage onClick={this.handleClick} />
 				) : (
 					<div>
 						<Button onClick={this.handleClick}>New Message</Button>

@@ -9,7 +9,12 @@ export const MessageCard = props => {
 				<Card.Content description={props.message.body} />
 				<Card.Content extra>
 					<Icon name="mail outline" />
-					Sent on {props.message.created_at.split("T")[0]}
+					Sent at{" "}
+					{props.message.created_at
+						.split("T")[1]
+						.split(".")[0]
+						.slice(0, 5)}{" "}
+					on {props.message.created_at.split("T")[0]}
 				</Card.Content>
 			</Card>
 		</div>

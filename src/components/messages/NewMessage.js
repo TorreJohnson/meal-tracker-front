@@ -19,7 +19,8 @@ class NewMessage extends React.Component {
 		e.preventDefault();
 		this.props.postMessage(
 			{ subject: this.state.subject, body: this.state.body },
-			this.props.currentUser
+			this.props.currentUser,
+			this.props.onClick
 		);
 		this.setState({
 			subject: "",

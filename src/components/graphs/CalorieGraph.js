@@ -1,7 +1,7 @@
 import React from "react";
 import { HorizontalBar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import withAuth from "../WithAuth";
+import withAuth from "../authentication/WithAuth";
 
 class CalorieGraph extends React.Component {
 	filterFoodItems = filter => {

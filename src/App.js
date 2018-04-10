@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser } from "./actions/Actions";
 import { Route, withRouter } from "react-router-dom";
-import UsersContainer from "./containers/UsersContainer";
+import UsersContainer from "./components/containers/UsersContainer";
 import LandingPage from "./components/LandingPage";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";

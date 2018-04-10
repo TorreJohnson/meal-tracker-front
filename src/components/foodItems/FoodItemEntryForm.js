@@ -3,7 +3,7 @@ import { Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
-import withAuth from "./WithAuth";
+import withAuth from "../WithAuth";
 
 class FoodItemEntryForm extends React.Component {
 	state = {

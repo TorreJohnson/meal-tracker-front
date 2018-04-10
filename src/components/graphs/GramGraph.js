@@ -1,9 +1,9 @@
 import React from "react";
-import { HorizontalBar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import withAuth from "../components/WithAuth";
+import withAuth from "../WithAuth";
 
-class CalorieGraph extends React.Component {
+class GramGraph extends React.Component {
 	filterFoodItems = filter => {
 		if (filter === "Daily") {
 			const items = this.props.currentUser.food_items.filter(
@@ -24,24 +24,76 @@ class CalorieGraph extends React.Component {
 	};
 
 	mapNutrientCountsInState(items) {
-		let calories = 0;
+		let calcium = 0;
 		items.forEach(item => {
-			calories += item.calories;
+			calcium += item.calcium;
 		});
-		return [calories];
+		let carbohydrate = 0;
+		items.forEach(item => {
+			carbohydrate += item.carbohydrate;
+		});
+		let fat = 0;
+		items.forEach(item => {
+			fat += item.fat;
+		});
+		let fiber = 0;
+		items.forEach(item => {
+			fiber += item.fiber;
+		});
+		let potassium = 0;
+		items.forEach(item => {
+			potassium += item.potassium;
+		});
+		let protein = 0;
+		items.forEach(item => {
+			protein += item.protein;
+		});
+		let sodium = 0;
+		items.forEach(item => {
+			sodium += item.sodium;
+		});
+		let sugars = 0;
+		items.forEach(item => {
+			sugars += item.sugars;
+		});
+		let vitamin_c = 0;
+		items.forEach(item => {
+			vitamin_c += item.vitamin_c;
+		});
+		return [
+			carbohydrate,
+			calcium,
+			fat,
+			fiber,
+			potassium,
+			protein,
+			sodium,
+			sugars,
+			vitamin_c
+		];
 	}
 
 	data = () => {
 		return {
-			labels: ["Calories"],
+			labels: [
+				"Calcium",
+				"Carbohydrate",
+				"Fat",
+				"Fiber",
+				"Potassium",
+				"Protein",
+				"Sodium",
+				"Sugars",
+				"Vitamin C"
+			],
 			datasets: [
 				{
 					label: "You",
-					backgroundColor: "rgba(75,192,192,0.4)",
-					borderColor: "rgba(75,192,192,1)",
+					backgroundColor: "rgba(255,99,132,0.2)",
+					borderColor: "rgba(255,99,132,1)",
 					borderWidth: 1,
-					hoverBackgroundColor: "rgba(75,192,192,0.2)",
-					hoverBorderColor: "rgba(75,192,192,1)",
+					hoverBackgroundColor: "rgba(255,99,132,0.4)",
+					hoverBorderColor: "rgba(255,99,132,1)",
 					data: this.filterFoodItems(this.props.filter)
 				}
 			]
@@ -49,14 +101,24 @@ class CalorieGraph extends React.Component {
 	};
 
 	data2 = () => {
-		let adjustedData = [2000];
+		let adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2];
 		if (this.props.filter === "Weekly") {
-			adjustedData = [2000].map(num => num * 7);
+			adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2].map(num => num * 7);
 		} else if (this.props.filter === "Monthly") {
-			adjustedData = [2000].map(num => num * 30);
+			adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2].map(num => num * 30);
 		}
 		return {
-			labels: ["Calories"],
+			labels: [
+				"Calcium",
+				"Carbohydrate",
+				"Fat",
+				"Fiber",
+				"Potassium",
+				"Protein",
+				"Sodium",
+				"Sugars",
+				"Vitamin C"
+			],
 			datasets: [
 				{
 					label: "You",
@@ -83,9 +145,14 @@ class CalorieGraph extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>Calories</h2>
-				<HorizontalBar
+				<h2>{this.props.filter} Totals (Grams)</h2>
+				<Bar
 					data={this.props.recValues ? this.data2() : this.data()}
+					width={75}
+					height={50}
+					options={{
+						maintainAspectRatio: true
+					}}
 				/>
 			</div>
 		);
@@ -97,4 +164,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(withAuth(CalorieGraph));
+})(withAuth(GramGraph));

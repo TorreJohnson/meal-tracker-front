@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import withAuth from "../components/WithAuth";
+import withAuth from "../WithAuth";
 
 class MilligramGraph extends React.Component {
 	filterFoodItems = filter => {

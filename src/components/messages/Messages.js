@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "./WithAuth";
+import withAuth from "../WithAuth";
 import { Button } from "semantic-ui-react";
 import { MessageCard } from "./MessageCard";
 import NewMessage from "./NewMessage";
@@ -32,12 +32,12 @@ class Messages extends React.Component {
 		return (
 			<div>
 				{this.state.composeMessage ? (
+					<NewMessage />
+				) : (
 					<div>
-						<NewMessage />
+						<Button onClick={this.handleClick}>New Message</Button>
 						{this.messageCards()}
 					</div>
-				) : (
-					<Button onClick={this.handleClick}>New Message</Button>
 				)}
 			</div>
 		);

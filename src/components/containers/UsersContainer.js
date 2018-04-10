@@ -2,10 +2,10 @@ import React from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import Home from "../components/Home";
-import Messages from "../components/Messages";
-import FoodItemEntryForm from "../components/FoodItemEntryForm";
-import Nutritionists from "../components/Nutritionists";
+import Home from "../Home";
+import Messages from "../messages/Messages";
+import FoodItemEntryForm from "../foodItems/FoodItemEntryForm";
+import Nutritionists from "../nutritionist/Nutritionists";
 import { logOut } from "../actions/Actions";
 
 class UsersContainer extends React.Component {

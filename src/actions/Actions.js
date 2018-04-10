@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export const fetchNutrients = (action, userId, NdbNos, history) => {
+export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
 		let id = config.id;
 		let key = config.key;
@@ -99,7 +99,7 @@ export const fetchNutrients = (action, userId, NdbNos, history) => {
 					});
 			});
 	};
-};
+}
 
 export function signUp(name, username, password, history) {
 	return dispatch => {
@@ -180,5 +180,28 @@ export function logOut(history) {
 			type: "LOG_OUT"
 		});
 		history.push("/login");
+	};
+}
+
+export function postMessage(payload, currentUser) {
+	return dispatch => {
+		let body = {
+			user_id: currentUser.id,
+			nutritionist_id: currentUser.nutritionist_id,
+			subject: payload.subject,
+			body: payload.body,
+			sender_type: "user",
+			sender_id: currentUser.id
+		};
+		fetch("http://localhost:3000/api/v1/messages", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+			.then(res => res.json())
+			.then(console.log);
 	};
 }

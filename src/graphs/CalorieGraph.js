@@ -37,11 +37,11 @@ class CalorieGraph extends React.Component {
 			datasets: [
 				{
 					label: "You",
-					backgroundColor: "rgba(255,99,132,0.2)",
-					borderColor: "rgba(255,99,132,1)",
+					backgroundColor: "rgba(75,192,192,0.4)",
+					borderColor: "rgba(75,192,192,1)",
 					borderWidth: 1,
-					hoverBackgroundColor: "rgba(255,99,132,0.4)",
-					hoverBorderColor: "rgba(255,99,132,1)",
+					hoverBackgroundColor: "rgba(75,192,192,0.2)",
+					hoverBorderColor: "rgba(75,192,192,1)",
 					data: this.filterFoodItems(this.props.filter)
 				}
 			]
@@ -68,7 +68,7 @@ class CalorieGraph extends React.Component {
 					data: this.filterFoodItems(this.props.filter)
 				},
 				{
-					label: "Recommended Values",
+					label: "Maximum Recommended Values",
 					backgroundColor: "rgba(54,162,235,0.2)",
 					borderColor: "rgba(54,162,235,1)",
 					borderWidth: 1,

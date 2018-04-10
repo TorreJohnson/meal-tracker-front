@@ -49,6 +49,12 @@ class CalorieGraph extends React.Component {
 	};
 
 	data2 = () => {
+		let adjustedData = [2000];
+		if (this.props.filter === "Weekly") {
+			adjustedData = [2000].map(num => num * 7);
+		} else if (this.props.filter === "Monthly") {
+			adjustedData = [2000].map(num => num * 30);
+		}
 		return {
 			labels: ["Calories"],
 			datasets: [
@@ -68,7 +74,7 @@ class CalorieGraph extends React.Component {
 					borderWidth: 1,
 					hoverBackgroundColor: "rgba(54,162,235,0.4)",
 					hoverBorderColor: "rgba(54,162,235,1)",
-					data: [2000]
+					data: adjustedData
 				}
 			]
 		};

@@ -4,6 +4,8 @@ import withAuth from "./WithAuth";
 import { Dropdown, Header, Icon } from "semantic-ui-react";
 import CalorieGraph from "../graphs/CalorieGraph";
 import GramGraph from "../graphs/GramGraph";
+import MilligramGraph from "../graphs/MilligramGraph";
+import NutrientsThroughTime from "../graphs/NutrientsThroughTime";
 
 class Home extends React.Component {
 	state = {
@@ -64,12 +66,22 @@ class Home extends React.Component {
 						/>
 					</Header.Content>
 				</Header>
-				<button onClick={this.handleRecClick}>Show Rec Values</button>
+				<button onClick={this.handleRecClick}>
+					{this.state.recommendedValuesClicked ? "Hide" : "Show"} Rec Values
+				</button>
 				<CalorieGraph
 					filter={this.state.filter}
 					recValues={this.state.recommendedValuesClicked}
 				/>
 				<GramGraph
+					filter={this.state.filter}
+					recValues={this.state.recommendedValuesClicked}
+				/>
+				<MilligramGraph
+					filter={this.state.filter}
+					recValues={this.state.recommendedValuesClicked}
+				/>
+				<NutrientsThroughTime
 					filter={this.state.filter}
 					recValues={this.state.recommendedValuesClicked}
 				/>

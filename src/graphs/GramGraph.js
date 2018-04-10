@@ -24,14 +24,6 @@ class GramGraph extends React.Component {
 	};
 
 	mapNutrientCountsInState(items) {
-		let beta_carotene = 0;
-		items.forEach(item => {
-			beta_carotene += item.beta_carotene;
-		});
-		let caffeine = 0;
-		items.forEach(item => {
-			caffeine += item.caffeine;
-		});
 		let calcium = 0;
 		items.forEach(item => {
 			calcium += item.calcium;
@@ -39,10 +31,6 @@ class GramGraph extends React.Component {
 		let carbohydrate = 0;
 		items.forEach(item => {
 			carbohydrate += item.carbohydrate;
-		});
-		let cholesterol = 0;
-		items.forEach(item => {
-			cholesterol += item.cholesterol;
 		});
 		let fat = 0;
 		items.forEach(item => {
@@ -52,18 +40,6 @@ class GramGraph extends React.Component {
 		items.forEach(item => {
 			fiber += item.fiber;
 		});
-		let folic_acid = 0;
-		items.forEach(item => {
-			folic_acid += item.folic_acid;
-		});
-		let iron = 0;
-		items.forEach(item => {
-			iron += item.iron;
-		});
-		let niacin = 0;
-		items.forEach(item => {
-			niacin += item.niacin;
-		});
 		let potassium = 0;
 		items.forEach(item => {
 			potassium += item.potassium;
@@ -71,10 +47,6 @@ class GramGraph extends React.Component {
 		let protein = 0;
 		items.forEach(item => {
 			protein += item.protein;
-		});
-		let riboflavin = 0;
-		items.forEach(item => {
-			riboflavin += item.riboflavin;
 		});
 		let sodium = 0;
 		items.forEach(item => {
@@ -84,91 +56,35 @@ class GramGraph extends React.Component {
 		items.forEach(item => {
 			sugars += item.sugars;
 		});
-		let thiamin = 0;
-		items.forEach(item => {
-			thiamin += item.thiamin;
-		});
-		let vitamin_a = 0;
-		items.forEach(item => {
-			vitamin_a += item.vitamin_a;
-		});
-		let vitamin_b12 = 0;
-		items.forEach(item => {
-			vitamin_b12 += item.vitamin_b12;
-		});
 		let vitamin_c = 0;
 		items.forEach(item => {
 			vitamin_c += item.vitamin_c;
 		});
-		let vitamin_d = 0;
-		items.forEach(item => {
-			vitamin_d += item.vitamin_d;
-		});
-		let vitamin_e = 0;
-		items.forEach(item => {
-			vitamin_e += item.vitamin_e;
-		});
-		let vitamin_k = 0;
-		items.forEach(item => {
-			vitamin_k += item.vitamin_k;
-		});
-		let zinc = 0;
-		items.forEach(item => {
-			zinc += item.zinc;
-		});
 		return [
-			beta_carotene,
-			caffeine,
-			calcium,
 			carbohydrate,
-			cholesterol,
+			calcium,
 			fat,
 			fiber,
-			folic_acid,
-			iron,
-			niacin,
 			potassium,
 			protein,
-			riboflavin,
 			sodium,
 			sugars,
-			thiamin,
-			vitamin_a,
-			vitamin_b12,
-			vitamin_c,
-			vitamin_d,
-			vitamin_e,
-			vitamin_k,
-			zinc
+			vitamin_c
 		];
 	}
 
 	data = () => {
 		return {
 			labels: [
-				"Beta Carotene",
-				"Caffeine",
 				"Calcium",
 				"Carbohydrate",
-				"Cholesterol",
 				"Fat",
 				"Fiber",
-				"Folic Acid",
-				"Iron",
-				"Niacin",
 				"Potassium",
 				"Protein",
-				"Riboflavin",
 				"Sodium",
 				"Sugars",
-				"Thiamin",
-				"Vitamin A",
-				"Vitamin B-12",
-				"Vitamin C",
-				"Vitamin D",
-				"Vitamin E",
-				"Vitamin K",
-				"Zinc"
+				"Vitamin C"
 			],
 			datasets: [
 				{
@@ -185,31 +101,23 @@ class GramGraph extends React.Component {
 	};
 
 	data2 = () => {
+		let adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2];
+		if (this.props.filter === "Weekly") {
+			adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2].map(num => num * 7);
+		} else if (this.props.filter === "Monthly") {
+			adjustedData = [1, 325, 78, 30, 4.7, 60, 2.3, 25, 2].map(num => num * 30);
+		}
 		return {
 			labels: [
-				"Beta Carotene",
-				"Caffeine",
 				"Calcium",
 				"Carbohydrate",
-				"Cholesterol",
 				"Fat",
 				"Fiber",
-				"Folic Acid",
-				"Iron",
-				"Niacin",
 				"Potassium",
 				"Protein",
-				"Riboflavin",
 				"Sodium",
 				"Sugars",
-				"Thiamin",
-				"Vitamin A",
-				"Vitamin B-12",
-				"Vitamin C",
-				"Vitamin D",
-				"Vitamin E",
-				"Vitamin K",
-				"Zinc"
+				"Vitamin C"
 			],
 			datasets: [
 				{
@@ -228,7 +136,7 @@ class GramGraph extends React.Component {
 					borderWidth: 1,
 					hoverBackgroundColor: "rgba(54,162,235,0.4)",
 					hoverBorderColor: "rgba(54,162,235,1)",
-					data: [15, 400, 1000, 325, 300, 2000, 78, 15, 400, 19, 35]
+					data: adjustedData
 				}
 			]
 		};
@@ -237,7 +145,7 @@ class GramGraph extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>{this.props.filter} Totals</h2>
+				<h2>{this.props.filter} Totals (Grams)</h2>
 				<Bar
 					data={this.props.recValues ? this.data2() : this.data()}
 					width={75}

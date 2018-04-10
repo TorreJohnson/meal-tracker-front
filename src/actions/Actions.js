@@ -34,12 +34,9 @@ export const fetchNutrients = (action, userId, NdbNos, history) => {
 					unit: json.foods[0].serving_unit,
 					servingInGrams: json.foods[0].serving_weight_grams,
 					ndbno: json.foods[0].ndb_no,
-					nutrients: json.foods[0].full_nutrients
+					nutrients: json.foods[0].full_nutrients,
+					date: "2018-04-10T13:00:00.000Z"
 				};
-				dispatch({
-					type: "ADD_NUTRIENTS",
-					payload
-				});
 				let nutrients = {};
 				json.foods[0].full_nutrients.forEach(nutrient => {
 					nutrients = Object.assign({}, nutrients, {
@@ -50,7 +47,7 @@ export const fetchNutrients = (action, userId, NdbNos, history) => {
 					food_item: {
 						user_id: userId,
 						meal_type: "lunch",
-						date: "2018-04-01 13:00:00",
+						date: "2018-04-10 13:00:00",
 						name: json.foods[0].food_name,
 						upc: action.payload.upc,
 						measurement: 1,
@@ -90,7 +87,13 @@ export const fetchNutrients = (action, userId, NdbNos, history) => {
 					body: JSON.stringify(body)
 				})
 					.then(res => res.json())
-					.then(console.log)
+					.then(response => {
+						console.log(response);
+						dispatch({
+							type: "ADD_NUTRIENTS",
+							payload: response
+						});
+					})
 					.then(() => {
 						history.push("/");
 					});

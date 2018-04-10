@@ -20,7 +20,6 @@ class Nutritionists extends React.Component {
 		fetch("http://localhost:3000/api/v1/nutritionists")
 			.then(res => res.json())
 			.then(json => {
-				console.log(json);
 				this.setState({
 					nutritionists: json
 				});

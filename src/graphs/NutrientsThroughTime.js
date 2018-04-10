@@ -6,8 +6,8 @@ import { Dropdown } from "semantic-ui-react";
 
 class NutrientsThroughTime extends React.Component {
 	state = {
-		filter: "beta_carotene",
-		text: "Beta Carotene"
+		filter: "",
+		text: "Select Value"
 	};
 
 	handleChange = (e, v) => {
@@ -143,7 +143,7 @@ class NutrientsThroughTime extends React.Component {
 					icon="line chart"
 					options={this.nutrientOptions}
 					search
-					text="Select Metric"
+					text="Values"
 					onChange={this.handleChange}
 				/>
 				<Line data={this.data} />

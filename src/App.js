@@ -39,7 +39,7 @@ class App extends Component {
 				<Route exact path="/login" component={LogIn} />
 				<Route
 					exact
-					path="/nutritionists"
+					path="/nutritionists/"
 					component={NutritionistLandingPage}
 				/>
 				<Route

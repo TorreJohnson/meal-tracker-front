@@ -115,7 +115,7 @@ class NutrientsThroughTime extends React.Component {
 			datasets: [
 				{
 					label: "You",
-					fill: false,
+					fill: true,
 					lineTension: 0.1,
 					backgroundColor: "rgba(75,192,192,0.4)",
 					borderColor: "rgba(75,192,192,1)",
@@ -133,6 +133,104 @@ class NutrientsThroughTime extends React.Component {
 					pointRadius: 1,
 					pointHitRadius: 10,
 					data: this.nutrientValuesThroughTime()
+				}
+			]
+		};
+	};
+
+	maximumDailyValues = {
+		beta_carotene: 15,
+		caffeine: 400,
+		cholesterol: 300,
+		folic_acid: 0.4,
+		iron: 20,
+		niacin: 35,
+		riboflavin: 1,
+		thiamin: 2,
+		vitamin_a: 1,
+		vitamin_b12: 1,
+		vitamin_d: 1,
+		vitamin_e: 20,
+		vitamin_k: 1,
+		zinc: 15
+	};
+
+	data2 = () => {
+		return {
+			labels: [
+				30,
+				29,
+				28,
+				27,
+				26,
+				25,
+				24,
+				23,
+				22,
+				21,
+				20,
+				19,
+				18,
+				17,
+				16,
+				15,
+				14,
+				13,
+				12,
+				11,
+				10,
+				9,
+				8,
+				7,
+				6,
+				5,
+				4,
+				3,
+				2,
+				1
+			],
+			datasets: [
+				{
+					label: "You",
+					fill: true,
+					lineTension: 0.1,
+					backgroundColor: "rgba(75,192,192,0.4)",
+					borderColor: "rgba(75,192,192,1)",
+					borderCapStyle: "butt",
+					borderDash: [],
+					borderDashOffset: 0.0,
+					borderJoinStyle: "miter",
+					pointBorderColor: "rgba(75,192,192,1)",
+					pointBackgroundColor: "#fff",
+					pointBorderWidth: 1,
+					pointHoverRadius: 5,
+					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 2,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: this.nutrientValuesThroughTime()
+				},
+				{
+					label: "Maximum Recommended Value",
+					fill: false,
+					lineTension: 0.1,
+					backgroundColor: "rgba(75,192,192,0.4)",
+					borderColor: "rgba(75,192,192,1)",
+					borderCapStyle: "butt",
+					borderDash: [5],
+					borderDashOffset: 0.0,
+					borderJoinStyle: "miter",
+					pointBorderColor: "rgba(75,192,192,1)",
+					pointBackgroundColor: "#fff",
+					pointBorderWidth: 1,
+					pointHoverRadius: 5,
+					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 2,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: [500, 500, 500, 500, 500, 500]
 				}
 			]
 		};
@@ -181,7 +279,7 @@ class NutrientsThroughTime extends React.Component {
 					text="Values"
 					onChange={this.handleChange}
 				/>
-				<Line data={this.data} />
+				<Line data={this.data()} />
 			</div>
 		);
 	}

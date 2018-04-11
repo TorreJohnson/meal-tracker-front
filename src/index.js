@@ -19,8 +19,6 @@ const store = createStore(
 	)
 );
 
-console.log(store.getState());
-
 ReactDOM.render(
 	<Router>
 		<Provider store={store}>

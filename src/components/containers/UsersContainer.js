@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Home from "../Home";
 import Messages from "../messages/Messages";
 import FoodItemEntryForm from "../foodItems/FoodItemEntryForm";
-import Nutritionists from "../nutritionist/Nutritionists";
+import Nutritionists from "../nutritionistMarket/Nutritionists";
 import { logOut } from "../actions/Actions";
 
 class UsersContainer extends React.Component {

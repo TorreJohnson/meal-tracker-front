@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Segment } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Messages from "../messages/Messages";
 import { logOut, fetchClients } from "../actions/Actions";
@@ -28,24 +28,16 @@ class NutritionistsContainer extends React.Component {
 				<Menu pointing>
 					<Menu.Item
 						as={Link}
-						to="/"
+						to="/nutritionists/"
 						name="home"
 						active={activeItem === "home"}
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Item
 						as={Link}
-						to="/messages"
+						to="/nutritionists/messages"
 						name="messages"
 						active={activeItem === "messages"}
-						onClick={this.handleItemClick}
-					/>
-
-					<Menu.Item
-						as={Link}
-						to="/clients"
-						name="clients"
-						active={activeItem === "clients"}
 						onClick={this.handleItemClick}
 					/>
 					<Menu.Menu position="right">
@@ -59,7 +51,8 @@ class NutritionistsContainer extends React.Component {
 
 				<Segment>
 					<div>
-						<ClientsList />
+						<Route exact path="/nutritionists/" component={ClientsList} />
+						<Route exact path="/nutritionists/messages" component={Messages} />
 					</div>
 				</Segment>
 			</div>

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import withAuth from "../authentication/WithAuth";
 import { Button } from "semantic-ui-react";
-import { MessageCard } from "./MessageCard";
+import MessageCard from "./MessageCard";
 import NewMessage from "./NewMessage";
 import cuid from "cuid";
 
@@ -17,8 +17,26 @@ class Messages extends React.Component {
 		}
 	}
 
+	filterParentMessages = () => {
+		return this.filterSentMessages().filter(
+			message => message.parent_message === null
+		);
+	};
+
+	filterSentMessages = () => {
+		if (this.props.nutritionistLoggedIn) {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "user"
+			);
+		} else {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "nutritionist"
+			);
+		}
+	};
+
 	messageCards = () => {
-		return this.props.currentUser.messages.map(message => (
+		return this.filterParentMessages().map(message => (
 			<MessageCard message={message} key={cuid()} />
 		));
 	};
@@ -48,6 +66,7 @@ class Messages extends React.Component {
 export default connect(state => {
 	return {
 		currentUser: state.currentUser,
-		loggedIn: state.loggedIn
+		loggedIn: state.loggedIn,
+		nutritionistLoggedIn: state.nutritionistLoggedIn
 	};
 })(withAuth(Messages));

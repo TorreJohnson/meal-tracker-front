@@ -47,7 +47,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					food_item: {
 						user_id: userId,
 						meal_type: "lunch",
-						date: "2018-04-11 13:00:00",
+						date: new Date(),
 						name: json.foods[0].food_name,
 						upc: action.payload.upc,
 						measurement: 1,
@@ -141,7 +141,6 @@ export function logIn(username, name, password, history) {
 					alert(response.error);
 				} else {
 					localStorage.setItem("token", response.jwt);
-					console.log(response);
 					dispatch({
 						type: "GET_USER",
 						payload: response
@@ -163,7 +162,6 @@ export function getUser(jwt, history) {
 		})
 			.then(res => res.json())
 			.then(response => {
-				console.log(response);
 				dispatch({
 					type: "GET_USER",
 					payload: response
@@ -213,6 +211,8 @@ export function postMessage(payload, currentUser, onClick) {
 			});
 	};
 }
+
+// export function postReplyMessage()
 
 export function hireFireNutritionist(currentUser, nutritionistId) {
 	return dispatch => {

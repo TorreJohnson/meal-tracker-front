@@ -17,7 +17,6 @@ export default function reducer(
 				}
 			};
 		case "GET_USER":
-			console.log(action.payload);
 			if (action.payload.user && action.payload.user.username) {
 				let payloadObj = action.payload.user;
 				payloadObj.food_items = action.payload.food_items;
@@ -35,13 +34,24 @@ export default function reducer(
 					loggedIn: true,
 					nutritionistLoggedIn: false
 				};
-			} else if (action.payload) {
+			} else if (action.payload.user) {
+				let payloadObj = action.payload.user;
+				payloadObj.messages = action.payload.messages;
 				return {
 					...state,
-					currentUser: action.payload.user,
+					currentUser: payloadObj,
 					loggedIn: true,
 					nutritionistLoggedIn: true
 				};
+			} else if (action.payload) {
+				return {
+					...state,
+					currentUser: action.payload,
+					loggedIn: true,
+					nutritionistLoggedIn: true
+				};
+			} else {
+				return { ...state };
 			}
 
 		case "LOG_OUT":

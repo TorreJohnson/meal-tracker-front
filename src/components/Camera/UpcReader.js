@@ -31,6 +31,10 @@ export default class UpcReader extends React.Component {
 		Quagga.onDetected(this.callback);
 	}
 
+	componentWillUnmount() {
+		Quagga.offDetected(this.callback);
+	}
+
 	callback = data => {
 		console.log(data.codeResult.code);
 		Quagga.stop();

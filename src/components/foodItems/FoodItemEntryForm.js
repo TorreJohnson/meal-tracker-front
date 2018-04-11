@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
@@ -104,6 +104,11 @@ class FoodItemEntryForm extends React.Component {
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
 				<Form.Group widths="equal">
+					<Icon
+						name="camera"
+						circular
+						onClick={this.handleCameraButtonToggle}
+					/>
 					<Form.Input
 						fluid
 						label="UPC Code"
@@ -150,9 +155,15 @@ class FoodItemEntryForm extends React.Component {
 		});
 	};
 
-	handleScanToggle = () => {
+	handleCameraButtonToggle = () => {
 		this.setState({
 			scanning: !this.state.scanning
+		});
+	};
+
+	turnUpcReaderOff = () => {
+		this.setState({
+			scanning: false
 		});
 	};
 
@@ -163,14 +174,13 @@ class FoodItemEntryForm extends React.Component {
 					<Button onClick={this.handleAdditionalRowClick}>
 						Add Another Item
 					</Button>
-					<Button onClick={this.handleScanToggle}>Camera</Button>
 					<Form onSubmit={this.handleSubmit}>
 						<this.addRow />
 						<Form.Button>Submit</Form.Button>
 					</Form>
 				</div>
 				{this.state.scanning ? (
-					<UpcReader scanToggle={this.handleScanToggle} />
+					<UpcReader scanToggle={this.turnUpcReaderOff} />
 				) : null}
 			</div>
 		);

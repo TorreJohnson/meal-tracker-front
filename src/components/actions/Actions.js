@@ -183,16 +183,32 @@ export function logOut(history) {
 	};
 }
 
-export function postMessage(payload, currentUser, onClick) {
+export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	return dispatch => {
-		let body = {
-			user_id: currentUser.id,
-			nutritionist_id: currentUser.nutritionist_id,
-			subject: payload.subject,
-			body: payload.body,
-			sender_type: "user",
-			sender_id: currentUser.id
-		};
+		let body;
+		console.log(payload);
+		if (nutritionistLoggedIn) {
+			body = {
+				user_id: payload.clientId,
+				nutritionist_id: currentUser.id,
+				subject: payload.subject,
+				body: payload.body,
+				sender_type: "nutritionist",
+				sender_id: currentUser.id,
+				parent_message: payload.parent_message
+			};
+			console.log(body);
+		} else {
+			body = {
+				user_id: currentUser.id,
+				nutritionist_id: currentUser.nutritionist_id,
+				subject: payload.subject,
+				body: payload.body,
+				sender_type: "user",
+				sender_id: currentUser.id,
+				parent_message: payload.parent_message
+			};
+		}
 		fetch("http://localhost:3000/api/v1/messages", {
 			method: "POST",
 			headers: {
@@ -207,12 +223,9 @@ export function postMessage(payload, currentUser, onClick) {
 					type: "ADD_MESSAGE",
 					payload: response
 				});
-				onClick();
 			});
 	};
 }
-
-// export function postReplyMessage()
 
 export function hireFireNutritionist(currentUser, nutritionistId) {
 	return dispatch => {

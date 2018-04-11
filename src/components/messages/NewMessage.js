@@ -6,25 +6,58 @@ import { connect } from "react-redux";
 class NewMessage extends React.Component {
 	state = {
 		subject: "",
-		body: ""
+		body: "",
+		client: ""
 	};
 
-	handleChange = e => {
+	handleTextChange = e => {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
 	};
 
+	handleDropdownChange = (e, v) => {
+		this.setState({
+			client: v.value
+		});
+	};
+
 	handleSubmit = e => {
 		e.preventDefault();
-		this.props.postMessage(
-			{ subject: this.state.subject, body: this.state.body },
-			this.props.currentUser,
-			this.props.onClick
-		);
+		this.props.onSubmit();
+		if (this.props.nutritionistLoggedIn) {
+			this.props.postMessage(
+				{
+					clientId: this.state.client,
+					subject: this.state.subject,
+					body: this.state.body,
+					parent_message: null
+				},
+				this.props.currentUser,
+				this.props.nutritionistLoggedIn
+			);
+		} else {
+			this.props.postMessage(
+				{
+					subject: this.state.subject,
+					body: this.state.body,
+					parent_message: null
+				},
+				this.props.currentUser,
+				this.props.nutritionistLoggedIn
+			);
+		}
+
 		this.setState({
 			subject: "",
-			body: ""
+			body: "",
+			client: ""
+		});
+	};
+
+	options = () => {
+		return this.props.clients.map(client => {
+			return { key: client.name, text: client.name, value: client.id };
 		});
 	};
 
@@ -33,12 +66,22 @@ class NewMessage extends React.Component {
 			<div>
 				<Form onSubmit={this.handleSubmit}>
 					<Form.Group widths="equal">
+						{this.props.nutritionistLoggedIn ? (
+							<Form.Select
+								fluid
+								label="Client"
+								options={this.options()}
+								placeholder="Client..."
+								value={this.state.client}
+								onChange={this.handleDropdownChange}
+							/>
+						) : null}
 						<Form.Input
 							fluid
 							label="Subject"
 							name="subject"
 							value={this.state.subject}
-							onChange={this.handleChange}
+							onChange={this.handleTextChange}
 							placeholder="Subject..."
 						/>
 					</Form.Group>
@@ -46,7 +89,7 @@ class NewMessage extends React.Component {
 						label="Body"
 						name="body"
 						value={this.state.body}
-						onChange={this.handleChange}
+						onChange={this.handleTextChange}
 						placeholder="Body..."
 					/>
 					<Form.Button>Submit</Form.Button>
@@ -58,7 +101,12 @@ class NewMessage extends React.Component {
 
 export default connect(
 	state => {
-		return { currentUser: state.currentUser, loggedIn: state.loggedIn };
+		return {
+			currentUser: state.currentUser,
+			loggedIn: state.loggedIn,
+			nutritionistLoggedIn: state.nutritionistLoggedIn,
+			clients: state.clients
+		};
 	},
 	{ postMessage }
 )(NewMessage);

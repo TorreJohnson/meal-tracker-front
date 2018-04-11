@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import withAuth from "../authentication/WithAuth";
-import { Button } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 import MessageCard from "./MessageCard";
 import NewMessage from "./NewMessage";
 import cuid from "cuid";
 
 class Messages extends React.Component {
 	state = {
-		composeMessage: false
+		modalOpen: false
 	};
 
 	componentDidMount() {
@@ -17,6 +17,10 @@ class Messages extends React.Component {
 		}
 	}
 
+	handleOpen = () => this.setState({ modalOpen: true });
+
+	handleClose = () => this.setState({ modalOpen: false });
+
 	filterParentMessages = () => {
 		return this.filterSentMessages().filter(
 			message => message.parent_message === null
@@ -24,12 +28,11 @@ class Messages extends React.Component {
 	};
 
 	filterSentMessages = () => {
+		let reversedMessages = [...this.props.currentUser.messages].reverse();
 		if (this.props.nutritionistLoggedIn) {
-			return this.props.currentUser.messages.filter(
-				message => message.sender_type === "user"
-			);
+			return reversedMessages.filter(message => message.sender_type === "user");
 		} else {
-			return this.props.currentUser.messages.filter(
+			return reversedMessages.filter(
 				message => message.sender_type === "nutritionist"
 			);
 		}
@@ -41,23 +44,18 @@ class Messages extends React.Component {
 		));
 	};
 
-	handleClick = () => {
-		this.setState({
-			composeMessage: !this.state.composeMessage
-		});
-	};
-
 	render() {
 		return (
 			<div>
-				{this.state.composeMessage ? (
-					<NewMessage onClick={this.handleClick} />
-				) : (
-					<div>
-						<Button onClick={this.handleClick}>New Message</Button>
-						{this.messageCards()}
-					</div>
-				)}
+				<Modal
+					trigger={<Button onClick={this.handleOpen}>New Message</Button>}
+					open={this.state.modalOpen}
+					onClose={this.handleClose}
+				>
+					<Modal.Header>New Message</Modal.Header>
+					<NewMessage onSubmit={this.handleClose} />
+				</Modal>
+				<div>{this.messageCards()}</div>
 			</div>
 		);
 	}

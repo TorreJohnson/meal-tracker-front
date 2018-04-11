@@ -5,20 +5,51 @@ import {
 	Segment,
 	Button,
 	Header,
-	Image,
 	Modal,
 	Form,
 	TextArea
 } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { postMessage } from "../actions/Actions";
+import withAuth from "../authentication/WithAuth";
 
 class MessageCard extends React.Component {
 	state = {
-		body: `${this.props.message.body}\n\n`
+		body: "",
+		modalOpen: false
 	};
 
+	handleOpen = () => this.setState({ modalOpen: true });
+
+	handleClose = () => this.setState({ modalOpen: false });
+
 	handleClick = () => {
-		console.log("clicked");
+		this.setState({ modalOpen: false });
+		if (this.props.nutritionistLoggedIn) {
+			this.props.postMessage(
+				{
+					clientId: this.props.message.user_id,
+					subject: `re: ${this.props.message.subject}`,
+					body: this.state.body,
+					parent_message: this.props.message.id
+				},
+				this.props.currentUser,
+				this.props.nutritionistLoggedIn
+			);
+		} else {
+			this.props.postMessage(
+				{
+					subject: `re: ${this.props.message.subject}`,
+					body: this.state.body,
+					parent_message: this.props.message.id
+				},
+				this.props.currentUser,
+				this.props.nutritionistLoggedIn
+			);
+		}
+		this.setState({
+			body: ""
+		});
 	};
 
 	handleChange = e => {
@@ -29,7 +60,7 @@ class MessageCard extends React.Component {
 
 	filterChildMessages = () => {
 		return this.props.currentUser.messages.filter(
-			message => message.id === this.props.parent_message
+			message => this.props.message.id === message.parent_message
 		);
 	};
 
@@ -37,15 +68,17 @@ class MessageCard extends React.Component {
 		return this.filterChildMessages().map(message => {
 			return (
 				<Segment>
-					<Card fluid>
+					<Card>
 						<Card.Content header={message.subject} />
 						<Card.Content description={message.body} />
 						<Modal
 							trigger={
-								<Card.Content extra>
+								<Card.Content extra onClick={this.handleOpen}>
 									<Icon name="reply" />Reply
 								</Card.Content>
 							}
+							open={this.state.modalOpen}
+							onClose={this.handleClose}
 						>
 							<Modal.Header>Message Reply</Modal.Header>
 							<Modal.Description>
@@ -75,7 +108,6 @@ class MessageCard extends React.Component {
 	};
 
 	render() {
-		console.log(this.props.message, this.props.currentUser.messages);
 		return (
 			<div>
 				<Segment.Group>
@@ -85,10 +117,12 @@ class MessageCard extends React.Component {
 							<Card.Content description={this.props.message.body} />
 							<Modal
 								trigger={
-									<Card.Content extra>
+									<Card.Content extra onClick={this.handleOpen}>
 										<Icon name="reply" />Reply
 									</Card.Content>
 								}
+								open={this.state.modalOpen}
+								onClose={this.handleClose}
 							>
 								<Modal.Header>Message Reply</Modal.Header>
 								<Modal.Description>
@@ -122,6 +156,13 @@ class MessageCard extends React.Component {
 	}
 }
 
-export default connect(state => {
-	return { currentUser: state.currentUser };
-})(MessageCard);
+export default connect(
+	state => {
+		return {
+			currentUser: state.currentUser,
+			loggedIn: state.loggedIn,
+			nutritionistLoggedIn: state.nutritionistLoggedIn
+		};
+	},
+	{ postMessage }
+)(withAuth(MessageCard));

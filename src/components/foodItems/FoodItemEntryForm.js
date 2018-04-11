@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
 import withAuth from "../authentication/WithAuth";
+import UpcReader from "../Camera/UpcReader";
 
 class FoodItemEntryForm extends React.Component {
 	state = {
@@ -14,7 +15,8 @@ class FoodItemEntryForm extends React.Component {
 				unit: ""
 			}
 		],
-		rows: 1
+		rows: 1,
+		scanning: false
 	};
 
 	componentDidMount() {
@@ -148,16 +150,28 @@ class FoodItemEntryForm extends React.Component {
 		});
 	};
 
+	handleScanToggle = () => {
+		this.setState({
+			scanning: !this.state.scanning
+		});
+	};
+
 	render() {
 		return (
 			<div>
-				<Button onClick={this.handleAdditionalRowClick}>
-					Add Another Item
-				</Button>
-				<Form onSubmit={this.handleSubmit}>
-					<this.addRow />
-					<Form.Button>Submit</Form.Button>
-				</Form>
+				<div>
+					<Button onClick={this.handleAdditionalRowClick}>
+						Add Another Item
+					</Button>
+					<Button onClick={this.handleScanToggle}>Camera</Button>
+					<Form onSubmit={this.handleSubmit}>
+						<this.addRow />
+						<Form.Button>Submit</Form.Button>
+					</Form>
+				</div>
+				{this.state.scanning ? (
+					<UpcReader scanToggle={this.handleScanToggle} />
+				) : null}
 			</div>
 		);
 	}

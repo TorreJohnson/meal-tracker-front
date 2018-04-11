@@ -22,9 +22,18 @@ class Messages extends React.Component {
 	handleClose = () => this.setState({ modalOpen: false });
 
 	filterParentMessages = () => {
-		return this.filterSentMessages().filter(
-			message => message.parent_message === null
-		);
+		if (this.props.nutritionistLoggedIn) {
+			return this.filterSentMessages().filter(
+				message =>
+					message.parent_message === null || message.sender_type === "user"
+			);
+		} else {
+			return this.filterSentMessages().filter(
+				message =>
+					message.parent_message === null ||
+					message.sender_type === "nutritionist"
+			);
+		}
 	};
 
 	filterSentMessages = () => {

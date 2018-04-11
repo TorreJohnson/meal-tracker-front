@@ -12,6 +12,7 @@ import {
 import { connect } from "react-redux";
 import { postMessage } from "../actions/Actions";
 import withAuth from "../authentication/WithAuth";
+import cuid from "cuid";
 
 class MessageCard extends React.Component {
 	state = {
@@ -67,7 +68,7 @@ class MessageCard extends React.Component {
 	formatChildMessages = () => {
 		return this.filterChildMessages().map(message => {
 			return (
-				<Segment>
+				<Segment key={cuid()}>
 					<Card>
 						<Card.Content header={message.subject} />
 						<Card.Content description={message.body} />

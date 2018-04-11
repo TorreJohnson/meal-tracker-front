@@ -186,7 +186,6 @@ export function logOut(history) {
 export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	return dispatch => {
 		let body;
-		console.log(payload);
 		if (nutritionistLoggedIn) {
 			body = {
 				user_id: payload.clientId,

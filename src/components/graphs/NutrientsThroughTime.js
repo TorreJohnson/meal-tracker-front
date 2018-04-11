@@ -32,15 +32,50 @@ class NutrientsThroughTime extends React.Component {
 	};
 
 	nutrientValuesThroughTime = () => {
-		let i = 30;
-		let ms = 2592000000;
-		let counts = [];
-		while (i > 0) {
-			counts.push(this.filteredSum(ms));
-			i--;
-			ms -= 86400000;
+		if (this.props.currentUser.food_items) {
+			let i = 30;
+			let ms = 2592000000;
+			let counts = [];
+			while (i > 0) {
+				counts.push(this.filteredSum(ms));
+				i--;
+				ms -= 86400000;
+			}
+			return counts;
+		} else {
+			return [
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			];
 		}
-		return counts;
 	};
 
 	data = () => {

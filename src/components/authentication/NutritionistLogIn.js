@@ -3,9 +3,9 @@ import { logIn } from "../actions/Actions";
 import { connect } from "react-redux";
 import { Button, Form } from "semantic-ui-react";
 
-class LogIn extends React.Component {
+class NutritionistLogIn extends React.Component {
 	state = {
-		username: "",
+		name: "",
 		password: ""
 	};
 
@@ -18,8 +18,8 @@ class LogIn extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.logIn(
-			this.state.username,
 			null,
+			this.state.name,
 			this.state.password,
 			this.props.history
 		);
@@ -29,12 +29,12 @@ class LogIn extends React.Component {
 		return (
 			<Form onSubmit={this.handleSubmit}>
 				<Form.Field>
-					<label>Username</label>
+					<label>Name</label>
 					<input
-						name="username"
+						name="name"
 						value={this.state.username}
 						onChange={this.handleChange}
-						placeholder="Username..."
+						placeholder="Name..."
 					/>
 				</Form.Field>
 				<Form.Field>
@@ -53,4 +53,4 @@ class LogIn extends React.Component {
 	}
 }
 
-export default connect(null, { logIn })(LogIn);
+export default connect(null, { logIn })(NutritionistLogIn);

@@ -3,7 +3,7 @@ import { logIn } from "../actions/Actions";
 import { connect } from "react-redux";
 import { Button, Form } from "semantic-ui-react";
 
-class LogIn extends React.Component {
+class NutritionistSignUp extends React.Component {
 	state = {
 		username: "",
 		password: ""
@@ -19,7 +19,6 @@ class LogIn extends React.Component {
 		e.preventDefault();
 		this.props.logIn(
 			this.state.username,
-			null,
 			this.state.password,
 			this.props.history
 		);
@@ -53,4 +52,4 @@ class LogIn extends React.Component {
 	}
 }
 
-export default connect(null, { logIn })(LogIn);
+export default connect(null, { logIn })(NutritionistSignUp);

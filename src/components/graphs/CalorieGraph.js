@@ -5,17 +5,17 @@ import withAuth from "../authentication/WithAuth";
 
 class CalorieGraph extends React.Component {
 	filterFoodItems = filter => {
-		if (filter === "Daily") {
+		if (filter === "Daily" && this.props.currentUser.food_items) {
 			const items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 86400000
 			);
 			return this.mapNutrientCountsInState(items);
-		} else if (filter === "Weekly") {
+		} else if (filter === "Weekly" && this.props.currentUser.food_items) {
 			const items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 604800000
 			);
 			return this.mapNutrientCountsInState(items);
-		} else if (filter === "Monthly") {
+		} else if (filter === "Monthly" && this.props.currentUser.food_items) {
 			const items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
 			);

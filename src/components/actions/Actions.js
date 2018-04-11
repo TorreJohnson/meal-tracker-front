@@ -35,7 +35,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					servingInGrams: json.foods[0].serving_weight_grams,
 					ndbno: json.foods[0].ndb_no,
 					nutrients: json.foods[0].full_nutrients,
-					date: "2018-04-10T13:00:00.000Z"
+					date: "2018-04-11T13:00:00.000Z"
 				};
 				let nutrients = {};
 				json.foods[0].full_nutrients.forEach(nutrient => {
@@ -47,7 +47,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					food_item: {
 						user_id: userId,
 						meal_type: "lunch",
-						date: "2018-04-10 13:00:00",
+						date: "2018-04-11 13:00:00",
 						name: json.foods[0].food_name,
 						upc: action.payload.upc,
 						measurement: 1,
@@ -125,7 +125,7 @@ export function signUp(name, username, password, history) {
 	};
 }
 
-export function logIn(username, password, history) {
+export function logIn(username, name, password, history) {
 	return dispatch => {
 		fetch("http://localhost:3000/api/v1/login", {
 			method: "POST",
@@ -133,7 +133,7 @@ export function logIn(username, password, history) {
 				"Content-Type": "application/json",
 				accept: "application/json"
 			},
-			body: JSON.stringify({ username, password })
+			body: JSON.stringify({ username, name, password })
 		})
 			.then(res => res.json())
 			.then(response => {
@@ -141,9 +141,10 @@ export function logIn(username, password, history) {
 					alert(response.error);
 				} else {
 					localStorage.setItem("token", response.jwt);
+					console.log(response);
 					dispatch({
 						type: "GET_USER",
-						payload: response.user
+						payload: response
 					});
 				}
 			})
@@ -162,6 +163,7 @@ export function getUser(jwt, history) {
 		})
 			.then(res => res.json())
 			.then(response => {
+				console.log(response);
 				dispatch({
 					type: "GET_USER",
 					payload: response
@@ -237,6 +239,24 @@ export function hireFireNutritionist(currentUser, nutritionistId) {
 				dispatch({
 					type: "UPDATE_NUTRITIONIST",
 					payload: response.nutritionist_id
+				});
+			});
+	};
+}
+
+export function fetchClients(id) {
+	return dispatch => {
+		fetch(`http://localhost:3000/api/v1/get_users/${id}`, {
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json"
+			}
+		})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "ADD_CLIENTS",
+					payload: response
 				});
 			});
 	};

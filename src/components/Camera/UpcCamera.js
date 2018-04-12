@@ -1,7 +1,7 @@
 import React from "react";
 import Quagga from "quagga";
 
-export default class UpcReader extends React.Component {
+export default class UpcCamera extends React.Component {
 	componentDidMount() {
 		Quagga.init(
 			{
@@ -24,7 +24,7 @@ export default class UpcReader extends React.Component {
 					console.log(err);
 					return;
 				}
-				console.log("Initialization finished. Ready to start");
+				console.log("UPC Camera initialization finished. Ready to start");
 				Quagga.start();
 			}
 		);
@@ -36,9 +36,8 @@ export default class UpcReader extends React.Component {
 	}
 
 	callback = data => {
-		console.log(data.codeResult.code);
 		Quagga.stop();
-		this.props.scanToggle();
+		this.props.cameraToggle(data.codeResult.code);
 	};
 
 	render() {

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
 import withAuth from "../authentication/WithAuth";
-import UpcReader from "../Camera/UpcReader";
+import UpcCamera from "../Camera/UpcCamera";
 
 class FoodItemEntryForm extends React.Component {
 	state = {
@@ -16,7 +16,8 @@ class FoodItemEntryForm extends React.Component {
 			}
 		],
 		rows: 1,
-		scanning: false
+		scanning: false,
+		cameraId: ""
 	};
 
 	componentDidMount() {
@@ -56,7 +57,6 @@ class FoodItemEntryForm extends React.Component {
 
 	handleQuantityChange = (e, value) => {
 		let index = parseInt(value.name.slice(-1), 10);
-		console.log(typeof index);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
@@ -107,6 +107,7 @@ class FoodItemEntryForm extends React.Component {
 					<Icon
 						name="camera"
 						circular
+						id={i}
 						onClick={this.handleCameraButtonToggle}
 					/>
 					<Form.Input
@@ -114,6 +115,7 @@ class FoodItemEntryForm extends React.Component {
 						label="UPC Code"
 						name={`upc${i}`}
 						onChange={this.handleUpcChange}
+						value={this.state.items[i].upc}
 						placeholder="UPC..."
 					/>
 					<Form.Select
@@ -122,6 +124,7 @@ class FoodItemEntryForm extends React.Component {
 						name={`quantity${i}`}
 						onChange={this.handleQuantityChange}
 						options={this.quantityOptions}
+						value={this.state.items[i].quantity}
 						placeholder="Quantity"
 					/>
 					<Form.Select
@@ -130,6 +133,7 @@ class FoodItemEntryForm extends React.Component {
 						name={`unit${i}`}
 						onChange={this.handleUnitChange}
 						options={this.unitOptions}
+						value={this.state.items[i].unit}
 						placeholder="Unit"
 					/>
 				</Form.Group>
@@ -155,15 +159,25 @@ class FoodItemEntryForm extends React.Component {
 		});
 	};
 
-	handleCameraButtonToggle = () => {
+	handleCameraButtonToggle = e => {
 		this.setState({
-			scanning: !this.state.scanning
+			scanning: !this.state.scanning,
+			cameraId: e.target.id
 		});
 	};
 
-	turnUpcReaderOff = () => {
+	turnUpcCameraOff = data => {
 		this.setState({
-			scanning: false
+			scanning: false,
+			items: [
+				...this.state.items.slice(0, this.state.cameraId),
+				{
+					upc: data,
+					quantity: this.state.items[this.state.cameraId].quantity,
+					unit: this.state.items[this.state.cameraId].unit
+				},
+				...this.state.items.slice(this.state.cameraId + 1)
+			]
 		});
 	};
 
@@ -180,7 +194,7 @@ class FoodItemEntryForm extends React.Component {
 					</Form>
 				</div>
 				{this.state.scanning ? (
-					<UpcReader scanToggle={this.turnUpcReaderOff} />
+					<UpcCamera cameraToggle={this.turnUpcCameraOff} />
 				) : null}
 			</div>
 		);

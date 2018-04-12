@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Icon, Label, Dropdown } from "semantic-ui-react";
+import { Form, Button, Icon, Dropdown } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
@@ -11,15 +11,19 @@ class FoodItemEntryForm extends React.Component {
 	state = {
 		items: [
 			{
-				upc: "",
+				itemName: "",
+
 				quantity: "",
 				unit: "",
+				upc: "",
+				servings: "",
 				key: ""
 			}
 		],
 		rows: 1,
 		scanning: false,
-		cameraId: ""
+		cameraId: "",
+		cameraSelected: [{ selected: false }]
 	};
 
 	componentDidMount() {
@@ -79,15 +83,30 @@ class FoodItemEntryForm extends React.Component {
 		{ key: "piece", text: "Piece(s)", value: "piece" }
 	];
 
-	handleUpcChange = e => {
-		let index = parseInt(e.target.name.slice(-1), 10);
+	servingOptions = [
+		{ key: "1", text: "1 Serving", value: 1 },
+		{ key: "2", text: "2 Servings", value: 2 },
+		{ key: "3", text: "3 Servings", value: 3 },
+		{ key: "4", text: "4 Servings", value: 4 },
+		{ key: "5", text: "5 Servings", value: 5 },
+		{ key: "6", text: "6 Servings", value: 6 },
+		{ key: "7", text: "7 Servings", value: 7 },
+		{ key: "8", text: "8 Servings", value: 8 },
+		{ key: "9", text: "9 Servings", value: 9 },
+		{ key: "10", text: "10 Servings", value: 10 }
+	];
+
+	handleItemChange = e => {
+		let index = parseInt(e.target.name, 10);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
 				{
-					upc: e.target.value,
+					itemName: e.target.value,
 					quantity: this.state.items[index].quantity,
-					unit: this.state.items[index].unit
+					unit: this.state.items[index].unit,
+					upc: this.state.items[index].upc,
+					servings: this.state.items[index].servings
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -95,14 +114,16 @@ class FoodItemEntryForm extends React.Component {
 	};
 
 	handleQuantityChange = (e, value) => {
-		let index = parseInt(value.name.slice(-1), 10);
+		let index = parseInt(value.name, 10);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
 				{
-					upc: this.state.items[index].upc,
+					itemName: this.state.items[index].itemName,
 					quantity: value.value,
-					unit: this.state.items[index].unit
+					unit: this.state.items[index].unit,
+					upc: this.state.items[index].upc,
+					servings: this.state.items[index].servings
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -110,14 +131,50 @@ class FoodItemEntryForm extends React.Component {
 	};
 
 	handleUnitChange = (e, value) => {
-		let index = parseInt(value.name.slice(-1), 10);
+		let index = parseInt(value.name, 10);
 		this.setState({
 			items: [
 				...this.state.items.slice(0, index),
 				{
-					upc: this.state.items[index].upc,
+					itemName: this.state.items[index].itemName,
 					quantity: this.state.items[index].quantity,
-					unit: value.value
+					unit: value.value,
+					upc: this.state.items[index].upc,
+					servings: this.state.items[index].servings
+				},
+				...this.state.items.slice(index + 1)
+			]
+		});
+	};
+
+	handleUpcChange = e => {
+		let index = parseInt(e.target.name, 10);
+		this.setState({
+			items: [
+				...this.state.items.slice(0, index),
+				{
+					itemName: this.state.items[index].itemName,
+					quantity: this.state.items[index].quantity,
+					unit: this.state.items[index].unit,
+					upc: e.target.value,
+					servings: this.state.items[index].servings
+				},
+				...this.state.items.slice(index + 1)
+			]
+		});
+	};
+
+	handleServingsChange = (e, value) => {
+		let index = parseInt(value.name, 10);
+		this.setState({
+			items: [
+				...this.state.items.slice(0, index),
+				{
+					itemName: this.state.items[index].itemName,
+					quantity: this.state.items[index].quantity,
+					unit: this.state.items[index].unit,
+					upc: this.state.items[index].upc,
+					servings: value.value
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -128,16 +185,19 @@ class FoodItemEntryForm extends React.Component {
 		e.preventDefault();
 		let key = cuid();
 		this.setState({
-			rows: this.state.rows + 1,
 			items: [
 				...this.state.items,
 				{
-					upc: "",
+					itemName: "",
 					quantity: "",
 					unit: "",
+					upc: "",
+					servings: "",
 					key: key
 				}
-			]
+			],
+			rows: this.state.rows + 1,
+			cameraSelected: [...this.state.cameraSelected, { selected: false }]
 		});
 	};
 
@@ -145,63 +205,65 @@ class FoodItemEntryForm extends React.Component {
 		let rows = [];
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
-				<Form.Group widths="equal" key={this.state.items[i].key}>
+				<div>
 					<Icon
 						name="camera"
 						circular
 						id={i}
 						onClick={this.handleCameraButtonToggle}
 					/>
-					<Form.Input
-						fluid
-						name={`upc${i}`}
-						onChange={this.handleUpcChange}
-						value={this.state.items[i].upc}
-						placeholder="UPC..."
-					/>
-					{/*}<Form.Select
-						fluid
-						label="Quantity"
-						name={`quantity${i}`}
-						onChange={this.handleQuantityChange}
-						options={this.quantityOptions}
-						value={this.state.items[i].quantity}
-						placeholder="Quantity"
-					/>*/}
-					<Dropdown
-						placeholder="Quantity"
-						fluid
-						search
-						selection
-						label="Quantity"
-						name={`quantity${i}`}
-						onChange={this.handleQuantityChange}
-						options={this.quantityOptions}
-						value={this.state.items[i].quantity}
-						placeholder="Quantity"
-					/>
-					<Dropdown
-						placeholder="Quantity"
-						fluid
-						search
-						selection
-						label="Unit of Measurement"
-						name={`unit${i}`}
-						onChange={this.handleUnitChange}
-						options={this.unitOptions}
-						value={this.state.items[i].unit}
-						placeholder="Unit"
-					/>
-					{/*}<Form.Select
-						fluid
-						label="Unit of Measurement"
-						name={`unit${i}`}
-						onChange={this.handleUnitChange}
-						options={this.unitOptions}
-						value={this.state.items[i].unit}
-						placeholder="Unit"
-					/>*/}
-				</Form.Group>
+					{this.state.cameraSelected[i].selected ? (
+						<Form.Group>
+							<Form.Input
+								width={4}
+								name={i}
+								onChange={this.handleUpcChange}
+								value={this.state.items[i].upc}
+								placeholder="UPC..."
+							/>
+							<Dropdown
+								width={4}
+								search
+								selection
+								name={i}
+								onChange={this.handleServingsChange}
+								options={this.servingOptions}
+								value={this.state.items[i].servings}
+								placeholder="Servings..."
+							/>
+						</Form.Group>
+					) : (
+						<Form.Group>
+							<Form.Input
+								width={8}
+								name={i}
+								onChange={this.handleItemChange}
+								value={this.state.items[i].itemName}
+								placeholder="Enter a new item..."
+							/>
+							<Dropdown
+								width={4}
+								search
+								selection
+								name={i}
+								onChange={this.handleQuantityChange}
+								options={this.quantityOptions}
+								value={this.state.items[i].quantity}
+								placeholder="Quantity"
+							/>
+							<Dropdown
+								width={4}
+								search
+								selection
+								name={i}
+								onChange={this.handleUnitChange}
+								options={this.unitOptions}
+								value={this.state.items[i].unit}
+								placeholder="Unit"
+							/>
+						</Form.Group>
+					)}
+				</div>
 			);
 		}
 		return rows;
@@ -225,23 +287,67 @@ class FoodItemEntryForm extends React.Component {
 	};
 
 	handleCameraButtonToggle = e => {
-		this.setState({
-			scanning: !this.state.scanning,
-			cameraId: e.target.id
-		});
+		let index = parseInt(e.target.id, 10);
+		if (this.state.items[index].itemName.length) {
+			this.setState({
+				scanning: !this.state.scanning,
+				cameraId: e.target.id,
+				cameraSelected: [
+					...this.state.cameraSelected.slice(0, index),
+					{ selected: !this.state.cameraSelected[index].selected },
+					...this.state.cameraSelected.slice(index + 1)
+				],
+				items: [
+					...this.state.items.slice(0, index),
+					{
+						itemName: "",
+						quantity: "",
+						unit: "",
+						upc: this.state.items[index].upc,
+						servings: this.state.items[index].servings
+					},
+					...this.state.items.slice(index + 1)
+				]
+			});
+		} else {
+			this.setState({
+				scanning: !this.state.scanning,
+				cameraId: e.target.id,
+				cameraSelected: [
+					...this.state.cameraSelected.slice(0, index),
+					{ selected: !this.state.cameraSelected[index].selected },
+					...this.state.cameraSelected.slice(index + 1)
+				],
+				items: [
+					...this.state.items.slice(0, index),
+					{
+						itemName: this.state.items[index].itemName,
+						quantity: this.state.items[index].quantity,
+						unit: this.state.items[index].unit,
+						upc: "",
+						servings: ""
+					},
+					...this.state.items.slice(index + 1)
+				]
+			});
+		}
 	};
 
 	turnUpcCameraOff = data => {
+		let index = parseInt(this.state.cameraId, 10);
 		this.setState({
 			scanning: false,
 			items: [
-				...this.state.items.slice(0, this.state.cameraId),
+				...this.state.items.slice(0, index),
 				{
+					itemName: this.state.items[index].itemName,
+					quantity: this.state.items[index].quantity,
+					unit: this.state.items[index].unit,
 					upc: data,
-					quantity: this.state.items[this.state.cameraId].quantity,
-					unit: this.state.items[this.state.cameraId].unit
+					servings: this.state.items[index].servings,
+					key: this.state.items[index].key
 				},
-				...this.state.items.slice(this.state.cameraId + 1)
+				...this.state.items.slice(index + 1)
 			]
 		});
 	};

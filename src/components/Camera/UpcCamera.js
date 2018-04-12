@@ -9,8 +9,8 @@ export default class UpcCamera extends React.Component {
 					name: "Live",
 					type: "LiveStream",
 					constraints: {
-						width: 640,
-						height: 480,
+						width: 400,
+						height: 400,
 						facingMode: "environment" // or user
 					},
 					target: document.getElementById("camera") // Or '#yourElement' (optional)

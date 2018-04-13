@@ -12,7 +12,6 @@ import {
 import { connect } from "react-redux";
 import { postMessage } from "../actions/Actions";
 import withAuth from "../authentication/WithAuth";
-import cuid from "cuid";
 
 class MessageCard extends React.Component {
 	state = {
@@ -59,19 +58,13 @@ class MessageCard extends React.Component {
 		});
 	};
 
-	filterChildMessages = () => {
-		return this.props.currentUser.messages.filter(
-			message => this.props.message.id === message.parent_message
-		);
-	};
-
-	formatChildMessages = () => {
-		return this.filterChildMessages().map(message => {
-			return (
-				<Segment key={cuid()}>
-					<Card>
-						<Card.Content header={message.subject} />
-						<Card.Content description={message.body} />
+	render() {
+		return (
+			<div>
+				<Segment>
+					<Card centered fluid>
+						<Card.Content header={this.props.message.subject} />
+						<Card.Content description={this.props.message.body} />
 						<Modal
 							trigger={
 								<Card.Content extra onClick={this.handleOpen}>
@@ -96,62 +89,14 @@ class MessageCard extends React.Component {
 						<Card.Content extra>
 							<Icon name="mail outline" />
 							Sent at{" "}
-							{message.created_at
+							{this.props.message.created_at
 								.split("T")[1]
 								.split(".")[0]
 								.slice(0, 5)}{" "}
-							on {message.created_at.split("T")[0]}
+							on {this.props.message.created_at.split("T")[0]}
 						</Card.Content>
 					</Card>
 				</Segment>
-			);
-		});
-	};
-
-	render() {
-		return (
-			<div>
-				<Segment.Group>
-					<Segment>
-						<Card centered fluid>
-							<Card.Content header={this.props.message.subject} />
-							<Card.Content description={this.props.message.body} />
-							<Modal
-								trigger={
-									<Card.Content extra onClick={this.handleOpen}>
-										<Icon name="reply" />Reply
-									</Card.Content>
-								}
-								open={this.state.modalOpen}
-								onClose={this.handleClose}
-							>
-								<Modal.Header>Message Reply</Modal.Header>
-								<Modal.Description>
-									<Header>{this.props.message.subject}</Header>
-									<Form>
-										<TextArea
-											value={this.state.body}
-											onChange={this.handleChange}
-										/>
-									</Form>
-									<Button onClick={this.handleClick}>Send</Button>
-								</Modal.Description>
-							</Modal>
-							<Card.Content extra>
-								<Icon name="mail outline" />
-								Sent at{" "}
-								{this.props.message.created_at
-									.split("T")[1]
-									.split(".")[0]
-									.slice(0, 5)}{" "}
-								on {this.props.message.created_at.split("T")[0]}
-							</Card.Content>
-						</Card>
-					</Segment>
-					{this.formatChildMessages().length ? (
-						<Segment.Group>{this.formatChildMessages()}</Segment.Group>
-					) : null}
-				</Segment.Group>
 			</div>
 		);
 	}

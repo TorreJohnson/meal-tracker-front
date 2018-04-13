@@ -41,17 +41,19 @@ class NutritionistCard extends React.Component {
 						</Card>
 					}
 				>
-					<Modal.Header>{this.props.nutritionist.name}</Modal.Header>
+					<Modal.Header>
+						{this.props.nutritionist.name}
+						<Button onClick={this.handleClick}>
+							{this.props.nutritionist.id ===
+							this.props.currentUser.nutritionist_id
+								? "Fire"
+								: "Hire"}
+						</Button>
+					</Modal.Header>
 					<Modal.Content image>
 						<NutritionistMapContainer nutritionist={this.props.nutritionist} />
 						<Modal.Description>
 							<Header>{this.props.nutritionist.biography}</Header>
-							<Button onClick={this.handleClick}>
-								{this.props.nutritionist.id ===
-								this.props.currentUser.nutritionist_id
-									? "Fire"
-									: "Hire"}
-							</Button>
 						</Modal.Description>
 					</Modal.Content>
 				</Modal>

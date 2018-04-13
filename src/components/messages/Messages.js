@@ -12,7 +12,8 @@ class Messages extends React.Component {
 		activeItem: "inbox",
 		inboxMessageCount: 0,
 		unreadMessageCount: 0,
-		sentMessageCount: 0
+		sentMessageCount: 0,
+		searchTerm: ""
 	};
 
 	componentDidMount() {
@@ -54,12 +55,29 @@ class Messages extends React.Component {
 		});
 	};
 
-	handleOpen = () => this.setState({ modalOpen: true });
+	handleOpen = () => {
+		this.setState({
+			modalOpen: true
+		});
+	};
 
-	handleClose = () => this.setState({ modalOpen: false });
+	handleClose = () => {
+		this.setState({
+			modalOpen: false
+		});
+	};
 
-	handleActiveMailboxFolder = (e, { name }) =>
-		this.setState({ activeItem: name });
+	handleActiveMailboxFolder = (e, { name }) => {
+		this.setState({
+			activeItem: name
+		});
+	};
+
+	handleSearchInputChange = e => {
+		this.setState({
+			searchTerm: e.target.value
+		});
+	};
 
 	filterMessages = () => {
 		let reversedMessages = [...this.props.currentUser.messages].reverse();
@@ -100,7 +118,6 @@ class Messages extends React.Component {
 
 	render() {
 		const { activeItem } = this.state;
-
 		return (
 			<div>
 				<Grid>
@@ -162,7 +179,12 @@ class Messages extends React.Component {
 								<NewMessage onSubmit={this.handleClose} />
 							</Modal>
 							<Menu.Item>
-								<Input icon="search" placeholder="Search mail..." />
+								<Input
+									icon="search"
+									onChange={this.handleSearchInputChange}
+									value={this.state.searchTerm}
+									placeholder="Search mail..."
+								/>
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>

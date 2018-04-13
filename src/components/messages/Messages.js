@@ -10,9 +10,6 @@ class Messages extends React.Component {
 	state = {
 		modalOpen: false,
 		activeItem: "inbox",
-		inboxMessageCount: 0,
-		unreadMessageCount: 0,
-		sentMessageCount: 0,
 		searchTerm: ""
 	};
 
@@ -20,39 +17,42 @@ class Messages extends React.Component {
 		if (!this.props.currentUser) {
 			this.props.history.push("/login");
 		}
-		this.getMessageCounts();
 	}
 
-	getMessageCounts = () => {
-		let inboxMessages;
-		let unreadMessages;
-		let sentMessages;
+	getUnreadMessageCount = () => {
 		if (this.props.nutritionistLoggedIn) {
-			inboxMessages = this.props.currentUser.messages.filter(
-				message => message.sender_type === "user"
-			);
-			unreadMessages = this.props.currentUser.messages.filter(
+			return this.props.currentUser.messages.filter(
 				message => message.sender_type === "user" && !message.read
-			);
-			sentMessages = this.props.currentUser.messages.filter(
-				message => message.sender_type === "nutritionist"
-			);
+			).length;
 		} else {
-			inboxMessages = this.props.currentUser.messages.filter(
-				message => message.sender_type === "nutritionist"
-			);
-			unreadMessages = this.props.currentUser.messages.filter(
+			return this.props.currentUser.messages.filter(
 				message => message.sender_type === "nutritionist" && !message.read
-			);
-			sentMessages = this.props.currentUser.messages.filter(
-				message => message.sender_type === "user"
-			);
+			).length;
 		}
-		this.setState({
-			inboxMessageCount: inboxMessages.length,
-			unreadMessageCount: unreadMessages.length,
-			sentMessageCount: sentMessages.length
-		});
+	};
+
+	getInboxMessageCount = () => {
+		if (this.props.nutritionistLoggedIn) {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "user"
+			).length;
+		} else {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "nutritionist"
+			).length;
+		}
+	};
+
+	getSentMessageCount = () => {
+		if (this.props.nutritionistLoggedIn) {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "nutritionist"
+			).length;
+		} else {
+			return this.props.currentUser.messages.filter(
+				message => message.sender_type === "user"
+			).length;
+		}
 	};
 
 	handleOpen = () => {
@@ -79,8 +79,18 @@ class Messages extends React.Component {
 		});
 	};
 
+	filterMessagesForSearchTerms = () => {
+		return this.props.currentUser.messages.filter(
+			message =>
+				message.subject
+					.toLowerCase()
+					.includes(this.state.searchTerm.toLowerCase()) ||
+				message.body.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+		);
+	};
+
 	filterMessages = () => {
-		let reversedMessages = [...this.props.currentUser.messages].reverse();
+		let reversedMessages = this.filterMessagesForSearchTerms().reverse();
 		if (this.state.activeItem === "inbox" && this.props.nutritionistLoggedIn) {
 			return reversedMessages.filter(message => message.sender_type === "user");
 		} else if (this.state.activeItem === "inbox") {
@@ -129,9 +139,9 @@ class Messages extends React.Component {
 								onClick={this.handleActiveMailboxFolder}
 							>
 								{this.state.activeItem === "inbox" ? (
-									<Label color="teal">{this.state.inboxMessageCount}</Label>
+									<Label color="teal">{this.getInboxMessageCount()}</Label>
 								) : (
-									<Label>{this.state.inboxMessageCount}</Label>
+									<Label>{this.getInboxMessageCount()}</Label>
 								)}
 								Inbox
 							</Menu.Item>
@@ -142,9 +152,9 @@ class Messages extends React.Component {
 								onClick={this.handleActiveMailboxFolder}
 							>
 								{this.state.activeItem === "unread" ? (
-									<Label color="teal">{this.state.unreadMessageCount}</Label>
+									<Label color="teal">{this.getUnreadMessageCount()}</Label>
 								) : (
-									<Label>{this.state.unreadMessageCount}</Label>
+									<Label>{this.getUnreadMessageCount()}</Label>
 								)}
 								Unread
 							</Menu.Item>
@@ -156,9 +166,9 @@ class Messages extends React.Component {
 							>
 								{" "}
 								{this.state.activeItem === "sent" ? (
-									<Label color="teal">{this.state.sentMessageCount}</Label>
+									<Label color="teal">{this.getSentMessageCount()}</Label>
 								) : (
-									<Label>{this.state.sentMessageCount}</Label>
+									<Label>{this.getSentMessageCount()}</Label>
 								)}
 								Sent
 							</Menu.Item>

@@ -3,6 +3,7 @@ import { Card, Icon, Header, Modal, Image, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
 import withAuth from "../authentication/WithAuth";
+import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 
 class NutritionistCard extends React.Component {
 	handleClick = () => {
@@ -42,11 +43,7 @@ class NutritionistCard extends React.Component {
 				>
 					<Modal.Header>{this.props.nutritionist.name}</Modal.Header>
 					<Modal.Content image>
-						{/*}<Image
-							wrapped
-							size="medium"
-							src="/assets/images/avatar/large/rachel.png"
-						/>*/}
+						<NutritionistMapContainer nutritionist={this.props.nutritionist} />
 						<Modal.Description>
 							<Header>{this.props.nutritionist.biography}</Header>
 							<Button onClick={this.handleClick}>

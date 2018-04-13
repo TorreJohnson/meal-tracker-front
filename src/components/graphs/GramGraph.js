@@ -50,7 +50,7 @@ class GramGraph extends React.Component {
 		});
 		let sodium = 0;
 		items.forEach(item => {
-			sodium += item.sodium;
+			sodium += item.sodium / 1000;
 		});
 		let sugars = 0;
 		items.forEach(item => {
@@ -61,8 +61,8 @@ class GramGraph extends React.Component {
 			vitamin_c += item.vitamin_c;
 		});
 		return [
-			carbohydrate,
 			calcium,
+			carbohydrate,
 			fat,
 			fiber,
 			potassium,
@@ -130,7 +130,7 @@ class GramGraph extends React.Component {
 					data: this.filterFoodItems(this.props.filter)
 				},
 				{
-					label: "Maximum Recommended Values",
+					label: "Maximum Recommended Amount",
 					backgroundColor: "rgba(54,162,235,0.2)",
 					borderColor: "rgba(54,162,235,1)",
 					borderWidth: 1,

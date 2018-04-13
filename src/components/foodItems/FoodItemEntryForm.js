@@ -80,7 +80,8 @@ class FoodItemEntryForm extends React.Component {
 		{ key: "pint", text: "Pint", value: "pint" },
 		{ key: "quart", text: "Quart", value: "quart" },
 		{ key: "gallon", text: "Gallon", value: "gallon" },
-		{ key: "piece", text: "Piece(s)", value: "piece" }
+		{ key: "piece", text: "Piece(s)", value: "piece" },
+		{ key: "slice", text: "Slice", value: "slice" }
 	];
 
 	servingOptions = [

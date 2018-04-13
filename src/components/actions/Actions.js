@@ -68,7 +68,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 							serving_unit: json.foods[0].serving_unit,
 							serving_in_grams: json.foods[0].serving_weight_grams,
 							brand: json.foods[0].brand_name,
-							ndbno: json.foods[0].ndb_no
+							ndb_no: json.foods[0].ndb_no
 						}
 					};
 					fetch("http://localhost:3000/api/v1/food_items", {
@@ -154,7 +154,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 							serving_unit: json.foods[0].serving_unit,
 							serving_in_grams: json.foods[0].serving_weight_grams,
 							brand: json.foods[0].brand_name,
-							ndbno: json.foods[0].ndb_no
+							ndb_no: json.foods[0].ndb_no
 						}
 					};
 					fetch("http://localhost:3000/api/v1/food_items", {

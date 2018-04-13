@@ -141,18 +141,36 @@ class NutrientsThroughTime extends React.Component {
 	maximumDailyValues = {
 		beta_carotene: 15,
 		caffeine: 400,
+		calcium: 1000,
+		calories: 2000,
+		carbohydrate: 325,
 		cholesterol: 300,
+		fat: 78,
+		fiber: 30,
 		folic_acid: 0.4,
 		iron: 20,
 		niacin: 35,
+		potassium: 4.7,
+		protein: 60,
 		riboflavin: 1,
+		sodium: 2.3,
+		sugars: 25,
 		thiamin: 2,
 		vitamin_a: 1,
 		vitamin_b12: 1,
+		vitamin_c: 2,
 		vitamin_d: 1,
 		vitamin_e: 20,
 		vitamin_k: 1,
 		zinc: 15
+	};
+
+	recommendedValueData = () => {
+		let dataArr = [];
+		for (var i = 0; i < 30; i++) {
+			dataArr.push(this.maximumDailyValues[this.state.filter]);
+		}
+		return dataArr;
 	};
 
 	data2 = () => {
@@ -230,7 +248,7 @@ class NutrientsThroughTime extends React.Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: [500, 500, 500, 500, 500, 500]
+					data: this.recommendedValueData()
 				}
 			]
 		};
@@ -279,7 +297,11 @@ class NutrientsThroughTime extends React.Component {
 					text="Values"
 					onChange={this.handleChange}
 				/>
-				<Line data={this.data()} />
+				{this.props.recValues ? (
+					<Line data={this.data2()} />
+				) : (
+					<Line data={this.data()} />
+				)}
 			</div>
 		);
 	}

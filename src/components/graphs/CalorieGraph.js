@@ -68,7 +68,7 @@ class CalorieGraph extends React.Component {
 					data: this.filterFoodItems(this.props.filter)
 				},
 				{
-					label: "Maximum Recommended Values",
+					label: "Recommended Amount",
 					backgroundColor: "rgba(54,162,235,0.2)",
 					borderColor: "rgba(54,162,235,1)",
 					borderWidth: 1,

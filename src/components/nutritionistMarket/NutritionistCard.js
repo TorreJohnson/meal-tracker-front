@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Header, Modal, Image, Button } from "semantic-ui-react";
+import { Card, Icon, Header, Modal, Image, Label } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
 import withAuth from "../authentication/WithAuth";
@@ -20,6 +20,15 @@ class NutritionistCard extends React.Component {
 						<Card>
 							<Image src="" />
 							<Card.Content>
+								{this.props.nutritionist.accepts_new_patients ? (
+									<Label as="a" color="green" ribbon="right">
+										Accepting Patients
+									</Label>
+								) : (
+									<Label as="a" color="red" ribbon="right">
+										Not Accepting Patients
+									</Label>
+								)}
 								<Card.Header>{this.props.nutritionist.name}</Card.Header>
 								<Card.Meta>
 									<span>{this.props.nutritionist.office_address}</span>
@@ -28,27 +37,28 @@ class NutritionistCard extends React.Component {
 									{this.props.nutritionist.biography}
 								</Card.Description>
 							</Card.Content>
-							<Card.Content extra>
-								<a>
-									{this.props.nutritionist.accepts_new_patients ? (
-										<Icon color="green" name="checkmark" />
-									) : (
-										<Icon color="red" name="window close" />
-									)}
-									Accepting New Patients
-								</a>
-							</Card.Content>
+							<Card.Content extra />
 						</Card>
 					}
 				>
 					<Modal.Header>
 						{this.props.nutritionist.name}
-						<Button onClick={this.handleClick}>
-							{this.props.nutritionist.id ===
-							this.props.currentUser.nutritionist_id
-								? "Fire"
-								: "Hire"}
-						</Button>
+						{this.props.nutritionist.id ===
+						this.props.currentUser.nutritionist_id ? (
+							<Icon
+								color="red"
+								name="remove user"
+								onClick={this.handleClick}
+								floated="right"
+							/>
+						) : (
+							<Icon
+								color="green"
+								name="add user"
+								onClick={this.handleClick}
+								floated="right"
+							/>
+						)}
 					</Modal.Header>
 					<Modal.Content image>
 						<NutritionistMapContainer nutritionist={this.props.nutritionist} />

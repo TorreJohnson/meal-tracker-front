@@ -7,6 +7,7 @@ import Messages from "../messages/Messages";
 import FoodItemEntryForm from "../foodItems/FoodItemEntryForm";
 import Nutritionists from "../nutritionistMarket/Nutritionists";
 import { logOut } from "../actions/Actions";
+import Profile from "../profile/Profile";
 
 class UsersContainer extends React.Component {
 	state = {
@@ -55,6 +56,13 @@ class UsersContainer extends React.Component {
 					/>
 					<Menu.Menu position="right">
 						<Menu.Item
+							as={Link}
+							to="/profile"
+							name="profile"
+							active={activeItem === "profile"}
+							onClick={this.handleItemClick}
+						/>
+						<Menu.Item
 							name="logout"
 							active={activeItem === "logout"}
 							onClick={this.handleLogOutClick}
@@ -68,6 +76,7 @@ class UsersContainer extends React.Component {
 						<Route exact path="/journal" component={FoodItemEntryForm} />
 						<Route exact path="/messages" component={Messages} />
 						<Route exact path="/nutritionist" component={Nutritionists} />
+						<Route exact path="/profile" component={Profile} />
 					</div>
 				</Segment>
 			</div>

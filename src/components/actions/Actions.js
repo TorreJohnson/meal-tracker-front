@@ -276,7 +276,6 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 				sender_id: currentUser.id,
 				parent_message: payload.parent_message
 			};
-			console.log(body);
 		} else {
 			body = {
 				user_id: currentUser.id,
@@ -300,6 +299,29 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 			.then(response => {
 				dispatch({
 					type: "ADD_MESSAGE",
+					payload: response
+				});
+			});
+	};
+}
+
+export function updateReadMessage(payload, jwt) {
+	return dispatch => {
+		fetch(`http://localhost:3000/api/v1/messages/${payload.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json",
+				Authorization: jwt
+			},
+			body: JSON.stringify({
+				read: payload.read
+			})
+		})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_MESSAGE",
 					payload: response
 				});
 			});
@@ -348,6 +370,33 @@ export function fetchClients(id) {
 			.then(response => {
 				dispatch({
 					type: "ADD_CLIENTS",
+					payload: response
+				});
+			});
+	};
+}
+
+export function updateUser(payload, jwt) {
+	return dispatch => {
+		fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json",
+				Authorization: jwt
+			},
+			body: JSON.stringify({
+				username: payload.username,
+				address: payload.address,
+				age: payload.age,
+				weight: payload.weight,
+				goal: payload.goal
+			})
+		})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_USER",
 					payload: response
 				});
 			});

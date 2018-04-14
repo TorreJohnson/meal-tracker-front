@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import withAuth from "../authentication/WithAuth";
-import { Modal, Input, Label, Menu, Grid } from "semantic-ui-react";
+import { Modal, Input, Label, Menu, Grid, Message } from "semantic-ui-react";
 import MessageCard from "./MessageCard";
 import NewMessage from "./NewMessage";
 import cuid from "cuid";
@@ -121,9 +121,13 @@ class Messages extends React.Component {
 	};
 
 	messageCards = () => {
-		return this.filterMessages().map(message => (
-			<MessageCard message={message} key={cuid()} />
-		));
+		if (this.filterMessages().length === 0) {
+			return <Message floating>No Messages Found</Message>;
+		} else {
+			return this.filterMessages().map(message => (
+				<MessageCard message={message} key={cuid()} />
+			));
+		}
 	};
 
 	render() {

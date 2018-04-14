@@ -83,6 +83,26 @@ export default function reducer(
 				...state,
 				clients: [...state.clients, ...action.payload]
 			};
+		case "UPDATE_MESSAGE":
+			let index = state.currentUser.messages.findIndex(
+				message => message.id === action.payload.id
+			);
+			return {
+				...state,
+				currentUser: {
+					...state.currentUser,
+					messages: [
+						...state.currentUser.messages.slice(0, index),
+						action.payload,
+						...state.currentUser.messages.slice(index + 1)
+					]
+				}
+			};
+		case "UPDATE_USER":
+			return {
+				...state,
+				currentUser: action.payload
+			};
 		default:
 			return { ...state };
 	}

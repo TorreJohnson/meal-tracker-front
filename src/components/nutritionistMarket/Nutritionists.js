@@ -3,10 +3,12 @@ import NutritionistCard from "./NutritionistCard";
 import { connect } from "react-redux";
 import withAuth from "../authentication/WithAuth";
 import cuid from "cuid";
+import { Input, Label, Menu, Grid } from "semantic-ui-react";
 
 class Nutritionists extends React.Component {
 	state = {
-		nutritionists: []
+		nutritionists: [],
+		activeItem: "all"
 	};
 
 	componentDidMount() {
@@ -31,8 +33,50 @@ class Nutritionists extends React.Component {
 			<NutritionistCard nutritionist={nutritionist} key={cuid()} />
 		));
 	};
+
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
 	render() {
-		return <div>{this.createNutritionistCards()}</div>;
+		const { activeItem } = this.state;
+		return (
+			<div>
+				<Grid>
+					<Grid.Column width={3}>
+						<Menu fluid vertical>
+							<Menu.Item
+								name="all"
+								active={activeItem === "all"}
+								onClick={this.handleItemClick}
+							>
+								<Label color="teal">1</Label>
+								All Nutritionists
+							</Menu.Item>
+							<Menu.Item
+								name="spam"
+								active={activeItem === "spam"}
+								onClick={this.handleItemClick}
+							>
+								<Label>51</Label>
+								Spam
+							</Menu.Item>
+
+							<Menu.Item
+								name="updates"
+								active={activeItem === "updates"}
+								onClick={this.handleItemClick}
+							>
+								<Label>1</Label>
+								Updates
+							</Menu.Item>
+							<Menu.Item>
+								<Input icon="search" placeholder="Search mail..." />
+							</Menu.Item>
+						</Menu>
+					</Grid.Column>
+					<Grid.Column width={6}>{this.createNutritionistCards()}</Grid.Column>
+				</Grid>
+			</div>
+		);
 	}
 }
 

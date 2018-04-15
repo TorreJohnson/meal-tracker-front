@@ -1,5 +1,15 @@
 import React from "react";
-import { Form, Button, Icon, Dropdown } from "semantic-ui-react";
+import {
+	Form,
+	Button,
+	Icon,
+	Dropdown,
+	Input,
+	Label,
+	Menu,
+	Grid,
+	Segment
+} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
@@ -23,7 +33,8 @@ class FoodItemEntryForm extends React.Component {
 		rows: 1,
 		scanning: false,
 		cameraId: "",
-		cameraSelected: [{ selected: false }]
+		cameraSelected: [{ selected: false }],
+		activeItem: "inbox"
 	};
 
 	componentDidMount() {
@@ -358,30 +369,72 @@ class FoodItemEntryForm extends React.Component {
 		});
 	};
 
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
 	render() {
+		const { activeItem } = this.state;
 		return (
 			<div>
-				<div>
-					<Form onSubmit={this.handleSubmit}>
-						<label>UPC</label>
-						<label>Quantity</label>
-						<label>Unit Type</label>
-						<this.addRow />
-						<div>
-							<Button
-								animated="fade"
-								onClick={this.handleAdditionalRowClick}
-								floated="left"
+				<Grid>
+					<Grid.Column width={3}>
+						<Menu fluid vertical>
+							<Menu.Item
+								name="inbox"
+								active={activeItem === "inbox"}
+								onClick={this.handleItemClick}
 							>
-								<Button.Content visible>Add Another Item</Button.Content>
-								<Button.Content hidden>
-									<Icon name="down arrow" />
-								</Button.Content>
-							</Button>
-							<Button floated="right">Submit</Button>
-						</div>
-					</Form>
-				</div>
+								<Label color="teal">1</Label>
+								Inbox
+							</Menu.Item>
+
+							<Menu.Item
+								name="spam"
+								active={activeItem === "spam"}
+								onClick={this.handleItemClick}
+							>
+								<Label>51</Label>
+								Spam
+							</Menu.Item>
+
+							<Menu.Item
+								name="updates"
+								active={activeItem === "updates"}
+								onClick={this.handleItemClick}
+							>
+								<Label>1</Label>
+								Updates
+							</Menu.Item>
+							<Menu.Item>
+								<Input icon="search" placeholder="Search mail..." />
+							</Menu.Item>
+						</Menu>
+					</Grid.Column>
+					<Grid.Column width={13}>
+						<Segment>
+							<div>
+								<Form onSubmit={this.handleSubmit}>
+									<label>UPC</label>
+									<label>Quantity</label>
+									<label>Unit Type</label>
+									<this.addRow />
+									<div>
+										<Button
+											animated="fade"
+											onClick={this.handleAdditionalRowClick}
+											floated="left"
+										>
+											<Button.Content visible>Add Another Item</Button.Content>
+											<Button.Content hidden>
+												<Icon name="down arrow" />
+											</Button.Content>
+										</Button>
+										<Button floated="right">Submit</Button>
+									</div>
+								</Form>
+							</div>
+						</Segment>
+					</Grid.Column>
+				</Grid>
 				{this.state.scanning ? (
 					<UpcCamera cameraToggle={this.turnUpcCameraOff} />
 				) : null}

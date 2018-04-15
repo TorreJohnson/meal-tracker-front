@@ -197,7 +197,7 @@ class Messages extends React.Component {
 									icon="search"
 									onChange={this.handleSearchInputChange}
 									value={this.state.searchTerm}
-									placeholder="Search mail..."
+									placeholder="Search messages..."
 								/>
 							</Menu.Item>
 						</Menu>

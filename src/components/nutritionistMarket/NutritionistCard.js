@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
 import withAuth from "../authentication/WithAuth";
 import NutritionistMapContainer from "../maps/NutritionistMapContainer";
+import { config } from "../../config.js";
 
 class NutritionistCard extends React.Component {
 	handleClick = () => {
@@ -63,8 +64,17 @@ class NutritionistCard extends React.Component {
 						)}
 					</Modal.Header>
 					<Modal.Content image>
-						<NutritionistMapContainer nutritionist={this.props.nutritionist} />
+						<img
+							src={`https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${
+								this.props.nutritionist.office_address
+							}&key=${config.googleApiKey}`}
+							alt="office street view"
+						/>
+
 						<Modal.Description>
+							<NutritionistMapContainer
+								nutritionist={this.props.nutritionist}
+							/>
 							<Header>{this.props.nutritionist.biography}</Header>
 						</Modal.Description>
 					</Modal.Content>

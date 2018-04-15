@@ -13,6 +13,7 @@ class NutritionistSignUp extends React.Component {
 		officeAddress: "",
 		acceptingPatients: true,
 		bio: "",
+		companyName: "",
 		profilePhoto: ""
 	};
 
@@ -107,6 +108,14 @@ class NutritionistSignUp extends React.Component {
 						/>
 					</Form.Group>
 					<Form.Group widths="equal">
+						<Form.Input
+							fluid
+							label="Company Name"
+							name="companyName"
+							value={this.state.companyName}
+							onChange={this.handleChange}
+							placeholder="Company Name..."
+						/>
 						<Form.Input
 							fluid
 							label="Office Address"

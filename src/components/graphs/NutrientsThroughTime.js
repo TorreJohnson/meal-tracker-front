@@ -32,8 +32,8 @@ class NutrientsThroughTime extends React.Component {
 	};
 
 	nutrientValuesThroughTime = () => {
-		if (this.props.currentUser.food_items) {
-			let i = 30;
+		if (this.state.filter.length) {
+			let i = 31;
 			let ms = 2592000000;
 			let counts = [];
 			while (i > 0) {
@@ -73,6 +73,7 @@ class NutrientsThroughTime extends React.Component {
 				0,
 				0,
 				0,
+				0,
 				0
 			];
 		}
@@ -81,36 +82,37 @@ class NutrientsThroughTime extends React.Component {
 	data = () => {
 		return {
 			labels: [
-				30,
-				29,
-				28,
-				27,
-				26,
-				25,
-				24,
-				23,
-				22,
-				21,
-				20,
-				19,
-				18,
-				17,
-				16,
-				15,
-				14,
-				13,
-				12,
-				11,
-				10,
-				9,
-				8,
-				7,
-				6,
-				5,
-				4,
-				3,
-				2,
-				1
+				-30,
+				-29,
+				-28,
+				-27,
+				-26,
+				-25,
+				-24,
+				-23,
+				-22,
+				-21,
+				-20,
+				-19,
+				-18,
+				-17,
+				-16,
+				-15,
+				-14,
+				-13,
+				-12,
+				-11,
+				-10,
+				-9,
+				-8,
+				-7,
+				-6,
+				-5,
+				-4,
+				-3,
+				-2,
+				-1,
+				0
 			],
 			datasets: [
 				{
@@ -167,7 +169,7 @@ class NutrientsThroughTime extends React.Component {
 
 	recommendedValueData = () => {
 		let dataArr = [];
-		for (var i = 0; i < 30; i++) {
+		for (var i = 0; i < 31; i++) {
 			dataArr.push(this.maximumDailyValues[this.state.filter]);
 		}
 		return dataArr;
@@ -176,36 +178,37 @@ class NutrientsThroughTime extends React.Component {
 	data2 = () => {
 		return {
 			labels: [
-				30,
-				29,
-				28,
-				27,
-				26,
-				25,
-				24,
-				23,
-				22,
-				21,
-				20,
-				19,
-				18,
-				17,
-				16,
-				15,
-				14,
-				13,
-				12,
-				11,
-				10,
-				9,
-				8,
-				7,
-				6,
-				5,
-				4,
-				3,
-				2,
-				1
+				-30,
+				-29,
+				-28,
+				-27,
+				-26,
+				-25,
+				-24,
+				-23,
+				-22,
+				-21,
+				-20,
+				-19,
+				-18,
+				-17,
+				-16,
+				-15,
+				-14,
+				-13,
+				-12,
+				-11,
+				-10,
+				-9,
+				-8,
+				-7,
+				-6,
+				-5,
+				-4,
+				-3,
+				-2,
+				-1,
+				0
 			],
 			datasets: [
 				{

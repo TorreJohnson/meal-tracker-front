@@ -205,6 +205,8 @@ export function signUp(payload, history, nutritionist) {
 							office_address: payload.officeAddress,
 							accepts_new_patients: payload.acceptingPatients,
 							biography: payload.bio,
+							profile_photo: payload.profilePhoto,
+							company_name: payload.companyName,
 							office_latitude: response.results[0].geometry.location.lat,
 							office_longitude: response.results[0].geometry.location.lng
 						})
@@ -442,27 +444,37 @@ export function fetchClients(id, jwt) {
 
 export function updateUser(payload, jwt) {
 	return dispatch => {
-		fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
-				Authorization: jwt
-			},
-			body: JSON.stringify({
-				username: payload.username,
-				address: payload.address,
-				age: payload.age,
-				weight: payload.weight,
-				goal: payload.goal
-			})
-		})
+		fetch(
+			`https://maps.googleapis.com/maps/api/geocode/json?address=${
+				payload.address
+			}&key=${config.googleApiKey}`
+		)
 			.then(res => res.json())
 			.then(response => {
-				dispatch({
-					type: "UPDATE_USER",
-					payload: response
-				});
+				fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+						accept: "application/json",
+						Authorization: jwt
+					},
+					body: JSON.stringify({
+						username: payload.username,
+						address: payload.address,
+						age: payload.age,
+						weight: payload.weight,
+						goal: payload.goal,
+						latitude: response.results[0].geometry.location.lat,
+						longitude: response.results[0].geometry.location.lng
+					})
+				})
+					.then(res => res.json())
+					.then(response => {
+						dispatch({
+							type: "UPDATE_USER",
+							payload: response
+						});
+					});
 			});
 	};
 }

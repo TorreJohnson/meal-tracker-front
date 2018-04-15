@@ -17,7 +17,7 @@ class FoodItemEntryForm extends React.Component {
 				unit: "",
 				upc: "",
 				servings: "",
-				key: ""
+				key: 1
 			}
 		],
 		rows: 1,
@@ -107,7 +107,8 @@ class FoodItemEntryForm extends React.Component {
 					quantity: this.state.items[index].quantity,
 					unit: this.state.items[index].unit,
 					upc: this.state.items[index].upc,
-					servings: this.state.items[index].servings
+					servings: this.state.items[index].servings,
+					key: this.state.items[index].key
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -124,7 +125,8 @@ class FoodItemEntryForm extends React.Component {
 					quantity: value.value,
 					unit: this.state.items[index].unit,
 					upc: this.state.items[index].upc,
-					servings: this.state.items[index].servings
+					servings: this.state.items[index].servings,
+					key: this.state.items[index].key
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -141,7 +143,8 @@ class FoodItemEntryForm extends React.Component {
 					quantity: this.state.items[index].quantity,
 					unit: value.value,
 					upc: this.state.items[index].upc,
-					servings: this.state.items[index].servings
+					servings: this.state.items[index].servings,
+					key: this.state.items[index].key
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -158,7 +161,8 @@ class FoodItemEntryForm extends React.Component {
 					quantity: this.state.items[index].quantity,
 					unit: this.state.items[index].unit,
 					upc: e.target.value,
-					servings: this.state.items[index].servings
+					servings: this.state.items[index].servings,
+					key: this.state.items[index].key
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -175,7 +179,8 @@ class FoodItemEntryForm extends React.Component {
 					quantity: this.state.items[index].quantity,
 					unit: this.state.items[index].unit,
 					upc: this.state.items[index].upc,
-					servings: value.value
+					servings: value.value,
+					key: this.state.items[index].key
 				},
 				...this.state.items.slice(index + 1)
 			]
@@ -206,7 +211,7 @@ class FoodItemEntryForm extends React.Component {
 		let rows = [];
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
-				<div>
+				<div key={this.state.items[i].key}>
 					<Icon
 						name="camera"
 						circular

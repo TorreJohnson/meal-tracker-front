@@ -7,9 +7,11 @@ import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 
 class NutritionistCard extends React.Component {
 	handleClick = () => {
+		let jwt = localStorage.getItem("token");
 		this.props.hireFireNutritionist(
 			this.props.currentUser,
-			this.props.nutritionist.id
+			this.props.nutritionist.id,
+			jwt
 		);
 	};
 	render() {

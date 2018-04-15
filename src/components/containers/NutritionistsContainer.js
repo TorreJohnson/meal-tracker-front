@@ -12,7 +12,8 @@ class NutritionistsContainer extends React.Component {
 	};
 
 	componentDidMount() {
-		this.props.fetchClients(this.props.currentUser.id);
+		let jwt = localStorage.getItem("token");
+		this.props.fetchClients(this.props.currentUser.id, jwt);
 	}
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });

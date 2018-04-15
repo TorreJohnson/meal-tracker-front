@@ -305,14 +305,13 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	};
 }
 
-export function updateReadMessage(payload, jwt) {
+export function updateReadMessage(payload) {
 	return dispatch => {
 		fetch(`http://localhost:3000/api/v1/messages/${payload.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
-				accept: "application/json",
-				Authorization: jwt
+				accept: "application/json"
 			},
 			body: JSON.stringify({
 				read: payload.read
@@ -328,7 +327,7 @@ export function updateReadMessage(payload, jwt) {
 	};
 }
 
-export function hireFireNutritionist(currentUser, nutritionistId) {
+export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 	return dispatch => {
 		let body;
 		if (currentUser.nutritionist_id) {
@@ -344,7 +343,8 @@ export function hireFireNutritionist(currentUser, nutritionistId) {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
-				accept: "application/json"
+				accept: "application/json",
+				Authorization: jwt
 			},
 			body: JSON.stringify(body)
 		})
@@ -358,12 +358,13 @@ export function hireFireNutritionist(currentUser, nutritionistId) {
 	};
 }
 
-export function fetchClients(id) {
+export function fetchClients(id, jwt) {
 	return dispatch => {
 		fetch(`http://localhost:3000/api/v1/get_users/${id}`, {
 			headers: {
 				"Content-Type": "application/json",
-				accept: "application/json"
+				accept: "application/json",
+				Authorization: jwt
 			}
 		})
 			.then(res => res.json())

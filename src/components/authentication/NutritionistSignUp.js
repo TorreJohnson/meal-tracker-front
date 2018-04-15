@@ -1,8 +1,8 @@
 import React from "react";
-import { logIn } from "../actions/Actions";
+import { signUp } from "../actions/Actions";
 import { connect } from "react-redux";
 import ReactFilestack from "filestack-react";
-import { Form } from "semantic-ui-react";
+import { Form, Icon, Image } from "semantic-ui-react";
 import { config } from "../../config.js";
 
 class NutritionistSignUp extends React.Component {
@@ -30,11 +30,7 @@ class NutritionistSignUp extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
-		this.props.logIn(
-			this.state.username,
-			this.state.password,
-			this.props.history
-		);
+		this.props.signUp(this.state, this.props.history, true);
 	};
 
 	newPatientFormOptions = [
@@ -50,70 +46,22 @@ class NutritionistSignUp extends React.Component {
 		}
 	};
 
-	onSuccess(result) {
+	onSuccess = result => {
 		if (result.filesUploaded.length) {
 			this.setState({
-				profilePhoto: result.filesUploaded[0].url
+				profilePhoto: `${result.filesUploaded[0].url}`
 			});
 		}
-	}
+	};
 
 	render() {
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<Form.Group widths="equal">
-					<Form.Input
-						fluid
-						label="Name"
-						name="name"
-						value={this.state.username}
-						onChange={this.handleChange}
-						placeholder="Name..."
-					/>
-					<Form.Input
-						fluid
-						label="Email"
-						name="email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						placeholder="Email..."
-					/>
-					<Form.Input
-						fluid
-						label="Password"
-						type="password"
-						name="password"
-						value={this.state.password}
-						onChange={this.handleChange}
-						placeholder="Password..."
-					/>
-					<Form.Select
-						fluid
-						label="Currently Accepting New Clients?"
-						options={this.newPatientFormOptions}
-						placeholder=""
-						name="acceptingPatients"
-						value={this.state.acceptingPatients}
-						onChange={this.handleAcceptingPatientsChange}
-					/>
-				</Form.Group>
-				<Form.Group widths="equal">
-					<Form.Input
-						fluid
-						label="Office Address"
-						name="officeAddress"
-						value={this.state.officeAddress}
-						onChange={this.handleChange}
-						placeholder="Office Address..."
-					/>
-				</Form.Group>
-				<Form.TextArea
-					label="Personal Statement"
-					name="bio"
-					value={this.state.bio}
-					onChange={this.handleChange}
-					placeholder="Tell us more about you..."
-				/>
+			<div>
+				{this.state.profilePhoto.length ? (
+					<Image src={this.state.profilePhoto} size="medium" rounded />
+				) : (
+					<Icon name="user circle outline" size="massive" />
+				)}
 				<ReactFilestack
 					apikey={config.fileStackApiKey}
 					buttonText="Add a Profile Photo"
@@ -121,10 +69,65 @@ class NutritionistSignUp extends React.Component {
 					options={this.fileStackOptions}
 					onSuccess={this.onSuccess}
 				/>
-				<Form.Button>Submit</Form.Button>
-			</Form>
+				<Form onSubmit={this.handleSubmit}>
+					<Form.Group widths="equal">
+						<Form.Input
+							fluid
+							label="Name"
+							name="name"
+							value={this.state.username}
+							onChange={this.handleChange}
+							placeholder="Name..."
+						/>
+						<Form.Input
+							fluid
+							label="Email"
+							name="email"
+							value={this.state.email}
+							onChange={this.handleChange}
+							placeholder="Email..."
+						/>
+						<Form.Input
+							fluid
+							label="Password"
+							type="password"
+							name="password"
+							value={this.state.password}
+							onChange={this.handleChange}
+							placeholder="Password..."
+						/>
+						<Form.Select
+							fluid
+							label="Currently Accepting New Clients?"
+							options={this.newPatientFormOptions}
+							placeholder=""
+							name="acceptingPatients"
+							value={this.state.acceptingPatients}
+							onChange={this.handleAcceptingPatientsChange}
+						/>
+					</Form.Group>
+					<Form.Group widths="equal">
+						<Form.Input
+							fluid
+							label="Office Address"
+							name="officeAddress"
+							value={this.state.officeAddress}
+							onChange={this.handleChange}
+							placeholder="Office Address..."
+						/>
+					</Form.Group>
+					<Form.TextArea
+						label="Personal Statement"
+						name="bio"
+						value={this.state.bio}
+						onChange={this.handleChange}
+						placeholder="Tell us more about you..."
+					/>
+					<Form.Button>Submit</Form.Button>
+				</Form>
+			</div>
 		);
 	}
 }
 
-export default connect(null, { logIn })(NutritionistSignUp);
+export default connect(null, { signUp })(NutritionistSignUp);

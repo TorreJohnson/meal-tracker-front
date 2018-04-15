@@ -1,7 +1,9 @@
 import React from "react";
 import { signUp } from "../actions/Actions";
 import { connect } from "react-redux";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Image, Icon } from "semantic-ui-react";
+import { config } from "../../config.js";
+import ReactFilestack from "filestack-react";
 
 class SignUp extends React.Component {
 	state = {
@@ -9,120 +11,161 @@ class SignUp extends React.Component {
 		username: "",
 		email: "",
 		password: "",
-		age: "",
 		weight: "",
-		bmi: "",
 		address: "",
-		goal: ""
+		goal: "",
+		profilePhoto: "",
+		height: "",
+		birthday: "",
+		age: "",
+		bmi: ""
 	};
 
 	handleChange = e => {
+		let age = Math.floor(
+			(Date.now() - Date.parse(this.state.birthday)) / 31556952000
+		);
+		let bmi = 0;
+		if (this.state.weight > 0 && this.state.height > 0) {
+			bmi =
+				parseInt(this.state.weight, 10) /
+				(parseInt(this.state.height, 10) * parseInt(this.state.height, 10)) *
+				703;
+		}
 		this.setState({
-			[e.target.name]: e.target.value
+			[e.target.name]: e.target.value,
+			bmi: bmi.toFixed(2),
+			age: age
 		});
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
-		this.props.signUp(
-			this.state.name,
-			this.state.username,
-			this.state.password,
-			this.props.history
-		);
+		this.props.signUp(this.state, this.props.history, false);
+	};
+
+	fileStackOptions = {
+		accept: "image/*",
+		maxFiles: 1,
+		storeTo: {
+			location: "s3"
+		}
+	};
+
+	onSuccess = result => {
+		if (result.filesUploaded.length) {
+			this.setState({
+				profilePhoto: `${result.filesUploaded[0].url}`
+			});
+		}
 	};
 
 	render() {
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<Form.Group>
-					<Form.Input
-						label="Name"
-						placeholder="Name..."
-						name="name"
-						value={this.state.name}
-						onChange={this.handleChange}
-						width={6}
-					/>
-					<Form.Input
-						label="Username"
-						placeholder="Username..."
-						name="username"
-						value={this.state.username}
-						onChange={this.handleChange}
-						width={6}
-					/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Input
-						label="Email Address"
-						placeholder="Email..."
-						name="email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						width={6}
-					/>
-					<Form.Input
-						label="Password"
-						type="password"
-						placeholder="Password..."
-						name="password"
-						value={this.state.password}
-						onChange={this.handleChange}
-						width={6}
-					/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Input
-						label="Age"
-						type="number"
-						placeholder="Age..."
-						name="age"
-						value={this.state.age}
-						onChange={this.handleChange}
-						width={4}
-					/>
-					<Form.Input
-						label="Weight"
-						type="number"
-						placeholder="Weight (in pounds)..."
-						name="weight"
-						value={this.state.weight}
-						onChange={this.handleChange}
-						width={4}
-					/>
-					<Form.Input
-						label="Height"
-						type="number"
-						placeholder="Height (in inches)..."
-						name="height"
-						value={this.state.height}
-						onChange={this.handleChange}
-						width={4}
-					/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Input
-						label="Home Address"
-						placeholder="Home Address..."
-						name="address"
-						value={this.state.address}
-						onChange={this.handleChange}
-						width={12}
-					/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Input
-						label="Personal Goal"
-						placeholder="Goal..."
-						name="goal"
-						value={this.state.goal}
-						onChange={this.handleChange}
-						width={12}
-					/>
-				</Form.Group>
-				<Button type="submit">Create Account</Button>
-			</Form>
+			<div>
+				{" "}
+				{this.state.profilePhoto.length ? (
+					<Image src={this.state.profilePhoto} size="medium" rounded />
+				) : (
+					<Icon name="user circle outline" size="massive" />
+				)}
+				<ReactFilestack
+					apikey={config.fileStackApiKey}
+					buttonText="Add a Profile Photo"
+					buttonClass="classname"
+					options={this.fileStackOptions}
+					onSuccess={this.onSuccess}
+				/>
+				<Form onSubmit={this.handleSubmit}>
+					<Form.Group>
+						<Form.Input
+							label="Name"
+							placeholder="Name..."
+							name="name"
+							value={this.state.name}
+							onChange={this.handleChange}
+							width={6}
+						/>
+						<Form.Input
+							label="Username"
+							placeholder="Username..."
+							name="username"
+							value={this.state.username}
+							onChange={this.handleChange}
+							width={6}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Input
+							label="Email Address"
+							placeholder="Email..."
+							name="email"
+							value={this.state.email}
+							onChange={this.handleChange}
+							width={6}
+						/>
+						<Form.Input
+							label="Password"
+							type="password"
+							placeholder="Password..."
+							name="password"
+							value={this.state.password}
+							onChange={this.handleChange}
+							width={6}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Input
+							label="Birthday"
+							type="date"
+							placeholder="Age..."
+							name="birthday"
+							value={this.state.birthday}
+							onChange={this.handleChange}
+							width={4}
+						/>
+						<Form.Input
+							label="Weight"
+							type="number"
+							placeholder="Weight (in pounds)..."
+							name="weight"
+							value={this.state.weight}
+							onChange={this.handleChange}
+							width={4}
+						/>
+						<Form.Input
+							label="Height"
+							type="number"
+							placeholder="Height (in inches)..."
+							name="height"
+							value={this.state.height}
+							onChange={this.handleChange}
+							width={4}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Input
+							label="Home Address"
+							placeholder="Home Address..."
+							name="address"
+							value={this.state.address}
+							onChange={this.handleChange}
+							width={12}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Input
+							label="Personal Goal"
+							placeholder="Goal..."
+							name="goal"
+							value={this.state.goal}
+							onChange={this.handleChange}
+							width={12}
+						/>
+					</Form.Group>
+					<Button type="submit">Create Account</Button>
+				</Form>
+			</div>
 		);
 	}
 }

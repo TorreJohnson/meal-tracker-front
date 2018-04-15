@@ -24,15 +24,15 @@ const NutritionistMap = compose(
 		<GoogleMap
 			defaultZoom={14}
 			center={{
-				lat: props.nutritionist.office_longitude,
-				lng: props.nutritionist.office_latitude
+				lat: props.nutritionist.office_latitude,
+				lng: props.nutritionist.office_longitude
 			}}
 		>
 			{props.isMarkerShown && (
 				<Marker
 					position={{
-						lat: props.nutritionist.office_longitude,
-						lng: props.nutritionist.office_latitude
+						lat: props.nutritionist.office_latitude,
+						lng: props.nutritionist.office_longitude
 					}}
 				/>
 			)}

@@ -10,6 +10,8 @@ import {
 	Button,
 	Form
 } from "semantic-ui-react";
+import { sendUserRecNutrients } from "../actions/Actions";
+import { connect } from "react-redux";
 
 class ClientCard extends React.Component {
 	state = {
@@ -179,12 +181,17 @@ class ClientCard extends React.Component {
 
 	handleNutrientCountChange = e => {
 		this.setState({
-			[e.target.name]: e.target.value
+			[e.target.name]: parseInt(e.target.value, 10)
 		});
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
+		let payload = {
+			...this.state,
+			id: this.props.client.id
+		};
+		this.props.sendUserRecNutrients(payload);
 	};
 
 	render() {
@@ -233,7 +240,7 @@ class ClientCard extends React.Component {
 								</Grid.Row>
 								{this.state.assignClientNutrientGoals ? (
 									<Grid.Row columns={2}>
-										<Form>
+										<Form onSubmit={this.handleSubmit}>
 											<Grid.Column>
 												<Form.Group widths="equal">
 													<Form.Input
@@ -509,9 +516,7 @@ class ClientCard extends React.Component {
 														placeholder={this.state.zinc}
 													/>
 												</Form.Group>
-												<Form.Button onsubmit={this.handleSubmit}>
-													Submit
-												</Form.Button>
+												<Form.Button>Submit</Form.Button>
 											</Grid.Column>
 										</Form>
 									</Grid.Row>
@@ -583,4 +588,4 @@ class ClientCard extends React.Component {
 	}
 }
 
-export default ClientCard;
+export default connect(null, { sendUserRecNutrients })(ClientCard);

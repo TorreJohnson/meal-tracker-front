@@ -53,7 +53,6 @@ export default function reducer(
 			} else {
 				return { ...state };
 			}
-
 		case "LOG_OUT":
 			return {
 				...state,
@@ -102,6 +101,18 @@ export default function reducer(
 			return {
 				...state,
 				currentUser: action.payload
+			};
+		case "UPDATE_CLIENT":
+			let ind = state.clients.findIndex(
+				client => client.id === action.payload.id
+			);
+			return {
+				...state,
+				clients: [
+					...state.clients.slice(0, ind),
+					action.payload,
+					...state.clients.slice(ind + 1)
+				]
 			};
 		default:
 			return { ...state };

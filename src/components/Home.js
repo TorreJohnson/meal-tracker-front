@@ -5,6 +5,7 @@ import { Input, Label, Menu, Grid, Icon } from "semantic-ui-react";
 import CalorieGraph from "./graphs/CalorieGraph";
 import GramGraph from "./graphs/GramGraph";
 import MilligramGraph from "./graphs/MilligramGraph";
+import RadarGraph from "./graphs/RadarGraph";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 
@@ -13,7 +14,8 @@ class Home extends React.Component {
 		filter: "Daily",
 		recommendedValuesClicked: false,
 		activeItem: "Daily",
-		nutritionist: {}
+		nutritionist: {},
+		searchInput: ""
 	};
 
 	componentDidMount() {
@@ -68,17 +70,15 @@ class Home extends React.Component {
 		});
 	};
 
-	handleRecClick = () => {
-		this.setState({
-			recommendedValuesClicked: !this.state.recommendedValuesClicked
-		});
-	};
-
 	handleItemClick = (e, { name }) => {
 		if (name === "Daily" || name === "Weekly" || name === "Monthly") {
 			this.setState({
 				activeItem: name,
 				filter: name
+			});
+		} else if (name === "mrv") {
+			this.setState({
+				recommendedValuesClicked: !this.state.recommendedValuesClicked
 			});
 		} else {
 			this.setState({
@@ -91,9 +91,6 @@ class Home extends React.Component {
 		const { activeItem } = this.state;
 		return (
 			<div>
-				<button onClick={this.handleRecClick}>
-					{this.state.recommendedValuesClicked ? "Hide" : "Show"} Rec Values
-				</button>
 				<Grid>
 					<Grid.Column width={3}>
 						<Menu fluid vertical>
@@ -146,7 +143,18 @@ class Home extends React.Component {
 								)}
 								Last Month
 							</Menu.Item>
-
+							<Menu.Item
+								name="mrv"
+								active={activeItem === "mrv"}
+								onClick={this.handleItemClick}
+							>
+								{this.state.recommendedValuesClicked ? (
+									<Label color="teal" />
+								) : (
+									<Label />
+								)}
+								Maximum Recommended Values
+							</Menu.Item>
 							<Menu.Item
 								name="nutritionist"
 								active={activeItem === "nutritionist"}
@@ -177,11 +185,26 @@ class Home extends React.Component {
 									filter={this.state.filter}
 									recValues={this.state.recommendedValuesClicked}
 								/>
-								<GramGraph
-									filter={this.state.filter}
-									recValues={this.state.recommendedValuesClicked}
-								/>
-								<MilligramGraph
+								<div>
+									<Grid>
+										<Grid.Row>
+											<Grid.Column width={8}>
+												<MilligramGraph
+													filter={this.state.filter}
+													recValues={this.state.recommendedValuesClicked}
+												/>
+											</Grid.Column>
+											<Grid.Column width={8}>
+												<GramGraph
+													filter={this.state.filter}
+													recValues={this.state.recommendedValuesClicked}
+												/>
+											</Grid.Column>
+										</Grid.Row>
+									</Grid>
+								</div>
+
+								<RadarGraph
 									filter={this.state.filter}
 									recValues={this.state.recommendedValuesClicked}
 								/>

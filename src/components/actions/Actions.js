@@ -481,13 +481,14 @@ export function updateUser(payload, jwt) {
 
 export function sendUserRecNutrients(payload) {
 	return dispatch => {
+		console.log(payload);
 		fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				accept: "application/json"
 			},
-			body: {
+			body: JSON.stringify({
 				rec_beta_carotene: payload.rec_beta_carotene,
 				rec_caffeine: payload.rec_caffeine,
 				rec_calcium: payload.rec_calcium,
@@ -511,7 +512,14 @@ export function sendUserRecNutrients(payload) {
 				rec_vitamin_e: payload.rec_vitamin_e,
 				rec_vitamin_k: payload.rec_vitamin_k,
 				rec_zinc: payload.rec_zinc
-			}
-		});
+			})
+		})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_CLIENT",
+					payload: response
+				});
+			});
 	};
 }

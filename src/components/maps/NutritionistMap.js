@@ -14,7 +14,7 @@ const NutritionistMap = compose(
 			config.googleApiKey
 		}&v=3.exp&libraries=geometry,drawing,places`,
 		loadingElement: <div style={{ height: `100%` }} />,
-		containerElement: <div style={{ height: `300px`, width: `300px` }} />,
+		containerElement: <div style={{ height: `367px`, width: `551px` }} />,
 		mapElement: <div style={{ height: `100%` }} />
 	}),
 	withScriptjs,
@@ -22,7 +22,7 @@ const NutritionistMap = compose(
 )(props => {
 	return (
 		<GoogleMap
-			defaultZoom={14}
+			defaultZoom={15}
 			center={{
 				lat: props.nutritionist.office_latitude,
 				lng: props.nutritionist.office_longitude

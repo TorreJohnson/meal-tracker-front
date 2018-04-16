@@ -6,7 +6,8 @@ import {
 	Modal,
 	Image,
 	Label,
-	Segment
+	Segment,
+	Popup
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
@@ -15,22 +16,46 @@ import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 import { config } from "../../config.js";
 
 class NutritionistCard extends React.Component {
-	handleClick = () => {
-		let jwt = localStorage.getItem("token");
-		this.props.hireFireNutritionist(
-			this.props.currentUser,
-			this.props.nutritionist.id,
-			jwt
-		);
+	state = {
+		isOpen: false
 	};
+	handleClick = () => {
+		if (
+			this.props.currentUser.nutritionist_id === null ||
+			this.props.nutritionist.id === this.props.currentUser.nutritionist_id
+		) {
+			let jwt = localStorage.getItem("token");
+			this.props.hireFireNutritionist(
+				this.props.currentUser,
+				this.props.nutritionist.id,
+				jwt
+			);
+		}
+	};
+
+	timeoutLength = 2500;
+
+	handleOpen = () => {
+		this.setState({ isOpen: true });
+
+		this.timeout = setTimeout(() => {
+			this.setState({ isOpen: false });
+		}, this.timeoutLength);
+	};
+
+	handleClose = () => {
+		this.setState({ isOpen: false });
+		clearTimeout(this.timeout);
+	};
+
 	render() {
 		return (
 			<div>
-				<Segment>
+				<Segment compact>
 					<Modal
 						trigger={
 							<Card>
-								<Image src="" />
+								<Image src={this.props.nutritionist.profile_photo} />
 								<Card.Content>
 									{this.props.nutritionist.accepts_new_patients ? (
 										<Label as="a" color="green" ribbon="right">
@@ -49,7 +74,6 @@ class NutritionistCard extends React.Component {
 										{this.props.nutritionist.biography}
 									</Card.Description>
 								</Card.Content>
-								<Card.Content extra />
 							</Card>
 						}
 					>
@@ -62,6 +86,23 @@ class NutritionistCard extends React.Component {
 									name="remove user"
 									onClick={this.handleClick}
 									floated="right"
+								/>
+							) : this.props.currentUser.nutritionist_id ? (
+								<Popup
+									trigger={
+										<Icon
+											color="green"
+											name="add user"
+											onClick={this.handleClick}
+											floated="right"
+										/>
+									}
+									content={"You already have a nutritionist!"}
+									on="click"
+									open={this.state.isOpen}
+									onClose={this.handleClose}
+									onOpen={this.handleOpen}
+									position="top right"
 								/>
 							) : (
 								<Icon

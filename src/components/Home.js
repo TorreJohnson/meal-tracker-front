@@ -1,32 +1,45 @@
 import React from "react";
 import { connect } from "react-redux";
 import withAuth from "./authentication/WithAuth";
-import {
-	Dropdown,
-	Header,
-	Icon,
-	Input,
-	Label,
-	Menu,
-	Grid
-} from "semantic-ui-react";
+import { Input, Label, Menu, Grid, Icon } from "semantic-ui-react";
 import CalorieGraph from "./graphs/CalorieGraph";
 import GramGraph from "./graphs/GramGraph";
 import MilligramGraph from "./graphs/MilligramGraph";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
+import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 
 class Home extends React.Component {
 	state = {
 		filter: "Daily",
 		recommendedValuesClicked: false,
-		activeItem: "daily"
+		activeItem: "Daily",
+		nutritionist: {}
 	};
 
 	componentDidMount() {
 		if (!this.props.currentUser) {
 			this.props.history.push("/login");
 		}
+		this.fetchNutritionist();
 	}
+
+	fetchNutritionist = () => {
+		fetch(
+			`http://localhost:3000/api/v1/nutritionists/${
+				this.props.currentUser.nutritionist_id
+			}`,
+			{
+				"Content-Type": "application/json",
+				accept: "application/json"
+			}
+		)
+			.then(res => res.json())
+			.then(result => {
+				this.setState({
+					nutritionist: result
+				});
+			});
+	};
 
 	options = [
 		{
@@ -89,7 +102,15 @@ class Home extends React.Component {
 								active={activeItem === "Daily"}
 								onClick={this.handleItemClick}
 							>
-								<Label color="teal">1</Label>
+								{this.state.activeItem === "Daily" ? (
+									<Label color="teal">
+										<Icon name="calendar" />
+									</Label>
+								) : (
+									<Label>
+										<Icon name="calendar" />
+									</Label>
+								)}
 								Today
 							</Menu.Item>
 
@@ -98,7 +119,15 @@ class Home extends React.Component {
 								active={activeItem === "Weekly"}
 								onClick={this.handleItemClick}
 							>
-								<Label>51</Label>
+								{this.state.activeItem === "Weekly" ? (
+									<Label color="teal">
+										<Icon name="calendar" />
+									</Label>
+								) : (
+									<Label>
+										<Icon name="calendar" />
+									</Label>
+								)}
 								Last Week
 							</Menu.Item>
 							<Menu.Item
@@ -106,7 +135,15 @@ class Home extends React.Component {
 								active={activeItem === "Monthly"}
 								onClick={this.handleItemClick}
 							>
-								<Label>51</Label>
+								{this.state.activeItem === "Monthly" ? (
+									<Label color="teal">
+										<Icon name="calendar" />
+									</Label>
+								) : (
+									<Label>
+										<Icon name="calendar" />
+									</Label>
+								)}
 								Last Month
 							</Menu.Item>
 
@@ -115,7 +152,15 @@ class Home extends React.Component {
 								active={activeItem === "nutritionist"}
 								onClick={this.handleItemClick}
 							>
-								<Label>1</Label>
+								{this.state.activeItem === "nutritionist" ? (
+									<Label color="teal">
+										<Icon name="calendar" />
+									</Label>
+								) : (
+									<Label>
+										<Icon name="calendar" />
+									</Label>
+								)}
 								Your Nutritionist
 							</Menu.Item>
 							<Menu.Item>
@@ -124,22 +169,28 @@ class Home extends React.Component {
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={13}>
-						<CalorieGraph
-							filter={this.state.filter}
-							recValues={this.state.recommendedValuesClicked}
-						/>
-						<GramGraph
-							filter={this.state.filter}
-							recValues={this.state.recommendedValuesClicked}
-						/>
-						<MilligramGraph
-							filter={this.state.filter}
-							recValues={this.state.recommendedValuesClicked}
-						/>
-						<NutrientsThroughTime
-							filter={this.state.filter}
-							recValues={this.state.recommendedValuesClicked}
-						/>
+						{this.state.activeItem === "nutritionist" ? (
+							<NutritionistPage nutritionist={this.state.nutritionist} />
+						) : (
+							<div>
+								<CalorieGraph
+									filter={this.state.filter}
+									recValues={this.state.recommendedValuesClicked}
+								/>
+								<GramGraph
+									filter={this.state.filter}
+									recValues={this.state.recommendedValuesClicked}
+								/>
+								<MilligramGraph
+									filter={this.state.filter}
+									recValues={this.state.recommendedValuesClicked}
+								/>
+								<NutrientsThroughTime
+									filter={this.state.filter}
+									recValues={this.state.recommendedValuesClicked}
+								/>
+							</div>
+						)}
 					</Grid.Column>
 				</Grid>
 			</div>

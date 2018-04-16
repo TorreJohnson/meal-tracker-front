@@ -4,7 +4,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Home from "../Home";
 import Messages from "../messages/Messages";
-import FoodItemEntryForm from "../foodItems/FoodItemEntryForm";
+import FoodItemEntryForm from "../journal/FoodItemEntryForm";
 import Nutritionists from "../nutritionistMarket/Nutritionists";
 import { logOut } from "../actions/Actions";
 import Profile from "../profile/Profile";
@@ -25,6 +25,10 @@ class UsersContainer extends React.Component {
 		return (
 			<div>
 				<Menu pointing>
+					<Menu.Item>
+						<img src="./004-bars-chart.png" alt="meal tracker logo" />
+						<strong> MealTracker</strong>
+					</Menu.Item>
 					<Menu.Item
 						as={Link}
 						to="/"

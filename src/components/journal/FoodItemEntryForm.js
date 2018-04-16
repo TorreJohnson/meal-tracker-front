@@ -16,6 +16,7 @@ import { NdbNos } from "./NdbNos";
 import withAuth from "../authentication/WithAuth";
 import UpcCamera from "../Camera/UpcCamera";
 import cuid from "cuid";
+import JournalEntries from "./JournalEntries";
 
 class FoodItemEntryForm extends React.Component {
 	state = {
@@ -34,7 +35,7 @@ class FoodItemEntryForm extends React.Component {
 		scanning: false,
 		cameraId: "",
 		cameraSelected: [{ selected: false }],
-		activeItem: "inbox"
+		activeItem: "newEntry"
 	};
 
 	componentDidMount() {
@@ -379,21 +380,21 @@ class FoodItemEntryForm extends React.Component {
 					<Grid.Column width={3}>
 						<Menu fluid vertical>
 							<Menu.Item
-								name="inbox"
-								active={activeItem === "inbox"}
+								name="newEntry"
+								active={activeItem === "newEntry"}
 								onClick={this.handleItemClick}
 							>
 								<Label color="teal">1</Label>
-								Inbox
+								New Entry
 							</Menu.Item>
 
 							<Menu.Item
-								name="spam"
-								active={activeItem === "spam"}
+								name="previousEntries"
+								active={activeItem === "previousEntries"}
 								onClick={this.handleItemClick}
 							>
 								<Label>51</Label>
-								Spam
+								Previous Entries
 							</Menu.Item>
 
 							<Menu.Item
@@ -405,33 +406,39 @@ class FoodItemEntryForm extends React.Component {
 								Updates
 							</Menu.Item>
 							<Menu.Item>
-								<Input icon="search" placeholder="Search mail..." />
+								<Input icon="search" placeholder="Search items..." />
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={13}>
 						<Segment>
-							<div>
-								<Form onSubmit={this.handleSubmit}>
-									<label>UPC</label>
-									<label>Quantity</label>
-									<label>Unit Type</label>
-									<this.addRow />
-									<div>
-										<Button
-											animated="fade"
-											onClick={this.handleAdditionalRowClick}
-											floated="left"
-										>
-											<Button.Content visible>Add Another Item</Button.Content>
-											<Button.Content hidden>
-												<Icon name="down arrow" />
-											</Button.Content>
-										</Button>
-										<Button floated="right">Submit</Button>
-									</div>
-								</Form>
-							</div>
+							{this.state.activeItem === "newEntry" ? (
+								<div>
+									<Form onSubmit={this.handleSubmit}>
+										<label>UPC</label>
+										<label>Quantity</label>
+										<label>Unit Type</label>
+										<this.addRow />
+										<div>
+											<Button
+												animated="fade"
+												onClick={this.handleAdditionalRowClick}
+												floated="left"
+											>
+												<Button.Content visible>
+													Add Another Item
+												</Button.Content>
+												<Button.Content hidden>
+													<Icon name="down arrow" />
+												</Button.Content>
+											</Button>
+											<Button floated="right">Submit</Button>
+										</div>
+									</Form>
+								</div>
+							) : (
+								<JournalEntries />
+							)}
 						</Segment>
 					</Grid.Column>
 				</Grid>

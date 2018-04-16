@@ -29,7 +29,7 @@ class NutritionistsContainer extends React.Component {
 				<Menu pointing>
 					<Menu.Item
 						as={Link}
-						to="/nutritionists/"
+						to="/"
 						name="home"
 						active={activeItem === "home"}
 						onClick={this.handleItemClick}
@@ -52,7 +52,7 @@ class NutritionistsContainer extends React.Component {
 
 				<Segment>
 					<div>
-						<Route exact path="/nutritionists/" component={ClientsList} />
+						<Route exact path="/" component={ClientsList} />
 						<Route exact path="/nutritionists/messages" component={Messages} />
 					</div>
 				</Segment>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ClientCard } from "./ClientCard";
+import ClientCard from "./ClientCard";
 import { connect } from "react-redux";
 import cuid from "cuid";
 

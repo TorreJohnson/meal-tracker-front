@@ -478,3 +478,40 @@ export function updateUser(payload, jwt) {
 			});
 	};
 }
+
+export function sendUserRecNutrients(payload) {
+	return dispatch => {
+		fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json"
+			},
+			body: {
+				rec_beta_carotene: payload.rec_beta_carotene,
+				rec_caffeine: payload.rec_caffeine,
+				rec_calcium: payload.rec_calcium,
+				rec_carbohydrate: payload.rec_carbohydrate,
+				rec_cholesterol: payload.rec_cholesterol,
+				rec_fat: payload.rec_fat,
+				rec_fiber: payload.rec_fiber,
+				rec_folic_acid: payload.rec_folic_acid,
+				rec_iron: payload.rec_iron,
+				rec_niacin: payload.rec_niacin,
+				rec_potassium: payload.rec_potassium,
+				rec_protein: payload.rec_protein,
+				rec_riboflavin: payload.rec_riboflavin,
+				rec_sodium: payload.rec_sodium,
+				rec_sugars: payload.rec_sugars,
+				rec_thiamin: payload.rec_thiamin,
+				rec_vitamin_a: payload.rec_vitamin_a,
+				rec_vitamin_b12: payload.rec_vitamin_b12,
+				rec_vitamin_c: payload.rec_vitamin_c,
+				rec_vitamin_d: payload.rec_vitamin_d,
+				rec_vitamin_e: payload.rec_vitamin_e,
+				rec_vitamin_k: payload.rec_vitamin_k,
+				rec_zinc: payload.rec_zinc
+			}
+		});
+	};
+}

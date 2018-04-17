@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { postMessage } from "../actions/Actions";
 import { connect } from "react-redux";
 
@@ -92,7 +92,12 @@ class NewMessage extends React.Component {
 						onChange={this.handleTextChange}
 						placeholder="Body..."
 					/>
-					<Form.Button>Submit</Form.Button>
+					<Button
+						positive
+						icon="checkmark"
+						labelPosition="right"
+						content="Send"
+					/>
 				</Form>
 			</div>
 		);

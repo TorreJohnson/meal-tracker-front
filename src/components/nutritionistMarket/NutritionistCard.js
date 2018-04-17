@@ -2,7 +2,6 @@ import React from "react";
 import {
 	Card,
 	Icon,
-	Header,
 	Modal,
 	Image,
 	Label,
@@ -12,12 +11,13 @@ import {
 import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
 import NutritionistMapContainer from "../maps/NutritionistMapContainer";
-import { config } from "../../config.js";
 
 class NutritionistCard extends React.Component {
 	state = {
-		isOpen: false
+		isOpen: false,
+		open: false
 	};
+
 	handleClick = () => {
 		if (
 			this.props.currentUser.nutritionist_id === null ||
@@ -47,37 +47,39 @@ class NutritionistCard extends React.Component {
 		clearTimeout(this.timeout);
 	};
 
+	show = dimmer => () => this.setState({ dimmer, open: true });
+	close = () => this.setState({ open: false });
+
 	render() {
+		const { open, dimmer } = this.state;
 		return (
 			<div>
 				<Segment compact>
-					<Modal
-						trigger={
-							<Card>
-								<Image src={this.props.nutritionist.profile_photo} />
-								<Card.Content>
-									{this.props.nutritionist.accepts_new_patients ? (
-										<Label as="a" color="green" ribbon="right">
-											Accepting Patients
-										</Label>
-									) : (
-										<Label as="a" color="red" ribbon="right">
-											Not Accepting Patients
-										</Label>
-									)}
-									<Card.Header>{this.props.nutritionist.name}</Card.Header>
-									<Card.Meta>
-										<span>{this.props.nutritionist.office_address}</span>
-									</Card.Meta>
-									<Card.Description>
-										{this.props.nutritionist.biography}
-									</Card.Description>
-								</Card.Content>
-							</Card>
-						}
-					>
+					<Card onClick={this.show("blurring")}>
+						<Image src={this.props.nutritionist.profile_photo} />
+						<Card.Content>
+							{this.props.nutritionist.accepts_new_patients ? (
+								<Label as="a" color="green" ribbon="right">
+									Accepting Patients
+								</Label>
+							) : (
+								<Label as="a" color="red" ribbon="right">
+									Not Accepting Patients
+								</Label>
+							)}
+							<Card.Header>{this.props.nutritionist.name}</Card.Header>
+							<Card.Meta>
+								<span>{this.props.nutritionist.office_address}</span>
+							</Card.Meta>
+							<Card.Description>
+								{this.props.nutritionist.biography.split(". ")[0]}...
+							</Card.Description>
+						</Card.Content>
+					</Card>
+
+					<Modal dimmer={dimmer} open={open} onClose={this.close}>
 						<Modal.Header>
-							{this.props.nutritionist.name}
+							{this.props.nutritionist.name}{" "}
 							{this.props.nutritionist.id ===
 							this.props.currentUser.nutritionist_id ? (
 								<Icon
@@ -112,21 +114,21 @@ class NutritionistCard extends React.Component {
 								/>
 							)}
 						</Modal.Header>
-						<Modal.Content image>
-							<img
-								src={`https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${
-									this.props.nutritionist.office_address
-								}&key=${config.googleApiKey}`}
-								alt="office street view"
-							/>
-
-							<Modal.Description>
-								<NutritionistMapContainer
-									nutritionist={this.props.nutritionist}
+						<Segment>
+							<Modal.Content image>
+								<Image
+									src={this.props.nutritionist.profile_photo}
+									size="small"
+									floated="left"
 								/>
-								<Header>{this.props.nutritionist.biography}</Header>
-							</Modal.Description>
-						</Modal.Content>
+								<Modal.Description>
+									<p>{this.props.nutritionist.biography}</p>
+									<NutritionistMapContainer
+										nutritionist={this.props.nutritionist}
+									/>
+								</Modal.Description>
+							</Modal.Content>
+						</Segment>
 					</Modal>
 				</Segment>
 			</div>

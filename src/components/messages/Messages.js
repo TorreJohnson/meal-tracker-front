@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Modal, Input, Label, Menu, Grid, Message } from "semantic-ui-react";
 import MessageCard from "./MessageCard";
 import NewMessage from "./NewMessage";
 import cuid from "cuid";
+import { Modal, Input, Label, Menu, Grid, Message } from "semantic-ui-react";
 
 class Messages extends React.Component {
 	state = {
-		modalOpen: false,
 		activeItem: "inbox",
-		searchTerm: ""
+		searchTerm: "",
+		open: false
 	};
 
 	componentDidMount() {
@@ -54,18 +54,6 @@ class Messages extends React.Component {
 		}
 	};
 
-	handleOpen = () => {
-		this.setState({
-			modalOpen: true
-		});
-	};
-
-	handleClose = () => {
-		this.setState({
-			modalOpen: false
-		});
-	};
-
 	handleActiveMailboxFolder = (e, { name }) => {
 		this.setState({
 			activeItem: name
@@ -75,6 +63,19 @@ class Messages extends React.Component {
 	handleSearchInputChange = e => {
 		this.setState({
 			searchTerm: e.target.value
+		});
+	};
+
+	show = dimmer => () => {
+		this.setState({
+			dimmer,
+			open: true
+		});
+	};
+
+	close = () => {
+		this.setState({
+			open: false
 		});
 	};
 
@@ -130,7 +131,7 @@ class Messages extends React.Component {
 	};
 
 	render() {
-		const { activeItem } = this.state;
+		const { activeItem, open, dimmer } = this.state;
 		return (
 			<div>
 				<Grid>
@@ -148,7 +149,6 @@ class Messages extends React.Component {
 								)}
 								Inbox
 							</Menu.Item>
-
 							<Menu.Item
 								name="unread"
 								active={activeItem === "unread"}
@@ -161,7 +161,6 @@ class Messages extends React.Component {
 								)}
 								Unread
 							</Menu.Item>
-
 							<Menu.Item
 								name="sent"
 								active={activeItem === "sent"}
@@ -175,22 +174,13 @@ class Messages extends React.Component {
 								)}
 								Sent
 							</Menu.Item>
-							<Modal
-								trigger={
-									<Menu.Item
-										name="send"
-										active={activeItem === "send"}
-										onClick={this.handleOpen}
-									>
-										Send New Message
-									</Menu.Item>
-								}
-								open={this.state.modalOpen}
-								onClose={this.handleClose}
+							<Menu.Item
+								name="send"
+								active={activeItem === "send"}
+								onClick={this.show("blurring")}
 							>
-								<Modal.Header>New Message</Modal.Header>
-								<NewMessage onSubmit={this.handleClose} />
-							</Modal>
+								Send New Message
+							</Menu.Item>
 							<Menu.Item>
 								<Input
 									icon="search"
@@ -200,6 +190,14 @@ class Messages extends React.Component {
 								/>
 							</Menu.Item>
 						</Menu>
+						<Modal dimmer={dimmer} open={open} onClose={this.close}>
+							<Modal.Header>New Message</Modal.Header>
+							<Modal.Content image>
+								<Modal.Description>
+									<NewMessage onSubmit={this.close} />
+								</Modal.Description>
+							</Modal.Content>
+						</Modal>
 					</Grid.Column>
 					<Grid.Column width={13}>{this.messageCards()}</Grid.Column>
 				</Grid>

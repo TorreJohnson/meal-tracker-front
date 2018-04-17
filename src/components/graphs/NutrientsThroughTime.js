@@ -249,7 +249,7 @@ class NutrientsThroughTime extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>{this.capitalizeNutrient()}</h2>
+				<h2>{this.capitalizeNutrient()} (Last 30 Days)</h2>
 				{this.props.recValues ? (
 					<Line data={this.data2()} />
 				) : (

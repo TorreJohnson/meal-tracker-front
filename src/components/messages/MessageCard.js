@@ -15,15 +15,15 @@ import { postMessage, updateReadMessage } from "../actions/Actions";
 class MessageCard extends React.Component {
 	state = {
 		body: "",
-		modalOpen: false
+		open: false
 	};
 
-	handleOpen = () => this.setState({ modalOpen: true });
+	show = dimmer => () => this.setState({ dimmer, open: true });
+	close = () => this.setState({ open: false });
 
-	handleClose = () => this.setState({ modalOpen: false });
-
-	handleReplyClick = () => {
-		this.setState({ modalOpen: false });
+	handleReplyClick = e => {
+		e.preventDefault();
+		this.close();
 		if (this.props.nutritionistLoggedIn) {
 			this.props.postMessage(
 				{
@@ -68,6 +68,7 @@ class MessageCard extends React.Component {
 	};
 
 	render() {
+		const { open, dimmer } = this.state;
 		return (
 			<div>
 				<Segment>
@@ -83,29 +84,32 @@ class MessageCard extends React.Component {
 									<Icon name="checkmark box" />
 								</Button.Content>
 							</Button>
-							<Modal
-								trigger={
-									<Button animated onClick={this.handleOpen}>
-										<Button.Content visible>Reply</Button.Content>
-										<Button.Content hidden>
-											<Icon name="reply" />
-										</Button.Content>
-									</Button>
-								}
-								open={this.state.modalOpen}
-								onClose={this.handleClose}
-							>
+							<Button animated onClick={this.show("blurring")}>
+								<Button.Content visible>Reply</Button.Content>
+								<Button.Content hidden>
+									<Icon name="reply" />
+								</Button.Content>
+							</Button>
+							<Modal dimmer={dimmer} open={open} onClose={this.close}>
 								<Modal.Header>Message Reply</Modal.Header>
-								<Modal.Description>
-									<Header>re: {this.props.message.subject}</Header>
-									<Form>
-										<TextArea
-											value={this.state.body}
-											onChange={this.handleChange}
-										/>
-									</Form>
-									<Button onClick={this.handleReplyClick}>Send</Button>
-								</Modal.Description>
+								<Modal.Content>
+									<Modal.Description>
+										<Header>re: {this.props.message.subject}</Header>
+										<Form>
+											<TextArea
+												value={this.state.body}
+												onChange={this.handleChange}
+											/>
+											<Button
+												positive
+												icon="checkmark"
+												labelPosition="right"
+												content="Send"
+												onClick={this.handleReplyClick}
+											/>
+										</Form>
+									</Modal.Description>
+								</Modal.Content>
 							</Modal>
 						</Card.Content>
 						<Card.Content extra>

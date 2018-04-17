@@ -1,4 +1,5 @@
 import React from "react";
+import cuid from "cuid";
 import {
 	Segment,
 	Header,
@@ -16,6 +17,24 @@ class JournalEntryCard extends React.Component {
 
 	show = dimmer => () => this.setState({ dimmer, open: true });
 	close = () => this.setState({ open: false });
+
+	mapThroughIngredients = () => {
+		if (this.props.foodItem.ingredients) {
+			let listedIngredients = this.props.foodItem.ingredients
+				.split(", ")
+				.map(ingredient => <List.Item key={cuid()}>{ingredient}</List.Item>);
+			return (
+				<Segment>
+					<Header>Ingredients</Header>
+					<Grid>
+						<Grid.Column>
+							<List>{listedIngredients}</List>
+						</Grid.Column>
+					</Grid>
+				</Segment>
+			);
+		}
+	};
 
 	render() {
 		const { open, dimmer } = this.state;
@@ -59,71 +78,86 @@ class JournalEntryCard extends React.Component {
 							}
 						/>
 						<Modal.Description>
-							<Header>Nutrient Values</Header>
-							<Grid columns={2}>
-								<Grid.Column>
-									<List>
-										<List.Item>
-											Beta Carotene: {this.props.foodItem.beta_carotene}
-										</List.Item>
-										<List.Item>
-											Caffeine: {this.props.foodItem.caffeine}
-										</List.Item>
-										<List.Item>
-											Calcium: {this.props.foodItem.calcium}
-										</List.Item>
-										<List.Item>
-											Carbohydrates: {this.props.foodItem.carbohydrate}
-										</List.Item>
-										<List.Item>
-											Cholesterol: {this.props.foodItem.cholesterol}
-										</List.Item>
-										<List.Item>
-											Calories: {this.props.foodItem.calories}
-										</List.Item>
-										<List.Item>Fat: {this.props.foodItem.fat}</List.Item>
-										<List.Item>Fiber: {this.props.foodItem.fiber}</List.Item>
-										<List.Item>
-											Folic Acid: {this.props.foodItem.folic_acid}
-										</List.Item>
-										<List.Item>Iron: {this.props.foodItem.iron}</List.Item>
-										<List.Item>Niacin: {this.props.foodItem.calcium}</List.Item>
-									</List>
-								</Grid.Column>
-								<Grid.Column>
-									<List.Item>
-										Potassium: {this.props.foodItem.potassium}
-									</List.Item>
-									<List.Item>Protein: {this.props.foodItem.protein}</List.Item>
-									<List.Item>
-										Riboflavin: {this.props.foodItem.riboflavin}
-									</List.Item>
-									<List.Item>
-										Sodium: {this.props.foodItem.sodium} Mgs
-									</List.Item>
-									<List.Item>Sugars: {this.props.foodItem.sugars}</List.Item>
-									<List.Item>Thiamin: {this.props.foodItem.thiamin}</List.Item>
-									<List.Item>
-										Vitamin A: {this.props.foodItem.vitamin_a}
-									</List.Item>
-									<List.Item>
-										Vitamin B12: {this.props.foodItem.vitamin_b12}
-									</List.Item>
-									<List.Item>
-										Vitamin C: {this.props.foodItem.vitamin_c}
-									</List.Item>
-									<List.Item>
-										Vitamin D: {this.props.foodItem.vitamin_d}
-									</List.Item>
-									<List.Item>
-										Vitamin E: {this.props.foodItem.vitamin_e}
-									</List.Item>
-									<List.Item>
-										Vitamin K: {this.props.foodItem.vitamin_k}
-									</List.Item>
-									<List.Item>Zinc: {this.props.foodItem.zinc}</List.Item>
-								</Grid.Column>
-							</Grid>
+							<Segment.Group horizontal>
+								<Segment>
+									<Header>Nutrient Values</Header>
+									<Grid columns={2}>
+										<Grid.Column>
+											<List>
+												<List.Item>
+													Beta Carotene: {this.props.foodItem.beta_carotene}
+												</List.Item>
+												<List.Item>
+													Caffeine: {this.props.foodItem.caffeine}
+												</List.Item>
+												<List.Item>
+													Calcium: {this.props.foodItem.calcium}
+												</List.Item>
+												<List.Item>
+													Carbohydrates: {this.props.foodItem.carbohydrate}
+												</List.Item>
+												<List.Item>
+													Cholesterol: {this.props.foodItem.cholesterol}
+												</List.Item>
+												<List.Item>
+													Calories: {this.props.foodItem.calories}
+												</List.Item>
+												<List.Item>Fat: {this.props.foodItem.fat}</List.Item>
+												<List.Item>
+													Fiber: {this.props.foodItem.fiber}
+												</List.Item>
+												<List.Item>
+													Folic Acid: {this.props.foodItem.folic_acid}
+												</List.Item>
+												<List.Item>Iron: {this.props.foodItem.iron}</List.Item>
+												<List.Item>
+													Niacin: {this.props.foodItem.calcium}
+												</List.Item>
+											</List>
+										</Grid.Column>
+										<Grid.Column>
+											<List.Item>
+												Potassium: {this.props.foodItem.potassium}
+											</List.Item>
+											<List.Item>
+												Protein: {this.props.foodItem.protein}
+											</List.Item>
+											<List.Item>
+												Riboflavin: {this.props.foodItem.riboflavin}
+											</List.Item>
+											<List.Item>
+												Sodium: {this.props.foodItem.sodium} Mgs
+											</List.Item>
+											<List.Item>
+												Sugars: {this.props.foodItem.sugars}
+											</List.Item>
+											<List.Item>
+												Thiamin: {this.props.foodItem.thiamin}
+											</List.Item>
+											<List.Item>
+												Vitamin A: {this.props.foodItem.vitamin_a}
+											</List.Item>
+											<List.Item>
+												Vitamin B12: {this.props.foodItem.vitamin_b12}
+											</List.Item>
+											<List.Item>
+												Vitamin C: {this.props.foodItem.vitamin_c}
+											</List.Item>
+											<List.Item>
+												Vitamin D: {this.props.foodItem.vitamin_d}
+											</List.Item>
+											<List.Item>
+												Vitamin E: {this.props.foodItem.vitamin_e}
+											</List.Item>
+											<List.Item>
+												Vitamin K: {this.props.foodItem.vitamin_k}
+											</List.Item>
+											<List.Item>Zinc: {this.props.foodItem.zinc}</List.Item>
+										</Grid.Column>
+									</Grid>
+								</Segment>
+								{this.mapThroughIngredients()}
+							</Segment.Group>
 						</Modal.Description>
 					</Modal.Content>
 				</Modal>

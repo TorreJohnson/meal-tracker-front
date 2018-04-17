@@ -6,7 +6,6 @@ import { config } from "../../config.js";
 
 class NutritionistPage extends React.Component {
 	render() {
-		console.log(this.props);
 		return (
 			<div>
 				<Segment padded>

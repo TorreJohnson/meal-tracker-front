@@ -1,4 +1,4 @@
-export const nutrients = {
+export const NutrientDefinitions = {
 	beta_carotene: {
 		name: "Beta Carotene",
 		text:

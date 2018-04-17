@@ -60,11 +60,11 @@ class NutritionistCard extends React.Component {
 						<Card.Content>
 							{this.props.nutritionist.accepts_new_patients ? (
 								<Label as="a" color="green" ribbon="right">
-									Accepting Patients
+									Accepting Clients
 								</Label>
 							) : (
 								<Label as="a" color="red" ribbon="right">
-									Not Accepting Patients
+									Not Accepting Clients
 								</Label>
 							)}
 							<Card.Header>{this.props.nutritionist.name}</Card.Header>
@@ -114,21 +114,19 @@ class NutritionistCard extends React.Component {
 								/>
 							)}
 						</Modal.Header>
-						<Segment>
-							<Modal.Content image>
-								<Image
-									src={this.props.nutritionist.profile_photo}
-									size="small"
-									floated="left"
+						<Modal.Content image scrolling>
+							<Image
+								src={this.props.nutritionist.profile_photo}
+								size="large"
+								wrapped
+							/>
+							<Modal.Description>
+								{this.props.nutritionist.biography}
+								<NutritionistMapContainer
+									nutritionist={this.props.nutritionist}
 								/>
-								<Modal.Description>
-									<p>{this.props.nutritionist.biography}</p>
-									<NutritionistMapContainer
-										nutritionist={this.props.nutritionist}
-									/>
-								</Modal.Description>
-							</Modal.Content>
-						</Segment>
+							</Modal.Description>
+						</Modal.Content>
 					</Modal>
 				</Segment>
 			</div>

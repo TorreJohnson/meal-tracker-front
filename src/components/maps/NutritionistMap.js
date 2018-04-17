@@ -20,7 +20,6 @@ const NutritionistMap = compose(
 	withScriptjs,
 	withGoogleMap
 )(props => {
-	console.log("hitting map");
 	return (
 		<GoogleMap
 			defaultZoom={15}

@@ -7,7 +7,8 @@ import { Input, Label, Menu, Grid } from "semantic-ui-react";
 class Nutritionists extends React.Component {
 	state = {
 		nutritionists: [],
-		activeItem: "all"
+		activeItem: "all",
+		searchTerm: ""
 	};
 
 	componentDidMount() {
@@ -35,6 +36,17 @@ class Nutritionists extends React.Component {
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+	countNutritionists = () => {
+		console.log(this.state.nutritionists);
+		return this.state.nutritionists.length;
+	};
+
+	countAvailableNutritionists = () => {
+		return this.state.nutritionists.filter(
+			nutritionist => nutritionist.accepts_new_patients
+		).length;
+	};
+
 	render() {
 		const { activeItem } = this.state;
 		return (
@@ -47,16 +59,16 @@ class Nutritionists extends React.Component {
 								active={activeItem === "all"}
 								onClick={this.handleItemClick}
 							>
-								<Label color="teal">1</Label>
+								<Label color="teal">{this.countNutritionists()}</Label>
 								All Nutritionists
 							</Menu.Item>
 							<Menu.Item
-								name="spam"
-								active={activeItem === "spam"}
+								name="accepting"
+								active={activeItem === "accepting"}
 								onClick={this.handleItemClick}
 							>
-								<Label>51</Label>
-								Spam
+								<Label>{this.countAvailableNutritionists()}</Label>
+								Accepting Clients
 							</Menu.Item>
 
 							<Menu.Item

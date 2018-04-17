@@ -199,7 +199,7 @@ class Messages extends React.Component {
 							</Modal.Content>
 						</Modal>
 					</Grid.Column>
-					<Grid.Column width={13}>{this.messageCards()}</Grid.Column>
+					<Grid.Column width={10}>{this.messageCards()}</Grid.Column>
 				</Grid>
 			</div>
 		);

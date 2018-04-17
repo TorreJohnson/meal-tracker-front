@@ -2,10 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import JournalEntryCard from "./JournalEntryCards";
 import cuid from "cuid";
-import { Message } from "semantic-ui-react";
+import { Message, Grid } from "semantic-ui-react";
 
 class JournalEntries extends React.Component {
 	createFoodItemCards = () => {
+		let i = 1;
+		let left = [];
+		let right = [];
 		let reversedEntries = [...this.props.currentUser.food_items.reverse()];
 		let filteredEntries = reversedEntries.filter(item => {
 			if (item.name && item.brand) {
@@ -20,9 +23,25 @@ class JournalEntries extends React.Component {
 			}
 		});
 		if (filteredEntries.length) {
-			return filteredEntries.map(item => (
-				<JournalEntryCard key={cuid()} foodItem={item} />
-			));
+			filteredEntries.map(item => {
+				if (i % 2 === 0) {
+					right.push(<JournalEntryCard key={cuid()} foodItem={item} />);
+					i++;
+				} else {
+					left.push(<JournalEntryCard key={cuid()} foodItem={item} />);
+					i++;
+				}
+			});
+			return (
+				<div>
+					<Grid>
+						<Grid.Row>
+							<Grid.Column width={8}>{left}</Grid.Column>
+							<Grid.Column width={8}>{right}</Grid.Column>
+						</Grid.Row>
+					</Grid>
+				</div>
+			);
 		} else {
 			return <Message floating>No Items Found</Message>;
 		}

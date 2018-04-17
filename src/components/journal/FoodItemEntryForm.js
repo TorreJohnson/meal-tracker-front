@@ -406,7 +406,6 @@ class FoodItemEntryForm extends React.Component {
 								)}
 								New Entry
 							</Menu.Item>
-
 							<Menu.Item
 								name="previousEntries"
 								active={activeItem === "previousEntries"}
@@ -431,14 +430,16 @@ class FoodItemEntryForm extends React.Component {
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
-					<Grid.Column width={13}>
+					<Grid.Column width={10}>
 						<Segment>
 							{this.state.activeItem === "newEntry" ? (
 								<div>
 									<Form onSubmit={this.handleSubmit}>
-										<label>UPC</label>
-										<label>Quantity</label>
-										<label>Unit Type</label>
+										<Form.Group>
+											<Form.Field label="UPC" width={8} />
+											<Form.Field label="Quantity" width={4} />
+											<Form.Field label="Unit Type" width={4} />
+										</Form.Group>
 										<this.addRow />
 										<div>
 											<Button

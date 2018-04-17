@@ -1,16 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { hireFireNutritionist } from "../actions/Actions";
+import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 import {
 	Card,
-	Icon,
 	Modal,
 	Image,
 	Label,
 	Segment,
-	Popup
+	Popup,
+	Button
 } from "semantic-ui-react";
-import { connect } from "react-redux";
-import { hireFireNutritionist } from "../actions/Actions";
-import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 
 class NutritionistCard extends React.Component {
 	state = {
@@ -82,33 +82,35 @@ class NutritionistCard extends React.Component {
 							{this.props.nutritionist.name}{" "}
 							{this.props.nutritionist.id ===
 							this.props.currentUser.nutritionist_id ? (
-								<Icon
+								<Button
+									circular
 									color="red"
-									name="remove user"
+									icon="remove user"
 									onClick={this.handleClick}
 									floated="right"
 								/>
 							) : this.props.currentUser.nutritionist_id ? (
 								<Popup
 									trigger={
-										<Icon
+										<Button
+											circular
 											color="green"
-											name="add user"
-											onClick={this.handleClick}
+											icon="add user"
 											floated="right"
 										/>
 									}
 									content={"You already have a nutritionist!"}
-									on="click"
+									on="hover"
 									open={this.state.isOpen}
 									onClose={this.handleClose}
 									onOpen={this.handleOpen}
-									position="top right"
+									position="bottom right"
 								/>
 							) : (
-								<Icon
+								<Button
+									circular
 									color="green"
-									name="add user"
+									icon="add user"
 									onClick={this.handleClick}
 									floated="right"
 								/>

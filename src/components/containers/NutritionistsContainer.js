@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import withAuth from "../authentication/WithAuth";
 import Messages from "../messages/Messages";
 import { logOut, fetchClients } from "../actions/Actions";
 import ClientsList from "../nutritionists/ClientsList";
@@ -71,5 +72,5 @@ export default withRouter(
 			};
 		},
 		{ logOut, fetchClients }
-	)(NutritionistsContainer)
+	)(withAuth(NutritionistsContainer))
 );

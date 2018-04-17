@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "../authentication/WithAuth";
 import { Modal, Input, Label, Menu, Grid, Message } from "semantic-ui-react";
 import MessageCard from "./MessageCard";
 import NewMessage from "./NewMessage";
@@ -215,4 +214,4 @@ export default connect(state => {
 		loggedIn: state.loggedIn,
 		nutritionistLoggedIn: state.nutritionistLoggedIn
 	};
-})(withAuth(Messages));
+})(Messages);

@@ -1,7 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import withAuth from "../authentication/WithAuth";
 
 class GramGraph extends React.Component {
 	filterFoodItems = filter => {
@@ -148,4 +147,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(withAuth(GramGraph));
+})(GramGraph);

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "../authentication/WithAuth";
 import { Line } from "react-chartjs-2";
 
 class NutrientsThroughTime extends React.Component {
@@ -266,4 +265,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(withAuth(NutrientsThroughTime));
+})(NutrientsThroughTime);

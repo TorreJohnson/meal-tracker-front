@@ -1,7 +1,6 @@
 import React from "react";
 import NutritionistCard from "./NutritionistCard";
 import { connect } from "react-redux";
-import withAuth from "../authentication/WithAuth";
 import cuid from "cuid";
 import { Input, Label, Menu, Grid } from "semantic-ui-react";
 
@@ -85,4 +84,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(withAuth(Nutritionists));
+})(Nutritionists);

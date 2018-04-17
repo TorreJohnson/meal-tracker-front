@@ -11,7 +11,6 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { postMessage, updateReadMessage } from "../actions/Actions";
-import withAuth from "../authentication/WithAuth";
 
 class MessageCard extends React.Component {
 	state = {
@@ -134,4 +133,4 @@ export default connect(
 		};
 	},
 	{ postMessage, updateReadMessage }
-)(withAuth(MessageCard));
+)(MessageCard);

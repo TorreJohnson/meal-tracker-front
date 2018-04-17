@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import withAuth from "../authentication/WithAuth";
 import Home from "../Home";
 import Messages from "../messages/Messages";
 import FoodItemEntryForm from "../journal/FoodItemEntryForm";
@@ -94,5 +95,5 @@ export default withRouter(
 			return { currentUser: state.currentUser, loggedIn: state.loggedIn };
 		},
 		{ logOut }
-	)(UsersContainer)
+	)(withAuth(UsersContainer))
 );

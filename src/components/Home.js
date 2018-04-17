@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "./authentication/WithAuth";
 import CalorieGraph from "./graphs/CalorieGraph";
 import GramGraph from "./graphs/GramGraph";
 import MilligramGraph from "./graphs/MilligramGraph";
@@ -345,4 +344,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(withAuth(Home));
+})(Home);

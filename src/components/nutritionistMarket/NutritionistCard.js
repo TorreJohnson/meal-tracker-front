@@ -11,7 +11,6 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { hireFireNutritionist } from "../actions/Actions";
-import withAuth from "../authentication/WithAuth";
 import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 import { config } from "../../config.js";
 
@@ -140,4 +139,4 @@ export default connect(
 		return { currentUser: state.currentUser, loggedIn: state.loggedIn };
 	},
 	{ hireFireNutritionist }
-)(withAuth(NutritionistCard));
+)(NutritionistCard);

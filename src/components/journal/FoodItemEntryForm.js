@@ -13,7 +13,6 @@ import {
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/Actions";
 import { NdbNos } from "./NdbNos";
-import withAuth from "../authentication/WithAuth";
 import UpcCamera from "../Camera/UpcCamera";
 import cuid from "cuid";
 import JournalEntries from "./JournalEntries";
@@ -480,4 +479,4 @@ export default connect(
 		};
 	},
 	{ fetchNutrients }
-)(withAuth(FoodItemEntryForm));
+)(FoodItemEntryForm);

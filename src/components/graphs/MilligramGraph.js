@@ -25,59 +25,33 @@ class MilligramGraph extends React.Component {
 
 	mapNutrientCountsInState(items) {
 		let beta_carotene = 0;
-		items.forEach(item => {
-			beta_carotene += item.beta_carotene;
-		});
 		let caffeine = 0;
-		items.forEach(item => {
-			caffeine += item.caffeine;
-		});
 		let cholesterol = 0;
-		items.forEach(item => {
-			cholesterol += item.cholesterol;
-		});
 		let folic_acid = 0;
-		items.forEach(item => {
-			folic_acid += item.folic_acid;
-		});
 		let iron = 0;
-		items.forEach(item => {
-			iron += item.iron;
-		});
 		let niacin = 0;
-		items.forEach(item => {
-			niacin += item.niacin;
-		});
 		let riboflavin = 0;
-		items.forEach(item => {
-			riboflavin += item.riboflavin;
-		});
 		let thiamin = 0;
-		items.forEach(item => {
-			thiamin += item.thiamin;
-		});
 		let vitamin_a = 0;
-		items.forEach(item => {
-			vitamin_a += item.vitamin_a;
-		});
 		let vitamin_b12 = 0;
-		items.forEach(item => {
-			vitamin_b12 += item.vitamin_b12;
-		});
 		let vitamin_d = 0;
-		items.forEach(item => {
-			vitamin_d += item.vitamin_d;
-		});
 		let vitamin_e = 0;
-		items.forEach(item => {
-			vitamin_e += item.vitamin_e;
-		});
 		let vitamin_k = 0;
-		items.forEach(item => {
-			vitamin_k += item.vitamin_k;
-		});
 		let zinc = 0;
 		items.forEach(item => {
+			beta_carotene += item.beta_carotene;
+			caffeine += item.caffeine;
+			cholesterol += item.cholesterol;
+			folic_acid += item.folic_acid;
+			iron += item.iron;
+			niacin += item.niacin;
+			riboflavin += item.riboflavin;
+			thiamin += item.thiamin;
+			vitamin_a += item.vitamin_a;
+			vitamin_b12 += item.vitamin_b12;
+			vitamin_d += item.vitamin_d;
+			vitamin_e += item.vitamin_e;
+			vitamin_k += item.vitamin_k;
 			zinc += item.zinc;
 		});
 		return [

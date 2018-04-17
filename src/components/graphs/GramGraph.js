@@ -25,39 +25,23 @@ class GramGraph extends React.Component {
 
 	mapNutrientCountsInState(items) {
 		let calcium = 0;
-		items.forEach(item => {
-			calcium += item.calcium;
-		});
 		let carbohydrate = 0;
-		items.forEach(item => {
-			carbohydrate += item.carbohydrate;
-		});
 		let fat = 0;
-		items.forEach(item => {
-			fat += item.fat;
-		});
 		let fiber = 0;
-		items.forEach(item => {
-			fiber += item.fiber;
-		});
 		let potassium = 0;
-		items.forEach(item => {
-			potassium += item.potassium;
-		});
 		let protein = 0;
-		items.forEach(item => {
-			protein += item.protein;
-		});
 		let sodium = 0;
-		items.forEach(item => {
-			sodium += item.sodium / 1000;
-		});
 		let sugars = 0;
-		items.forEach(item => {
-			sugars += item.sugars;
-		});
 		let vitamin_c = 0;
 		items.forEach(item => {
+			calcium += item.calcium;
+			carbohydrate += item.carbohydrate;
+			fat += item.fat;
+			fiber += item.fiber;
+			potassium += item.potassium;
+			protein += item.protein;
+			sodium += item.sodium / 1000;
+			sugars += item.sugars;
 			vitamin_c += item.vitamin_c;
 		});
 		return [

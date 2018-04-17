@@ -1,13 +1,5 @@
 import React from "react";
-import {
-	Segment,
-	Button,
-	Header,
-	Image,
-	Modal,
-	Card,
-	Icon
-} from "semantic-ui-react";
+import { Segment, Button, Header, Image, Modal, Card } from "semantic-ui-react";
 
 class JournalEntryCard extends React.Component {
 	state = {
@@ -32,24 +24,16 @@ class JournalEntryCard extends React.Component {
 					<Card.Content>
 						<Card.Header>{this.props.foodItem.name}</Card.Header>
 						<Card.Meta>
-							<span className="date">
-								Recorded on{" "}
-								{this.props.foodItem.created_at
-									.split("T")[1]
-									.split(".")[0]
-									.slice(0, 5)}{" "}
-								on {this.props.foodItem.created_at.split("T")[0]}
-							</span>
+							<span className="date">{this.props.foodItem.brand}</span>
 						</Card.Meta>
 						<Card.Description>
-							Matthew is a musician living in Nashville.
+							Recorded on{" "}
+							{this.props.foodItem.created_at
+								.split("T")[1]
+								.split(".")[0]
+								.slice(0, 5)}{" "}
+							on {this.props.foodItem.created_at.split("T")[0]}
 						</Card.Description>
-					</Card.Content>
-					<Card.Content extra>
-						<a>
-							<Icon name="user" />
-							22 Friends
-						</a>
 					</Card.Content>
 				</Card>
 				<Modal dimmer={dimmer} open={open} onClose={this.close}>

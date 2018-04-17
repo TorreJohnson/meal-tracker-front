@@ -35,7 +35,8 @@ class FoodItemEntryForm extends React.Component {
 		scanning: false,
 		cameraId: "",
 		cameraSelected: [{ selected: false }],
-		activeItem: "newEntry"
+		activeItem: "newEntry",
+		searchTerm: ""
 	};
 
 	componentDidMount() {
@@ -370,7 +371,18 @@ class FoodItemEntryForm extends React.Component {
 		});
 	};
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+	handleItemClick = (e, { name }) => {
+		this.setState({
+			activeItem: name
+		});
+	};
+
+	handleSearchInputChange = e => {
+		this.setState({
+			searchTerm: e.target.value.toLowerCase(),
+			activeItem: "previousEntries"
+		});
+	};
 
 	render() {
 		const { activeItem } = this.state;
@@ -384,7 +396,15 @@ class FoodItemEntryForm extends React.Component {
 								active={activeItem === "newEntry"}
 								onClick={this.handleItemClick}
 							>
-								<Label color="teal">1</Label>
+								{this.state.activeItem === "newEntry" ? (
+									<Label color="teal">
+										<Icon name="write" />
+									</Label>
+								) : (
+									<Label>
+										<Icon name="write" />
+									</Label>
+								)}
 								New Entry
 							</Menu.Item>
 
@@ -393,20 +413,22 @@ class FoodItemEntryForm extends React.Component {
 								active={activeItem === "previousEntries"}
 								onClick={this.handleItemClick}
 							>
-								<Label>51</Label>
+								{this.state.activeItem === "previousEntries" ? (
+									<Label color="teal">
+										{this.props.currentUser.food_items.length}
+									</Label>
+								) : (
+									<Label>{this.props.currentUser.food_items.length}</Label>
+								)}
 								Previous Entries
 							</Menu.Item>
-
-							<Menu.Item
-								name="updates"
-								active={activeItem === "updates"}
-								onClick={this.handleItemClick}
-							>
-								<Label>1</Label>
-								Updates
-							</Menu.Item>
 							<Menu.Item>
-								<Input icon="search" placeholder="Search items..." />
+								<Input
+									icon="search"
+									onChange={this.handleSearchInputChange}
+									value={this.state.searchTerm}
+									placeholder="Search items..."
+								/>
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
@@ -437,7 +459,7 @@ class FoodItemEntryForm extends React.Component {
 									</Form>
 								</div>
 							) : (
-								<JournalEntries />
+								<JournalEntries searchTerm={this.state.searchTerm} />
 							)}
 						</Segment>
 					</Grid.Column>

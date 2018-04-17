@@ -7,7 +7,7 @@ import MilligramGraph from "./graphs/MilligramGraph";
 import RadarGraph from "./graphs/RadarGraph";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
-import { NutrientDefinitions } from "./graphs/NutrientDefinitions";
+import { NutrientDefinitions } from "./nutrients/NutrientDefinitions";
 import cuid from "cuid";
 import {
 	Label,
@@ -244,11 +244,11 @@ class Home extends React.Component {
 							>
 								{this.state.activeItem === "Daily" ? (
 									<Label color="teal">
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 1
 									</Label>
 								) : (
 									<Label>
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 1
 									</Label>
 								)}
 								Today
@@ -261,11 +261,11 @@ class Home extends React.Component {
 							>
 								{this.state.activeItem === "Weekly" ? (
 									<Label color="teal">
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 7
 									</Label>
 								) : (
 									<Label>
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 7
 									</Label>
 								)}
 								Last Week
@@ -277,11 +277,11 @@ class Home extends React.Component {
 							>
 								{this.state.activeItem === "Monthly" ? (
 									<Label color="teal">
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 30
 									</Label>
 								) : (
 									<Label>
-										<Icon name="calendar" />
+										<Icon name="calendar outline" /> 30
 									</Label>
 								)}
 								Last Month

@@ -7,7 +7,8 @@ import {
 	Modal,
 	Card,
 	Grid,
-	List
+	List,
+	Reveal
 } from "semantic-ui-react";
 
 class JournalEntryCard extends React.Component {
@@ -40,7 +41,7 @@ class JournalEntryCard extends React.Component {
 		const { open, dimmer } = this.state;
 		return (
 			<Segment padded compact id="featured">
-				<Card onClick={this.show("blurring")}>
+				<Card onClick={this.show("blurring")} color="green">
 					<Image
 						src={
 							this.props.foodItem.high_res

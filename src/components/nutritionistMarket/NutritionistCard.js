@@ -57,7 +57,7 @@ class NutritionistCard extends React.Component {
 		return (
 			<div>
 				<Segment compact id="featured">
-					<Card onClick={this.show("blurring")}>
+					<Card onClick={this.show("blurring")} color="green">
 						<Image src={this.props.nutritionist.profile_photo} />
 						<Card.Content>
 							{this.props.nutritionist.accepts_new_patients ? (

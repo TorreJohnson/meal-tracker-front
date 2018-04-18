@@ -108,7 +108,7 @@ class Nutritionists extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "all" ? (
-									<Label color="teal">{this.countNutritionists()}</Label>
+									<Label color="green">{this.countNutritionists()}</Label>
 								) : (
 									<Label>{this.countNutritionists()}</Label>
 								)}
@@ -121,7 +121,7 @@ class Nutritionists extends React.Component {
 							>
 								{" "}
 								{this.state.activeItem === "accepting" ? (
-									<Label color="teal">
+									<Label color="green">
 										{this.countAvailableNutritionists()}
 									</Label>
 								) : (

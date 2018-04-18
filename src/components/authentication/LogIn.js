@@ -65,7 +65,7 @@ class LogIn extends React.Component {
 										placeholder="Password..."
 									/>
 								</Form.Field>
-								<Button type="submit" basic color="teal">
+								<Button type="submit" basic color="green">
 									Submit
 								</Button>
 							</Form>

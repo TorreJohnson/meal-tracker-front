@@ -396,7 +396,7 @@ class FoodItemEntryForm extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "newEntry" ? (
-									<Label color="teal">
+									<Label color="green">
 										<Icon name="write" />
 									</Label>
 								) : (
@@ -412,7 +412,7 @@ class FoodItemEntryForm extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "previousEntries" ? (
-									<Label color="teal">
+									<Label color="green">
 										{this.props.currentUser.food_items.length}
 									</Label>
 								) : (
@@ -453,7 +453,7 @@ class FoodItemEntryForm extends React.Component {
 												animated="fade"
 												onClick={this.handleAdditionalRowClick}
 												floated="left"
-												color="teal"
+												color="green"
 												basic
 											>
 												<Button.Content visible>
@@ -463,7 +463,7 @@ class FoodItemEntryForm extends React.Component {
 													<Icon name="down arrow" />
 												</Button.Content>
 											</Button>
-											<Button floated="right" color="teal" basic>
+											<Button floated="right" color="green" basic>
 												Submit
 											</Button>
 										</div>

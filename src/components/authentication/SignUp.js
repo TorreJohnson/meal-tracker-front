@@ -167,7 +167,7 @@ class SignUp extends React.Component {
 											onChange={this.handleChange}
 										/>
 									</Form.Group>
-									<Button type="submit" basic color="teal">
+									<Button type="submit" basic color="green">
 										Create Account
 									</Button>
 								</Form>

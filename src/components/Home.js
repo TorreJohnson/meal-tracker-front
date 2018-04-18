@@ -255,7 +255,7 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "Daily" ? (
-									<Label color="teal">
+									<Label color="green">
 										<Icon name="calendar outline" /> 1
 									</Label>
 								) : (
@@ -272,7 +272,7 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "Weekly" ? (
-									<Label color="teal">
+									<Label color="green">
 										<Icon name="calendar outline" /> 7
 									</Label>
 								) : (
@@ -288,7 +288,7 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "Monthly" ? (
-									<Label color="teal">
+									<Label color="green">
 										<Icon name="calendar outline" /> 30
 									</Label>
 								) : (
@@ -304,7 +304,7 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.recommendedValuesClicked ? (
-									<Label color="teal" />
+									<Label color="green" />
 								) : (
 									<Label />
 								)}
@@ -316,7 +316,7 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.activeItem === "nutritionist" ? (
-									<Label color="teal">
+									<Label color="green">
 										<Icon />
 									</Label>
 								) : (

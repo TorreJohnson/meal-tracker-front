@@ -26,7 +26,12 @@ class UsersContainer extends React.Component {
 		return (
 			<div>
 				<Menu pointing>
-					<Menu.Item>
+					<Menu.Item
+						as={Link}
+						to="/"
+						name="home"
+						onClick={this.handleItemClick}
+					>
 						<img src="./004-bars-chart.png" alt="meal tracker logo" />
 						<strong> MealTracker</strong>
 					</Menu.Item>

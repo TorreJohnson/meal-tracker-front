@@ -70,7 +70,7 @@ class Profile extends React.Component {
 									<Button
 										onClick={this.handleSaveClick}
 										floated="right"
-										color="teal"
+										color="green"
 									>
 										<Icon name="save" />Save Changes
 									</Button>
@@ -192,7 +192,7 @@ class Profile extends React.Component {
 									<Button
 										onClick={this.handleEditClick}
 										basic
-										color="teal"
+										color="green"
 										floated="right"
 									>
 										<Icon name="edit" />Edit Profile

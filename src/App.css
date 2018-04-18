@@ -8,18 +8,18 @@ p {
 }
 
 #main-container {
-	background-color: #adc8c7;
+	background-color: #f8f7f5;
 	height: 100%;
 }
 
 #featured {
-	color: #69a5aa;
-	background-color: #69a5aa;
+	/* color: #69a5aa; */
+	/* background-color: #69a5aa; */
 	margin: 10px;
 }
 
 #bgfeatured {
-	background-color: #bb9a8f;
+	/* background-color: #bb9a8f; */
 }
 
 #food.segment {

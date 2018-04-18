@@ -143,7 +143,7 @@ class Messages extends React.Component {
 								onClick={this.handleActiveMailboxFolder}
 							>
 								{this.state.activeItem === "inbox" ? (
-									<Label color="teal">{this.getInboxMessageCount()}</Label>
+									<Label color="green">{this.getInboxMessageCount()}</Label>
 								) : (
 									<Label>{this.getInboxMessageCount()}</Label>
 								)}
@@ -155,7 +155,7 @@ class Messages extends React.Component {
 								onClick={this.handleActiveMailboxFolder}
 							>
 								{this.state.activeItem === "unread" ? (
-									<Label color="teal">{this.getUnreadMessageCount()}</Label>
+									<Label color="green">{this.getUnreadMessageCount()}</Label>
 								) : (
 									<Label>{this.getUnreadMessageCount()}</Label>
 								)}
@@ -168,7 +168,7 @@ class Messages extends React.Component {
 							>
 								{" "}
 								{this.state.activeItem === "sent" ? (
-									<Label color="teal">{this.getSentMessageCount()}</Label>
+									<Label color="green">{this.getSentMessageCount()}</Label>
 								) : (
 									<Label>{this.getSentMessageCount()}</Label>
 								)}

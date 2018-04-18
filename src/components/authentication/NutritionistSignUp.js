@@ -147,7 +147,7 @@ class NutritionistSignUp extends React.Component {
 										onChange={this.handleChange}
 										placeholder="Tell us more about you..."
 									/>
-									<Form.Button basic color="teal">
+									<Form.Button basic color="green">
 										Submit
 									</Form.Button>
 								</Form>

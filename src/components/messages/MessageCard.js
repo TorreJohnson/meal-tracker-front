@@ -72,14 +72,14 @@ class MessageCard extends React.Component {
 		return (
 			<div>
 				<Segment id="featured">
-					<Card centered fluid>
+					<Card centered fluid color="green">
 						<Card.Content header={this.props.message.subject} />
 						<Card.Content description={this.props.message.body} />
 						<Card.Content extra>
 							<Button
 								animated
 								onClick={this.handleReadClick}
-								color="teal"
+								color="green"
 								basic
 							>
 								<Button.Content visible>
@@ -92,7 +92,7 @@ class MessageCard extends React.Component {
 							<Button
 								animated
 								onClick={this.show("blurring")}
-								color="teal"
+								color="green"
 								basic
 							>
 								<Button.Content visible>Reply</Button.Content>

@@ -9,7 +9,9 @@ import {
 	Label,
 	Segment,
 	Popup,
-	Button
+	Button,
+	Grid,
+	Header
 } from "semantic-ui-react";
 
 class NutritionistCard extends React.Component {
@@ -124,9 +126,24 @@ class NutritionistCard extends React.Component {
 							/>
 							<Modal.Description>
 								{this.props.nutritionist.biography}
-								<NutritionistMapContainer
-									nutritionist={this.props.nutritionist}
-								/>
+
+								<Grid>
+									<Grid.Row>
+										<Grid.Column width={10}>
+											<br />
+											<NutritionistMapContainer
+												nutritionist={this.props.nutritionist}
+											/>
+										</Grid.Column>
+										<Grid.Column width={4}>
+											<br />
+											<br />
+											<Header>{this.props.nutritionist.company_name}</Header>
+											<br />
+											{this.props.nutritionist.office_address}
+										</Grid.Column>
+									</Grid.Row>
+								</Grid>
 							</Modal.Description>
 						</Modal.Content>
 					</Modal>

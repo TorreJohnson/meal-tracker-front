@@ -76,7 +76,12 @@ class MessageCard extends React.Component {
 						<Card.Content header={this.props.message.subject} />
 						<Card.Content description={this.props.message.body} />
 						<Card.Content extra>
-							<Button animated onClick={this.handleReadClick}>
+							<Button
+								animated
+								onClick={this.handleReadClick}
+								color="teal"
+								basic
+							>
 								<Button.Content visible>
 									{this.props.message.read ? "Mark as Unread" : "Mark as Read"}
 								</Button.Content>
@@ -84,7 +89,12 @@ class MessageCard extends React.Component {
 									<Icon name="checkmark box" />
 								</Button.Content>
 							</Button>
-							<Button animated onClick={this.show("blurring")}>
+							<Button
+								animated
+								onClick={this.show("blurring")}
+								color="teal"
+								basic
+							>
 								<Button.Content visible>Reply</Button.Content>
 								<Button.Content hidden>
 									<Icon name="reply" />

@@ -223,7 +223,7 @@ class FoodItemEntryForm extends React.Component {
 		let rows = [];
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
-				<div key={this.state.items[i].key}>
+				<div key={this.state.items[i].key} id="food">
 					<Icon
 						name="camera"
 						circular
@@ -431,21 +431,30 @@ class FoodItemEntryForm extends React.Component {
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<Segment>
+						<Segment id="food">
 							{this.state.activeItem === "newEntry" ? (
 								<div>
 									<Form onSubmit={this.handleSubmit}>
-										<Form.Group>
-											<Form.Field label="UPC" width={8} />
-											<Form.Field label="Quantity" width={4} />
-											<Form.Field label="Unit Type" width={4} />
-										</Form.Group>
+										{this.state.scanning ? (
+											<Form.Group>
+												<Form.Field label="UPC" width={4} />
+												<Form.Field label="Servings" width={4} />
+											</Form.Group>
+										) : (
+											<Form.Group>
+												<Form.Field label="Item" width={8} />
+												<Form.Field label="Quantity" width={4} />
+												<Form.Field label="Unit Type" width={4} />
+											</Form.Group>
+										)}
 										<this.addRow />
 										<div>
 											<Button
 												animated="fade"
 												onClick={this.handleAdditionalRowClick}
 												floated="left"
+												color="teal"
+												basic
 											>
 												<Button.Content visible>
 													Add Another Item
@@ -454,7 +463,9 @@ class FoodItemEntryForm extends React.Component {
 													<Icon name="down arrow" />
 												</Button.Content>
 											</Button>
-											<Button floated="right">Submit</Button>
+											<Button floated="right" color="teal" basic>
+												Submit
+											</Button>
 										</div>
 									</Form>
 								</div>
@@ -465,7 +476,15 @@ class FoodItemEntryForm extends React.Component {
 					</Grid.Column>
 				</Grid>
 				{this.state.scanning ? (
-					<UpcCamera cameraToggle={this.turnUpcCameraOff} />
+					<Grid>
+						<Grid.Row>
+							<Grid.Column width={5} />
+							<Grid.Column width={6}>
+								<UpcCamera cameraToggle={this.turnUpcCameraOff} />
+							</Grid.Column>
+							<Grid.Column width={5} />
+						</Grid.Row>
+					</Grid>
 				) : null}
 			</div>
 		);

@@ -23,7 +23,7 @@ class Profile extends React.Component {
 		address: this.props.currentUser.address,
 		birthday: this.props.currentUser.birthday,
 		weight: this.props.currentUser.weight,
-		height: this.props.currentUser.birthday,
+		height: this.props.currentUser.height,
 		goal: this.props.currentUser.goal,
 		profilePhoto: this.props.currentUser.profile_photo
 	};

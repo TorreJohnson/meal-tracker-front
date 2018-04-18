@@ -22,6 +22,10 @@ p {
 	background-color: #bb9a8f;
 }
 
+#food.segment {
+	padding-bottom: 50px;
+}
+
 .App {
 	background-image: url("carrots-food-fresh-616404.jpg");
 	height: 100%;

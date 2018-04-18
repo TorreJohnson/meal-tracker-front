@@ -39,7 +39,7 @@ class JournalEntryCard extends React.Component {
 	render() {
 		const { open, dimmer } = this.state;
 		return (
-			<Segment padded compact>
+			<Segment padded compact id="featured">
 				<Card onClick={this.show("blurring")}>
 					<Image
 						src={

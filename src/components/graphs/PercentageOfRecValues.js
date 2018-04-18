@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-class PercentageOfRecValues extends React.Componen {
+class PercentageOfRecValues extends React.Component {
 	data = () => {
 		return {
 			labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -27,7 +27,7 @@ class PercentageOfRecValues extends React.Componen {
 					width={100}
 					height={50}
 					options={{
-						maintainAspectRatio: false
+						maintainAspectRatio: true
 					}}
 				/>
 			</div>

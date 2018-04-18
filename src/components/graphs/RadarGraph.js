@@ -19,6 +19,7 @@ class RadarGraph extends React.Component {
 			const items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
 			);
+			console.log(this.mapMgNutrientCountsInState(items));
 			return this.mapMgNutrientCountsInState(items);
 		}
 	};

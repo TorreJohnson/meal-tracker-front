@@ -43,11 +43,11 @@ class CalorieGraph extends React.Component {
 			datasets: [
 				{
 					label: "You",
-					backgroundColor: "rgba(75,192,192,0.4)",
-					borderColor: "rgba(75,192,192,1)",
+					backgroundColor: "rgba(31,177,61,0.2)",
+					borderColor: "rgba(31,177,61,1)",
 					borderWidth: 1,
-					hoverBackgroundColor: "rgba(75,192,192,0.2)",
-					hoverBorderColor: "rgba(75,192,192,1)",
+					hoverBackgroundColor: "rgba(31,177,61,0.2)",
+					hoverBorderColor: "rgba(31,177,61,1)",
 					data: this.filterFoodItems()
 				}
 			]
@@ -127,6 +127,11 @@ class CalorieGraph extends React.Component {
 				/>
 				<HorizontalBar
 					data={this.props.recValues ? this.data2() : this.data()}
+					width={100}
+					height={25}
+					options={{
+						maintainAspectRatio: true
+					}}
 				/>
 			</div>
 		);

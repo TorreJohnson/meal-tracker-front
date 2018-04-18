@@ -72,8 +72,8 @@ class GramGraph extends React.Component {
 			datasets: [
 				{
 					label: "You",
-					backgroundColor: "rgba(255,99,132,0.2)",
-					borderColor: "rgba(255,99,132,1)",
+					backgroundColor: "rgba(31,177,61,0.2)",
+					borderColor: "rgba(31,177,61,1)",
 					borderWidth: 1,
 					hoverBackgroundColor: "rgba(255,99,132,0.4)",
 					hoverBorderColor: "rgba(255,99,132,1)",

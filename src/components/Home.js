@@ -7,6 +7,7 @@ import RadarGraph from "./graphs/RadarGraph";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 import { NutrientDefinitions } from "./nutrients/NutrientDefinitions";
+import NutrientProgressBar from "./graphs/NutrientProgressBar";
 import cuid from "cuid";
 import {
 	Label,
@@ -94,7 +95,8 @@ class Home extends React.Component {
 		} else {
 			this.setState({
 				activeItem: name,
-				searchInput: ""
+				searchInput: "",
+				recommendedValuesClicked: false
 			});
 		}
 	};
@@ -188,6 +190,10 @@ class Home extends React.Component {
 									<Grid.Column width={16}>
 										<NutrientsThroughTime
 											filter={this.state.filter}
+											recValues={this.state.recommendedValuesClicked}
+											nutrient={this.state.searchInput}
+										/>
+										<NutrientProgressBar
 											recValues={this.state.recommendedValuesClicked}
 											nutrient={this.state.searchInput}
 										/>
@@ -304,11 +310,15 @@ class Home extends React.Component {
 								onClick={this.handleItemClick}
 							>
 								{this.state.recommendedValuesClicked ? (
-									<Label color="green" />
+									<Label color="green">
+										<Icon />
+									</Label>
 								) : (
-									<Label />
+									<Label>
+										<Icon />
+									</Label>
 								)}
-								Maximum Recommended Values
+								Maximum Recommended Amount
 							</Menu.Item>
 							<Menu.Item
 								name="nutritionist"

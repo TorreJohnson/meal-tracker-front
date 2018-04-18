@@ -71,7 +71,7 @@ class MessageCard extends React.Component {
 		const { open, dimmer } = this.state;
 		return (
 			<div>
-				<Segment>
+				<Segment id="featured">
 					<Card centered fluid>
 						<Card.Content header={this.props.message.subject} />
 						<Card.Content description={this.props.message.body} />

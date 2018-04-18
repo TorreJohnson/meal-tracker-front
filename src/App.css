@@ -7,20 +7,19 @@ p {
 	float: left;
 }
 
-.centered {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	/* bring your own prefixes */
-	transform: translate(-50%, -50%);
-}
-
 #main-container {
 	background-color: #adc8c7;
+	height: 100%;
 }
 
-.featured {
+#featured {
 	color: #69a5aa;
+	background-color: #69a5aa;
+	margin: 10px;
+}
+
+#bgfeatured {
+	background-color: #bb9a8f;
 }
 
 .App {

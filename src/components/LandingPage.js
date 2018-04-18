@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Menu, Dropdown } from "semantic-ui-react";
+import { Menu, Dropdown } from "semantic-ui-react";
 
 class LandingPage extends React.Component {
 	render() {
 		return (
 			<div className="landing">
 				<Menu pointing>
-					<Menu.Item>
+					<Menu.Item as={Link} to="/">
 						<img src="./004-bars-chart.png" alt="meal tracker logo" />
 						<strong> MealTracker</strong>
 					</Menu.Item>

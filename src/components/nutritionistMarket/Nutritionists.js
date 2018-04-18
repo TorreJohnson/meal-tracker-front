@@ -140,9 +140,7 @@ class Nutritionists extends React.Component {
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<Segment className="featured">
-							{this.createNutritionistCards()}
-						</Segment>
+						<Segment id="bgfeatured">{this.createNutritionistCards()}</Segment>
 					</Grid.Column>
 				</Grid>
 			</div>

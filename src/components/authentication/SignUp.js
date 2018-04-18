@@ -158,7 +158,7 @@ class SignUp extends React.Component {
 										/>
 									</Form.Group>
 									<Form.Group>
-										<Form.Input
+										<Form.TextArea
 											label="Personal Goal"
 											placeholder="Goal..."
 											name="goal"

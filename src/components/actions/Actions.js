@@ -467,11 +467,15 @@ export function updateUser(payload, jwt) {
 						Authorization: jwt
 					},
 					body: JSON.stringify({
+						name: payload.name,
 						username: payload.username,
+						email: payload.email,
 						address: payload.address,
-						age: payload.age,
+						birthday: payload.birthday,
 						weight: payload.weight,
+						height: payload.height,
 						goal: payload.goal,
+						profile_photo: payload.profilePhoto,
 						latitude: response.results[0].geometry.location.lat,
 						longitude: response.results[0].geometry.location.lng
 					})

@@ -55,96 +55,52 @@ class ClientCard extends React.Component {
 
 	mapNutrientCountsInState(items) {
 		let beta_carotene = 0;
-		items.forEach(item => {
-			beta_carotene += item.beta_carotene;
-		});
 		let caffeine = 0;
-		items.forEach(item => {
-			caffeine += item.caffeine;
-		});
+		let calcium = 0;
+		let carbohydrate = 0;
 		let cholesterol = 0;
-		items.forEach(item => {
-			cholesterol += item.cholesterol;
-		});
+		let fat = 0;
+		let fiber = 0;
 		let folic_acid = 0;
-		items.forEach(item => {
-			folic_acid += item.folic_acid;
-		});
 		let iron = 0;
-		items.forEach(item => {
-			iron += item.iron;
-		});
 		let niacin = 0;
-		items.forEach(item => {
-			niacin += item.niacin;
-		});
+		let potassium = 0;
+		let protein = 0;
 		let riboflavin = 0;
-		items.forEach(item => {
-			riboflavin += item.riboflavin;
-		});
+		let sodium = 0;
+		let sugars = 0;
 		let thiamin = 0;
-		items.forEach(item => {
-			thiamin += item.thiamin;
-		});
 		let vitamin_a = 0;
-		items.forEach(item => {
-			vitamin_a += item.vitamin_a;
-		});
 		let vitamin_b12 = 0;
-		items.forEach(item => {
-			vitamin_b12 += item.vitamin_b12;
-		});
+		let vitamin_c = 0;
 		let vitamin_d = 0;
-		items.forEach(item => {
-			vitamin_d += item.vitamin_d;
-		});
 		let vitamin_e = 0;
-		items.forEach(item => {
-			vitamin_e += item.vitamin_e;
-		});
 		let vitamin_k = 0;
-		items.forEach(item => {
-			vitamin_k += item.vitamin_k;
-		});
 		let zinc = 0;
 		items.forEach(item => {
-			zinc += item.zinc;
-		});
-		let calcium = 0;
-		items.forEach(item => {
+			beta_carotene += item.beta_carotene;
+			caffeine += item.caffeine;
 			calcium += item.calcium;
-		});
-		let carbohydrate = 0;
-		items.forEach(item => {
 			carbohydrate += item.carbohydrate;
-		});
-		let fat = 0;
-		items.forEach(item => {
+			cholesterol += item.cholesterol;
 			fat += item.fat;
-		});
-		let fiber = 0;
-		items.forEach(item => {
 			fiber += item.fiber;
-		});
-		let potassium = 0;
-		items.forEach(item => {
+			folic_acid += item.folic_acid;
+			iron += item.iron;
+			niacin += item.niacin;
 			potassium += item.potassium;
-		});
-		let protein = 0;
-		items.forEach(item => {
 			protein += item.protein;
-		});
-		let sodium = 0;
-		items.forEach(item => {
+			riboflavin += item.riboflavin;
 			sodium += item.sodium / 1000;
-		});
-		let sugars = 0;
-		items.forEach(item => {
 			sugars += item.sugars;
-		});
-		let vitamin_c = 0;
-		items.forEach(item => {
+			thiamin += item.thiamin;
+			vitamin_a += item.vitamin_a;
+			vitamin_b12 += item.vitamin_b12;
 			vitamin_c += item.vitamin_c;
+			vitamin_d += item.vitamin_d;
+			vitamin_e += item.vitamin_e;
+			vitamin_k += item.vitamin_k;
+			zinc += item.zinc;
 		});
 		this.setState({
 			beta_carotene: beta_carotene,

@@ -134,13 +134,15 @@ class Nutritionists extends React.Component {
 									icon="search"
 									onChange={this.handleSearchInputChange}
 									value={this.state.searchTerm}
-									placeholder="Search mail..."
+									placeholder="Search Nutritionists..."
 								/>
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<Segment>{this.createNutritionistCards()}</Segment>
+						<Segment className="featured">
+							{this.createNutritionistCards()}
+						</Segment>
 					</Grid.Column>
 				</Grid>
 			</div>

@@ -1,3 +1,32 @@
+#root {
+	height: 100%;
+	width: 100%;
+}
+
 p {
 	float: left;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+
+#main-container {
+	background-color: #adc8c7;
+}
+
+.featured {
+	color: #69a5aa;
+}
+
+.App {
+	background-image: url("carrots-food-fresh-616404.jpg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }

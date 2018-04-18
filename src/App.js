@@ -5,7 +5,6 @@ import { Route, withRouter } from "react-router-dom";
 import UsersContainer from "./components/containers/UsersContainer";
 import NutritionistsContainer from "./components/containers/NutritionistsContainer";
 import LandingPage from "./components/LandingPage";
-import NutritionistLandingPage from "./components/NutritionistLandingPage";
 import SignUp from "./components/authentication/SignUp";
 import LogIn from "./components/authentication/LogIn";
 import NutritionistSignUp from "./components/authentication/NutritionistSignUp";
@@ -37,11 +36,6 @@ class App extends Component {
 				{this.routeUsersOrNutritionists()}
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/login" component={LogIn} />
-				<Route
-					exact
-					path="/nutritionists/"
-					component={NutritionistLandingPage}
-				/>
 				<Route
 					exact
 					path="/nutritionists/signup"

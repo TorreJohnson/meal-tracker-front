@@ -184,46 +184,59 @@ class Home extends React.Component {
 									</Grid.Column>
 									<Grid.Column width={1} />
 								</Grid.Row>
+								<Grid.Row>
+									<Grid.Column width={16}>
+										<NutrientsThroughTime
+											filter={this.state.filter}
+											recValues={this.state.recommendedValuesClicked}
+											nutrient={this.state.searchInput}
+										/>
+									</Grid.Column>
+								</Grid.Row>
 							</Grid>
 						</Segment>
 					</div>
-					<NutrientsThroughTime
-						filter={this.state.filter}
-						recValues={this.state.recommendedValuesClicked}
-						nutrient={this.state.searchInput}
-					/>
 				</div>
 			);
 		} else {
 			return (
 				<div>
-					<CalorieGraph
-						filter={this.state.filter}
-						recValues={this.state.recommendedValuesClicked}
-					/>
-					<div>
+					<Segment padded>
 						<Grid>
 							<Grid.Row>
-								<Grid.Column width={8}>
+								<Grid.Column>
+									<CalorieGraph
+										filter={this.state.filter}
+										recValues={this.state.recommendedValuesClicked}
+									/>
+								</Grid.Column>
+							</Grid.Row>
+							<Grid.Row>
+								<Grid.Column>
 									<MilligramGraph
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
 								</Grid.Column>
-								<Grid.Column width={8}>
+							</Grid.Row>
+							<Grid.Row>
+								<Grid.Column>
 									<GramGraph
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
 								</Grid.Column>
 							</Grid.Row>
+							<Grid.Row>
+								<Grid.Column>
+									<RadarGraph
+										filter={this.state.filter}
+										recValues={this.state.recommendedValuesClicked}
+									/>
+								</Grid.Column>
+							</Grid.Row>
 						</Grid>
-					</div>
-
-					<RadarGraph
-						filter={this.state.filter}
-						recValues={this.state.recommendedValuesClicked}
-					/>
+					</Segment>
 				</div>
 			);
 		}
@@ -304,11 +317,11 @@ class Home extends React.Component {
 							>
 								{this.state.activeItem === "nutritionist" ? (
 									<Label color="teal">
-										<Icon name="calendar" />
+										<Icon />
 									</Label>
 								) : (
 									<Label>
-										<Icon name="calendar" />
+										<Icon />
 									</Label>
 								)}
 								Your Nutritionist
@@ -326,7 +339,7 @@ class Home extends React.Component {
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
-					<Grid.Column width={13}>
+					<Grid.Column width={10}>
 						{this.state.activeItem === "nutritionist" ? (
 							<NutritionistPage nutritionist={this.state.nutritionist} />
 						) : (

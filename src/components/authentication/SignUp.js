@@ -1,7 +1,7 @@
 import React from "react";
 import { signUp } from "../actions/Actions";
 import { connect } from "react-redux";
-import { Button, Form, Image, Icon } from "semantic-ui-react";
+import { Button, Form, Image, Icon, Segment, Grid } from "semantic-ui-react";
 import { config } from "../../config.js";
 import ReactFilestack from "filestack-react";
 
@@ -63,108 +63,119 @@ class SignUp extends React.Component {
 	render() {
 		return (
 			<div>
-				{" "}
-				{this.state.profilePhoto.length ? (
-					<Image src={this.state.profilePhoto} size="medium" rounded />
-				) : (
-					<Icon name="user circle outline" size="massive" />
-				)}
-				<ReactFilestack
-					apikey={config.fileStackApiKey}
-					buttonText="Add a Profile Photo"
-					buttonClass="classname"
-					options={this.fileStackOptions}
-					onSuccess={this.onSuccess}
-				/>
-				<Form onSubmit={this.handleSubmit}>
-					<Form.Group>
-						<Form.Input
-							label="Name"
-							placeholder="Name..."
-							name="name"
-							value={this.state.name}
-							onChange={this.handleChange}
-							width={6}
-						/>
-						<Form.Input
-							label="Username"
-							placeholder="Username..."
-							name="username"
-							value={this.state.username}
-							onChange={this.handleChange}
-							width={6}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Input
-							label="Email Address"
-							placeholder="Email..."
-							name="email"
-							value={this.state.email}
-							onChange={this.handleChange}
-							width={6}
-						/>
-						<Form.Input
-							label="Password"
-							type="password"
-							placeholder="Password..."
-							name="password"
-							value={this.state.password}
-							onChange={this.handleChange}
-							width={6}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Input
-							label="Birthday"
-							type="date"
-							placeholder="Age..."
-							name="birthday"
-							value={this.state.birthday}
-							onChange={this.handleChange}
-							width={4}
-						/>
-						<Form.Input
-							label="Weight"
-							type="number"
-							placeholder="Weight (in pounds)..."
-							name="weight"
-							value={this.state.weight}
-							onChange={this.handleChange}
-							width={4}
-						/>
-						<Form.Input
-							label="Height"
-							type="number"
-							placeholder="Height (in inches)..."
-							name="height"
-							value={this.state.height}
-							onChange={this.handleChange}
-							width={4}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Input
-							label="Home Address"
-							placeholder="Home Address..."
-							name="address"
-							value={this.state.address}
-							onChange={this.handleChange}
-							width={12}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Input
-							label="Personal Goal"
-							placeholder="Goal..."
-							name="goal"
-							value={this.state.goal}
-							onChange={this.handleChange}
-							width={12}
-						/>
-					</Form.Group>
-					<Button type="submit">Create Account</Button>
-				</Form>
+				<Grid>
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row />
+					<Grid.Row>
+						<Grid.Column width={6} />
+						<Grid.Column width={4}>
+							<Segment>
+								{" "}
+								{this.state.profilePhoto.length ? (
+									<Image src={this.state.profilePhoto} size="medium" rounded />
+								) : (
+									<Icon name="user circle outline" size="massive" />
+								)}
+								<ReactFilestack
+									apikey={config.fileStackApiKey}
+									buttonText="Add a Profile Photo"
+									buttonClass="classname"
+									options={this.fileStackOptions}
+									onSuccess={this.onSuccess}
+								/>
+								<Form onSubmit={this.handleSubmit}>
+									<Form.Group>
+										<Form.Input
+											label="Name"
+											placeholder="Name..."
+											name="name"
+											value={this.state.name}
+											onChange={this.handleChange}
+										/>
+										<Form.Input
+											label="Username"
+											placeholder="Username..."
+											name="username"
+											value={this.state.username}
+											onChange={this.handleChange}
+										/>
+									</Form.Group>
+									<Form.Group>
+										<Form.Input
+											label="Email Address"
+											placeholder="Email..."
+											name="email"
+											value={this.state.email}
+											onChange={this.handleChange}
+										/>
+										<Form.Input
+											label="Password"
+											type="password"
+											placeholder="Password..."
+											name="password"
+											value={this.state.password}
+											onChange={this.handleChange}
+										/>
+									</Form.Group>
+									<Form.Group>
+										<Form.Input
+											label="Weight"
+											type="number"
+											placeholder="Weight (in pounds)..."
+											name="weight"
+											value={this.state.weight}
+											onChange={this.handleChange}
+										/>
+										<Form.Input
+											label="Height"
+											type="number"
+											placeholder="Height (in inches)..."
+											name="height"
+											value={this.state.height}
+											onChange={this.handleChange}
+										/>
+									</Form.Group>
+									<Form.Group>
+										<Form.Input
+											label="Birthday"
+											type="date"
+											placeholder="Age..."
+											name="birthday"
+											value={this.state.birthday}
+											onChange={this.handleChange}
+										/>
+										<Form.Input
+											label="Home Address"
+											placeholder="Home Address..."
+											name="address"
+											value={this.state.address}
+											onChange={this.handleChange}
+										/>
+									</Form.Group>
+									<Form.Group>
+										<Form.Input
+											label="Personal Goal"
+											placeholder="Goal..."
+											name="goal"
+											type="textarea"
+											value={this.state.goal}
+											onChange={this.handleChange}
+										/>
+									</Form.Group>
+									<Button type="submit" basic color="teal">
+										Create Account
+									</Button>
+								</Form>
+							</Segment>
+						</Grid.Column>
+						<Grid.Column width={6} />
+					</Grid.Row>
+				</Grid>
 			</div>
 		);
 	}

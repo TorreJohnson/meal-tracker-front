@@ -75,7 +75,7 @@ class UsersContainer extends React.Component {
 					</Menu.Menu>
 				</Menu>
 
-				<Segment>
+				<Segment id="main-container">
 					<div>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/journal" component={FoodItemEntryForm} />

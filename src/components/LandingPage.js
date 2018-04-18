@@ -1,20 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Menu, Dropdown } from "semantic-ui-react";
 
 class LandingPage extends React.Component {
 	render() {
 		return (
-			<div>
-				<Button as={Link} to="/signup">
-					Sign Up
-				</Button>
-				<Button as={Link} to="/login">
-					Log In
-				</Button>
-				<Button as={Link} to="/nutritionists">
-					Nutritionist?
-				</Button>
+			<div className="landing">
+				<Menu pointing>
+					<Menu.Item>
+						<img src="./004-bars-chart.png" alt="meal tracker logo" />
+						<strong> MealTracker</strong>
+					</Menu.Item>
+					<Dropdown item text="Client?">
+						<Dropdown.Menu>
+							<Dropdown.Item as={Link} to="/login">
+								Log In
+							</Dropdown.Item>
+							<Dropdown.Item as={Link} to="/signup">
+								Sign Up
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+					<Dropdown item text="Nutritionist?">
+						<Dropdown.Menu>
+							<Dropdown.Item as={Link} to="/nutritionists/login">
+								Log In
+							</Dropdown.Item>
+							<Dropdown.Item as={Link} to="/nutritionists/signup">
+								Sign Up
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				</Menu>
 			</div>
 		);
 	}

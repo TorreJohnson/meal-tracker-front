@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import JournalEntryCard from "./JournalEntryCards";
 import cuid from "cuid";
-import { Message, Grid } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 
 class JournalEntries extends React.Component {
 	createFoodItemCards = () => {

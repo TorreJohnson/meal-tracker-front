@@ -138,7 +138,7 @@ class Messages extends React.Component {
 			<div>
 				<Grid>
 					<Grid.Column width={3}>
-						<Menu fluid vertical>
+						<Menu fluid vertical className="fixed-side-bar">
 							<Menu.Item
 								name="inbox"
 								active={activeItem === "inbox"}

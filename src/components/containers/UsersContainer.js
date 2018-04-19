@@ -25,7 +25,7 @@ class UsersContainer extends React.Component {
 		const { activeItem } = this.state;
 		return (
 			<div>
-				<Menu pointing>
+				<Menu pointing className="fixed-nav-bar">
 					<Menu.Item
 						as={Link}
 						to="/"

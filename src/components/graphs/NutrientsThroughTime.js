@@ -138,7 +138,7 @@ class NutrientsThroughTime extends React.Component {
 		cholesterol: 300,
 		fat: 78,
 		fiber: 30,
-		folic_acid: 0.4,
+		folic_acid: 400,
 		iron: 20,
 		niacin: 35,
 		potassium: 4.7,

@@ -20,7 +20,7 @@ class NutrientProgressBar extends React.Component {
 		cholesterol: 9000,
 		fat: 2340,
 		fiber: 900,
-		folic_acid: 12,
+		folic_acid: 1200,
 		iron: 600,
 		niacin: 1050,
 		potassium: 141,
@@ -56,11 +56,11 @@ class NutrientProgressBar extends React.Component {
 			<div>
 				<h2>Percentage of Maximum Recommended Amount</h2>
 				<Progress
-					percent={
-						(
-							this.monthlySum() / this.maximumMonthlyValues[this.props.nutrient]
-						).toFixed(2) * 100
-					}
+					percent={Math.floor(
+						this.monthlySum() /
+							this.maximumMonthlyValues[this.props.nutrient] *
+							100
+					)}
 					color={this.determineProgressBarColor()}
 					progress
 				/>

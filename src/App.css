@@ -27,6 +27,20 @@ p {
 	flex-wrap: wrap;
 }
 
+.fixed-nav-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	width: 100%;
+	height: 50px;
+}
+
+.fixed-side-bar {
+	position: fixed;
+	max-width: 17vw;
+}
+
 .App {
 	min-height: 100vh;
 	background-image: url("carrots-food-fresh-616404.jpg");
@@ -34,4 +48,6 @@ p {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }

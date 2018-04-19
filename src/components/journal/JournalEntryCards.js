@@ -126,7 +126,7 @@ class JournalEntryCard extends React.Component {
 												Riboflavin: {this.props.foodItem.riboflavin}
 											</List.Item>
 											<List.Item>
-												Sodium: {this.props.foodItem.sodium} Mgs
+												Sodium: {this.props.foodItem.sodium}
 											</List.Item>
 											<List.Item>
 												Sugars: {this.props.foodItem.sugars}

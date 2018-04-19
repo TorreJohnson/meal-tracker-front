@@ -6,11 +6,7 @@ import { Message, Grid } from "semantic-ui-react";
 
 class JournalEntries extends React.Component {
 	createFoodItemCards = () => {
-		let i = 1;
-		let left = [];
-		let right = [];
-		let reversedEntries = [...this.props.currentUser.food_items.reverse()];
-		let filteredEntries = reversedEntries.filter(item => {
+		let filteredEntries = this.props.currentUser.food_items.filter(item => {
 			if (item.name && item.brand) {
 				return (
 					item.name.toLowerCase().includes(this.props.searchTerm) ||
@@ -23,25 +19,9 @@ class JournalEntries extends React.Component {
 			}
 		});
 		if (filteredEntries.length) {
-			filteredEntries.sort((a, b) => b.id - a.id).map(item => {
-				if (i % 2 === 0) {
-					right.push(<JournalEntryCard key={cuid()} foodItem={item} />);
-					i++;
-				} else {
-					left.push(<JournalEntryCard key={cuid()} foodItem={item} />);
-					i++;
-				}
-			});
-			return (
-				<div>
-					<Grid>
-						<Grid.Row>
-							<Grid.Column width={8}>{left}</Grid.Column>
-							<Grid.Column width={8}>{right}</Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</div>
-			);
+			return filteredEntries
+				.sort((a, b) => b.id - a.id)
+				.map(item => <JournalEntryCard key={cuid()} foodItem={item} />);
 		} else {
 			return <Message floating>No Items Found</Message>;
 		}
@@ -49,7 +29,7 @@ class JournalEntries extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="flex-container">
 				<this.createFoodItemCards />
 			</div>
 		);

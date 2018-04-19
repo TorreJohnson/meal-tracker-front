@@ -29,32 +29,9 @@ class Nutritionists extends React.Component {
 	};
 
 	createNutritionistCards = () => {
-		let left = [];
-		let right = [];
-		let i = 1;
-		this.filterNutritionistsForSearchTerms().map(nutritionist => {
-			if (i % 2 === 0) {
-				right.push(
-					<NutritionistCard nutritionist={nutritionist} key={cuid()} />
-				);
-				i++;
-			} else {
-				left.push(
-					<NutritionistCard nutritionist={nutritionist} key={cuid()} />
-				);
-				i++;
-			}
-		});
-		return (
-			<div>
-				<Grid>
-					<Grid.Row>
-						<Grid.Column width={8}>{left}</Grid.Column>
-						<Grid.Column width={8}>{right}</Grid.Column>
-					</Grid.Row>
-				</Grid>
-			</div>
-		);
+		return this.filterNutritionistsForSearchTerms().map(nutritionist => (
+			<NutritionistCard nutritionist={nutritionist} key={cuid()} />
+		));
 	};
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -140,7 +117,9 @@ class Nutritionists extends React.Component {
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<Segment>{this.createNutritionistCards()}</Segment>
+						<Segment className="flex-container">
+							{this.createNutritionistCards()}
+						</Segment>
 					</Grid.Column>
 				</Grid>
 			</div>

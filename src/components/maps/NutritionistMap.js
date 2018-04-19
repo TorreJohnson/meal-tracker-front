@@ -14,7 +14,15 @@ const NutritionistMap = compose(
 			config.googleApiKey
 		}&v=3.exp&libraries=geometry,drawing,places`,
 		loadingElement: <div style={{ height: `100%` }} />,
-		containerElement: <div style={{ height: `319px`, width: `478px` }} />,
+		containerElement: (
+			<div
+				style={{
+					width: "100%",
+					height: "100%",
+					marginLeft: 0
+				}}
+			/>
+		),
 		mapElement: <div style={{ height: `100%` }} />
 	}),
 	withScriptjs,

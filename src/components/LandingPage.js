@@ -6,7 +6,7 @@ class LandingPage extends React.Component {
 	render() {
 		return (
 			<div className="landing">
-				<Menu pointing>
+				<Menu pointing className="fixed-nav-bar">
 					<Menu.Item as={Link} to="/">
 						<img src="./004-bars-chart.png" alt="meal tracker logo" />
 						<strong> MealTracker</strong>

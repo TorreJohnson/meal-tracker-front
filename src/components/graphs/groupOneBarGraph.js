@@ -1,52 +1,82 @@
 import React from "react";
-import { HorizontalBar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { Progress } from "semantic-ui-react";
 
-class CalorieGraph extends React.Component {
+class GroupOneBarGraph extends React.Component {
 	filterFoodItems = () => {
+		let items;
 		if (this.props.filter === "Daily" && this.props.currentUser.food_items) {
-			const items = this.props.currentUser.food_items.filter(
+			items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 86400000
 			);
-			return this.mapNutrientCountsInState(items);
 		} else if (
 			this.props.filter === "Weekly" &&
 			this.props.currentUser.food_items
 		) {
-			const items = this.props.currentUser.food_items.filter(
+			items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 604800000
 			);
-			return this.mapNutrientCountsInState(items);
 		} else if (
 			this.props.filter === "Monthly" &&
 			this.props.currentUser.food_items
 		) {
-			const items = this.props.currentUser.food_items.filter(
+			items = this.props.currentUser.food_items.filter(
 				item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
 			);
-			return this.mapNutrientCountsInState(items);
 		}
+		return this.mapNutrientCountsInState(items);
 	};
 
 	mapNutrientCountsInState(items) {
-		let calories = 0;
+		let caffeine = 0;
+		let fat = 0;
+		let folic_acid = 0;
+		let niacin = 0;
+		let protein = 0;
+		let sugars = 0;
+		let vitamin_c = 0;
+		let vitamin_d = 0;
 		items.forEach(item => {
-			calories += item.calories;
+			caffeine += item.caffeine;
+			fat += item.fat;
+			folic_acid += item.folic_acid;
+			niacin += item.niacin;
+			protein += item.protein;
+			sugars += item.sugars;
+			vitamin_c += item.vitamin_c;
+			vitamin_d += item.vitamin_d;
 		});
-		return [calories];
+		return [
+			caffeine,
+			fat,
+			folic_acid,
+			niacin,
+			protein,
+			sugars,
+			vitamin_c,
+			vitamin_d
+		];
 	}
 
 	data = () => {
 		return {
-			labels: ["Calories"],
+			labels: [
+				"Caffeine",
+				"Fat",
+				"Folic Acid",
+				"Niacin",
+				"Protein",
+				"Sugars",
+				"Vitamin C",
+				"Vitamin D"
+			],
 			datasets: [
 				{
 					label: "You",
 					backgroundColor: "rgba(31,177,61,0.2)",
 					borderColor: "rgba(31,177,61,1)",
 					borderWidth: 1,
-					hoverBackgroundColor: "rgba(31,177,61,0.2)",
+					hoverBackgroundColor: "rgba(31,177,61,0.4)",
 					hoverBorderColor: "rgba(31,177,61,1)",
 					data: this.filterFoodItems()
 				}
@@ -55,14 +85,23 @@ class CalorieGraph extends React.Component {
 	};
 
 	data2 = () => {
-		let adjustedData = [2000];
+		let adjustedData = [400, 200, 400, 16, 250, 38, 90, 400];
 		if (this.props.filter === "Weekly") {
-			adjustedData = [2000].map(num => num * 7);
+			adjustedData = adjustedData.map(num => num * 7);
 		} else if (this.props.filter === "Monthly") {
-			adjustedData = [2000].map(num => num * 30);
+			adjustedData = adjustedData.map(num => num * 30);
 		}
 		return {
-			labels: ["Calories"],
+			labels: [
+				"Caffeine",
+				"Fat",
+				"Folic Acid",
+				"Niacin",
+				"Protein",
+				"Sugars",
+				"Vitamin C",
+				"Vitamin D"
+			],
 			datasets: [
 				{
 					label: "You",
@@ -71,10 +110,10 @@ class CalorieGraph extends React.Component {
 					borderWidth: 1,
 					hoverBackgroundColor: "rgba(255,99,132,0.4)",
 					hoverBorderColor: "rgba(255,99,132,1)",
-					data: this.filterFoodItems(this.props.filter)
+					data: this.filterFoodItems()
 				},
 				{
-					label: "Recommended Amount",
+					label: "Maximum Recommended Amount",
 					backgroundColor: "rgba(54,162,235,0.2)",
 					borderColor: "rgba(54,162,235,1)",
 					borderWidth: 1,
@@ -86,48 +125,14 @@ class CalorieGraph extends React.Component {
 		};
 	};
 
-	determineTotalRecommendedCalories = () => {
-		switch (this.props.filter) {
-			case "Weekly":
-				return 14000;
-			case "Monthly":
-				return 60000;
-			default:
-				return 2000;
-		}
-	};
-
-	determineProgressBarColor = () => {
-		let percent = (
-			this.filterFoodItems(this.props.filter)[0] /
-			this.determineTotalRecommendedCalories()
-		).toFixed(2);
-		if (percent < 0.4) {
-			return "green";
-		} else if (percent < 0.7) {
-			return "yellow";
-		} else {
-			return "red";
-		}
-	};
-
 	render() {
 		return (
 			<div>
-				<h2>{this.props.filter} Calories</h2>
-				<Progress
-					percent={Math.floor(
-						this.filterFoodItems(this.props.filter)[0] /
-							this.determineTotalRecommendedCalories() *
-							100
-					)}
-					color={this.determineProgressBarColor()}
-					progress
-				/>
-				<HorizontalBar
+				<h2>{this.props.filter} Totals</h2>
+				<Bar
 					data={this.props.recValues ? this.data2() : this.data()}
-					width={100}
-					height={25}
+					width={75}
+					height={50}
 					options={{
 						maintainAspectRatio: true
 					}}
@@ -142,4 +147,4 @@ export default connect(state => {
 		currentUser: state.currentUser,
 		loggedIn: state.loggedIn
 	};
-})(CalorieGraph);
+})(GroupOneBarGraph);

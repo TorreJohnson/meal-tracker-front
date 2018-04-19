@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Segment, Image, Header, Grid } from "semantic-ui-react";
 import NutritionistMapContainer from "../maps/NutritionistMapContainer";
+import GroupOneRadarGraph from "../graphs/groupOneRadarGraph";
+import GroupTwoRadarGraph from "../graphs/groupTwoRadarGraph";
+import GroupThreeRadarGraph from "../graphs/groupThreeRadarGraph";
 import { config } from "../../config.js";
 
 class NutritionistPage extends React.Component {
@@ -45,6 +48,30 @@ class NutritionistPage extends React.Component {
 								/>
 							</Grid.Column>
 							<Grid.Column width={1} />
+						</Grid.Row>
+						<Grid.Row>
+							<Grid.Column>
+								<GroupOneRadarGraph
+									filter={this.props.filter}
+									recValues={this.props.recValues}
+								/>
+							</Grid.Column>
+						</Grid.Row>
+						<Grid.Row>
+							<Grid.Column>
+								<GroupTwoRadarGraph
+									filter={this.props.filter}
+									recValues={this.props.recValues}
+								/>
+							</Grid.Column>
+						</Grid.Row>
+						<Grid.Row>
+							<Grid.Column>
+								<GroupThreeRadarGraph
+									filter={this.props.filter}
+									recValues={this.props.recValues}
+								/>
+							</Grid.Column>
 						</Grid.Row>
 					</Grid>
 				</Segment>

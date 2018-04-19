@@ -86,6 +86,7 @@ class FoodItemEntryForm extends React.Component {
 	unitOptions = [
 		{ key: "teaspoon", text: "Teaspoon", value: "teaspoon" },
 		{ key: "tablespoon", text: "Tablespoon", value: "tablespoon" },
+		{ key: "ounces", text: "Ounce", value: "ounce" },
 		{ key: "cup", text: "Cup", value: "cup" },
 		{ key: "pound", text: "Pound", value: "pound" },
 		{ key: "fluid ounces", text: "Fluid Ounces", value: "fluid ounces" },
@@ -93,7 +94,7 @@ class FoodItemEntryForm extends React.Component {
 		{ key: "quart", text: "Quart", value: "quart" },
 		{ key: "gallon", text: "Gallon", value: "gallon" },
 		{ key: "piece", text: "Piece(s)", value: "piece" },
-		{ key: "slice", text: "Slice", value: "slice" }
+		{ key: "slice", text: "Slice(s)", value: "slice" }
 	];
 
 	servingOptions = [

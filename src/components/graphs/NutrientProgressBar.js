@@ -54,7 +54,7 @@ class NutrientProgressBar extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>Your Percentage of Maximum Recommended Amount</h2>
+				<h2>Percentage of Maximum Recommended Amount</h2>
 				<Progress
 					percent={
 						(

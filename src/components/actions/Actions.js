@@ -30,12 +30,16 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								[NdbNos[nutrient.attr_id]]: nutrient.value
 							});
 						});
+						let capitalizedWord = json.foods[0].food_name
+							.split("_")
+							.map(word => word[0].toUpperCase() + word.slice(1))
+							.join(" ");
 						let body = {
 							food_item: {
 								user_id: userId,
 								meal_type: "lunch",
-								date: new Date(),
-								name: json.foods[0].food_name,
+								date: "2018-04-18",
+								name: capitalizedWord,
 								upc: action.payload.upc,
 								measurement: action.payload.unit,
 								quantity: action.payload.quantity,
@@ -124,7 +128,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 							food_item: {
 								user_id: userId,
 								meal_type: "lunch",
-								date: new Date(),
+								date: "2018-04-18",
 								name: json.foods[0].food_name,
 								upc: action.payload.upc,
 								measurement: action.payload.unit,

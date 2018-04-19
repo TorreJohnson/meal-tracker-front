@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import CalorieGraph from "./graphs/CalorieGraph";
-import GramGraph from "./graphs/GramGraph";
-import MilligramGraph from "./graphs/MilligramGraph";
-import RadarGraph from "./graphs/RadarGraph";
+import GroupOneBarGraph from "./graphs/groupOneBarGraph";
+import GroupTwoBarGraph from "./graphs/groupTwoBarGraph";
+import GroupThreeBarGraph from "./graphs/groupThreeBarGraph";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 import { NutrientDefinitions } from "./nutrients/NutrientDefinitions";
@@ -219,7 +219,7 @@ class Home extends React.Component {
 							</Grid.Row>
 							<Grid.Row>
 								<Grid.Column>
-									<MilligramGraph
+									<GroupOneBarGraph
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
@@ -227,7 +227,7 @@ class Home extends React.Component {
 							</Grid.Row>
 							<Grid.Row>
 								<Grid.Column>
-									<GramGraph
+									<GroupTwoBarGraph
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
@@ -235,7 +235,7 @@ class Home extends React.Component {
 							</Grid.Row>
 							<Grid.Row>
 								<Grid.Column>
-									<RadarGraph
+									<GroupThreeBarGraph
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
@@ -351,7 +351,11 @@ class Home extends React.Component {
 					</Grid.Column>
 					<Grid.Column width={10}>
 						{this.state.activeItem === "nutritionist" ? (
-							<NutritionistPage nutritionist={this.state.nutritionist} />
+							<NutritionistPage
+								nutritionist={this.state.nutritionist}
+								filter={this.state.filter}
+								recValues={this.state.recommendedValuesClicked}
+							/>
 						) : (
 							<this.toggleBetweenNutrientsAndGraphs />
 						)}

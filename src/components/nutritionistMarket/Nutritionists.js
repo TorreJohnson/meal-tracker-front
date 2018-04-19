@@ -78,11 +78,11 @@ class Nutritionists extends React.Component {
 	filterNutritionistsForSearchTerms = () => {
 		let nutritionists;
 		if (this.state.activeItem === "all") {
-			nutritionists = this.state.nutritionists;
+			nutritionists = this.state.nutritionists.sort((a, b) => b.id - a.id);
 		} else {
-			nutritionists = this.state.nutritionists.filter(
-				nutritionist => nutritionist.accepts_new_patients
-			);
+			nutritionists = this.state.nutritionists
+				.filter(nutritionist => nutritionist.accepts_new_patients)
+				.sort((a, b) => b.id - a.id);
 		}
 		return nutritionists.filter(
 			nutritionist =>
@@ -140,7 +140,7 @@ class Nutritionists extends React.Component {
 						</Menu>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<Segment id="bgfeatured">{this.createNutritionistCards()}</Segment>
+						<Segment>{this.createNutritionistCards()}</Segment>
 					</Grid.Column>
 				</Grid>
 			</div>

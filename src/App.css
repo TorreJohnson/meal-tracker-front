@@ -9,17 +9,13 @@ p {
 
 #main-container {
 	background-color: #f8f7f5;
+	margin-left: 40px;
+	margin-right: 40px;
 	height: 100%;
 }
 
 #featured {
-	/* color: #69a5aa; */
-	/* background-color: #69a5aa; */
 	margin: 10px;
-}
-
-#bgfeatured {
-	/* background-color: #bb9a8f; */
 }
 
 #food.segment {
@@ -27,8 +23,9 @@ p {
 }
 
 .App {
+	min-height: 100vh;
 	background-image: url("carrots-food-fresh-616404.jpg");
-	height: 100%;
+	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;

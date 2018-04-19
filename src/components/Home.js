@@ -4,6 +4,8 @@ import CalorieGraph from "./graphs/CalorieGraph";
 import GroupOneBarGraph from "./graphs/groupOneBarGraph";
 import GroupTwoBarGraph from "./graphs/groupTwoBarGraph";
 import GroupThreeBarGraph from "./graphs/groupThreeBarGraph";
+import GroupOnePercentageOfRecValues from "./graphs/groupOnePercentageOfRecValues";
+import GroupTwoPercentageOfRecValues from "./graphs/groupTwoPercentageOfRecValues";
 import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 import { NutrientDefinitions } from "./nutrients/NutrientDefinitions";
@@ -239,6 +241,16 @@ class Home extends React.Component {
 										filter={this.state.filter}
 										recValues={this.state.recommendedValuesClicked}
 									/>
+								</Grid.Column>
+							</Grid.Row>
+							<Grid.Row>
+								<Grid.Column>
+									<GroupOnePercentageOfRecValues filter={this.state.filter} />
+								</Grid.Column>
+							</Grid.Row>
+							<Grid.Row>
+								<Grid.Column>
+									<GroupTwoPercentageOfRecValues filter={this.state.filter} />
 								</Grid.Column>
 							</Grid.Row>
 						</Grid>

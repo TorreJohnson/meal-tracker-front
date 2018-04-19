@@ -90,33 +90,35 @@ class Messages extends React.Component {
 	};
 
 	filterMessages = () => {
-		let reversedMessages = this.filterMessagesForSearchTerms().reverse();
+		let sortedMessages = this.filterMessagesForSearchTerms().sort(
+			(a, b) => b.id - a.id
+		);
 		if (this.state.activeItem === "inbox" && this.props.nutritionistLoggedIn) {
-			return reversedMessages.filter(message => message.sender_type === "user");
+			return sortedMessages.filter(message => message.sender_type === "user");
 		} else if (this.state.activeItem === "inbox") {
-			return reversedMessages.filter(
+			return sortedMessages.filter(
 				message => message.sender_type === "nutritionist"
 			);
 		} else if (
 			this.state.activeItem === "unread" &&
 			this.props.nutritionistLoggedIn
 		) {
-			return reversedMessages.filter(
+			return sortedMessages.filter(
 				message => !message.read && message.sender_type === "user"
 			);
 		} else if (this.state.activeItem === "unread") {
-			return reversedMessages.filter(
+			return sortedMessages.filter(
 				message => !message.read && message.sender_type === "nutritionist"
 			);
 		} else if (
 			this.state.activeItem === "sent" &&
 			this.props.nutritionistLoggedIn
 		) {
-			return reversedMessages.filter(
+			return sortedMessages.filter(
 				message => message.sender_type === "nutritionist"
 			);
 		} else if (this.state.activeItem === "sent") {
-			return reversedMessages.filter(message => message.sender_type === "user");
+			return sortedMessages.filter(message => message.sender_type === "user");
 		}
 	};
 

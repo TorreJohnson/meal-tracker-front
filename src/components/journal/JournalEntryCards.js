@@ -7,8 +7,7 @@ import {
 	Modal,
 	Card,
 	Grid,
-	List,
-	Reveal
+	List
 } from "semantic-ui-react";
 
 class JournalEntryCard extends React.Component {

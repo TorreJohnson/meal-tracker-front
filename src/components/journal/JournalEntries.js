@@ -23,7 +23,7 @@ class JournalEntries extends React.Component {
 			}
 		});
 		if (filteredEntries.length) {
-			filteredEntries.map(item => {
+			filteredEntries.sort((a, b) => b.id - a.id).map(item => {
 				if (i % 2 === 0) {
 					right.push(<JournalEntryCard key={cuid()} foodItem={item} />);
 					i++;

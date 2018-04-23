@@ -9,6 +9,7 @@ import SignUp from "./components/authentication/SignUp";
 import LogIn from "./components/authentication/LogIn";
 import NutritionistSignUp from "./components/authentication/NutritionistSignUp";
 import NutritionistLogIn from "./components/authentication/NutritionistLogIn";
+import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
 import "./App.css";
 
 class App extends Component {
@@ -32,20 +33,89 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				{this.routeUsersOrNutritionists()}
-				<Route exact path="/signup" component={SignUp} />
-				<Route exact path="/login" component={LogIn} />
-				<Route
-					exact
-					path="/nutritionists/signup"
-					component={NutritionistSignUp}
-				/>
-				<Route
-					exact
-					path="/nutritionists/login"
-					component={NutritionistLogIn}
-				/>
+			<div>
+				<div className="App">
+					{this.routeUsersOrNutritionists()}
+					<Route exact path="/signup" component={SignUp} />
+					<Route exact path="/login" component={LogIn} />
+					<Route
+						exact
+						path="/nutritionists/signup"
+						component={NutritionistSignUp}
+					/>
+					<Route
+						exact
+						path="/nutritionists/login"
+						component={NutritionistLogIn}
+					/>
+				</div>
+				<Segment
+					inverted
+					vertical
+					style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+				>
+					<Container textAlign="center">
+						<Grid divided inverted stackable>
+							<Grid.Row>
+								<Grid.Column width={5}>
+									<Header inverted as="h4" content="Contact Info" />
+									<List link inverted>
+										<List.Item>
+											<List.Icon inverted name="phone" />
+											<List.Content>347-436-6422</List.Content>
+										</List.Item>
+										<List.Item>
+											<List.Icon inverted name="mail" />
+											<List.Content>
+												<a href="mailto:torre.johnson@gmail.com">
+													torre.johnson@gmail.com
+												</a>
+											</List.Content>
+										</List.Item>
+										<List.Item>
+											<List.Icon inverted name="linkedin" />
+											<List.Content>
+												<a href="https://www.linkedin.com/in/torrejohnson/">
+													https://www.linkedin.com/in/torrejohnson/
+												</a>
+											</List.Content>
+										</List.Item>
+										<List.Item>
+											<List.Icon inverted name="github" />
+											<List.Content>
+												<a href="https://github.com/TorreJohnson">
+													https://github.com/TorreJohnson
+												</a>
+											</List.Content>
+										</List.Item>
+									</List>
+								</Grid.Column>
+								<Grid.Column width={3}>
+									<Header inverted as="h4" content="Source Code" />
+									<List link inverted>
+										<List.Item>
+											<List.Content>
+												<a href="https://github.com/TorreJohnson/meal-tracker-front">
+													Front End
+												</a>
+											</List.Content>
+										</List.Item>
+										<List.Item>
+											<List.Content>
+												<a href="https://github.com/TorreJohnson/meal-tracker-back">
+													Back End
+												</a>
+											</List.Content>
+										</List.Item>
+									</List>
+								</Grid.Column>
+								<Grid.Column width={3}>
+									<Header inverted as="h4" content="Thanks for Visiting!" />
+								</Grid.Column>
+							</Grid.Row>
+						</Grid>
+					</Container>
+				</Segment>
 			</div>
 		);
 	}

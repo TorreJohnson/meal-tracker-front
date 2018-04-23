@@ -34,13 +34,14 @@ class Home extends React.Component {
 	componentDidMount() {
 		if (!this.props.currentUser) {
 			this.props.history.push("/login");
+		} else if (this.props.currentUser.nutritionist_id) {
+			this.fetchNutritionist();
 		}
-		this.fetchNutritionist();
 	}
 
 	fetchNutritionist = () => {
 		fetch(
-			`http://localhost:3000/api/v1/nutritionists/${
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/nutritionists/${
 				this.props.currentUser.nutritionist_id
 			}`,
 			{

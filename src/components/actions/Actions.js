@@ -38,7 +38,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 							food_item: {
 								user_id: userId,
 								meal_type: "lunch",
-								date: "2018-04-18",
+								date: new Date(),
 								name: capitalizedWord,
 								upc: action.payload.upc,
 								measurement: action.payload.unit,
@@ -77,14 +77,17 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								ingredients: json.foods[0].nf_ingredient_statement
 							}
 						};
-						fetch("http://localhost:3000/api/v1/food_items", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-								accept: "application/json"
-							},
-							body: JSON.stringify(body)
-						})
+						fetch(
+							"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
+							{
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+									accept: "application/json"
+								},
+								body: JSON.stringify(body)
+							}
+						)
 							.then(res => res.json())
 							.then(response => {
 								dispatch({
@@ -128,7 +131,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 							food_item: {
 								user_id: userId,
 								meal_type: "lunch",
-								date: "2018-04-18",
+								date: new Date(),
 								name: json.foods[0].food_name,
 								upc: action.payload.upc,
 								measurement: action.payload.unit,
@@ -167,14 +170,17 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								ingredients: json.foods[0].nf_ingredient_statement
 							}
 						};
-						fetch("http://localhost:3000/api/v1/food_items", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-								accept: "application/json"
-							},
-							body: JSON.stringify(body)
-						})
+						fetch(
+							"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
+							{
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+									accept: "application/json"
+								},
+								body: JSON.stringify(body)
+							}
+						)
 							.then(res => res.json())
 							.then(response => {
 								dispatch({
@@ -204,25 +210,28 @@ export function signUp(payload, history, nutritionist) {
 				.then(res => res.json())
 				.then(response => {
 					console.log(response);
-					fetch("http://localhost:3000/api/v1/nutritionists", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							accept: "application/json"
-						},
-						body: JSON.stringify({
-							name: payload.name,
-							email: payload.email,
-							password: payload.password,
-							office_address: payload.officeAddress,
-							accepts_new_patients: payload.acceptingPatients,
-							biography: payload.bio,
-							profile_photo: payload.profilePhoto,
-							company_name: payload.companyName,
-							office_latitude: response.results[0].geometry.location.lat,
-							office_longitude: response.results[0].geometry.location.lng
-						})
-					})
+					fetch(
+						"https://peaceful-beyond-60313.herokuapp.com/api/v1/nutritionists",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								accept: "application/json"
+							},
+							body: JSON.stringify({
+								name: payload.name,
+								email: payload.email,
+								password: payload.password,
+								office_address: payload.officeAddress,
+								accepts_new_patients: payload.acceptingPatients,
+								biography: payload.bio,
+								profile_photo: payload.profilePhoto,
+								company_name: payload.companyName,
+								office_latitude: response.results[0].geometry.location.lat,
+								office_longitude: response.results[0].geometry.location.lng
+							})
+						}
+					)
 						.then(res => res.json())
 						.then(response => {
 							localStorage.setItem("token", response.jwt);
@@ -243,7 +252,7 @@ export function signUp(payload, history, nutritionist) {
 			)
 				.then(res => res.json())
 				.then(response => {
-					fetch("http://localhost:3000/api/v1/signup", {
+					fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/signup", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
@@ -284,7 +293,7 @@ export function signUp(payload, history, nutritionist) {
 
 export function logIn(username, name, password, history) {
 	return dispatch => {
-		fetch("http://localhost:3000/api/v1/login", {
+		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -312,7 +321,7 @@ export function logIn(username, name, password, history) {
 
 export function getUser(jwt, history) {
 	return dispatch => {
-		fetch("http://localhost:3000/api/v1/get_user", {
+		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/get_user", {
 			headers: {
 				Authorization: jwt
 			}
@@ -364,7 +373,7 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 				parent_message: payload.parent_message
 			};
 		}
-		fetch("http://localhost:3000/api/v1/messages", {
+		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/messages", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -384,16 +393,21 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 
 export function updateReadMessage(payload) {
 	return dispatch => {
-		fetch(`http://localhost:3000/api/v1/messages/${payload.id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json"
-			},
-			body: JSON.stringify({
-				read: payload.read
-			})
-		})
+		fetch(
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/messages/${
+				payload.id
+			}`,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json"
+				},
+				body: JSON.stringify({
+					read: payload.read
+				})
+			}
+		)
 			.then(res => res.json())
 			.then(response => {
 				dispatch({
@@ -416,15 +430,20 @@ export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 		} else {
 			body = { nutritionist_id: nutritionistId };
 		}
-		fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
-				Authorization: jwt
-			},
-			body: JSON.stringify(body)
-		})
+		fetch(
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${
+				currentUser.id
+			}`,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json",
+					Authorization: jwt
+				},
+				body: JSON.stringify(body)
+			}
+		)
 			.then(res => res.json())
 			.then(response => {
 				dispatch({
@@ -437,13 +456,16 @@ export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 
 export function fetchClients(id, jwt) {
 	return dispatch => {
-		fetch(`http://localhost:3000/api/v1/get_users/${id}`, {
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
-				Authorization: jwt
+		fetch(
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/get_users/${id}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json",
+					Authorization: jwt
+				}
 			}
-		})
+		)
 			.then(res => res.json())
 			.then(response => {
 				dispatch({
@@ -463,27 +485,32 @@ export function updateUser(payload, jwt) {
 		)
 			.then(res => res.json())
 			.then(response => {
-				fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
-					method: "PATCH",
-					headers: {
-						"Content-Type": "application/json",
-						accept: "application/json",
-						Authorization: jwt
-					},
-					body: JSON.stringify({
-						name: payload.name,
-						username: payload.username,
-						email: payload.email,
-						address: payload.address,
-						birthday: payload.birthday,
-						weight: payload.weight,
-						height: payload.height,
-						goal: payload.goal,
-						profile_photo: payload.profilePhoto,
-						latitude: response.results[0].geometry.location.lat,
-						longitude: response.results[0].geometry.location.lng
-					})
-				})
+				fetch(
+					`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${
+						payload.id
+					}`,
+					{
+						method: "PATCH",
+						headers: {
+							"Content-Type": "application/json",
+							accept: "application/json",
+							Authorization: jwt
+						},
+						body: JSON.stringify({
+							name: payload.name,
+							username: payload.username,
+							email: payload.email,
+							address: payload.address,
+							birthday: payload.birthday,
+							weight: payload.weight,
+							height: payload.height,
+							goal: payload.goal,
+							profile_photo: payload.profilePhoto,
+							latitude: response.results[0].geometry.location.lat,
+							longitude: response.results[0].geometry.location.lng
+						})
+					}
+				)
 					.then(res => res.json())
 					.then(response => {
 						dispatch({
@@ -498,38 +525,41 @@ export function updateUser(payload, jwt) {
 export function sendUserRecNutrients(payload) {
 	return dispatch => {
 		console.log(payload);
-		fetch(`http://localhost:3000/api/v1/users/${payload.id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json"
-			},
-			body: JSON.stringify({
-				rec_beta_carotene: payload.rec_beta_carotene,
-				rec_caffeine: payload.rec_caffeine,
-				rec_calcium: payload.rec_calcium,
-				rec_carbohydrate: payload.rec_carbohydrate,
-				rec_cholesterol: payload.rec_cholesterol,
-				rec_fat: payload.rec_fat,
-				rec_fiber: payload.rec_fiber,
-				rec_folic_acid: payload.rec_folic_acid,
-				rec_iron: payload.rec_iron,
-				rec_niacin: payload.rec_niacin,
-				rec_potassium: payload.rec_potassium,
-				rec_protein: payload.rec_protein,
-				rec_riboflavin: payload.rec_riboflavin,
-				rec_sodium: payload.rec_sodium,
-				rec_sugars: payload.rec_sugars,
-				rec_thiamin: payload.rec_thiamin,
-				rec_vitamin_a: payload.rec_vitamin_a,
-				rec_vitamin_b12: payload.rec_vitamin_b12,
-				rec_vitamin_c: payload.rec_vitamin_c,
-				rec_vitamin_d: payload.rec_vitamin_d,
-				rec_vitamin_e: payload.rec_vitamin_e,
-				rec_vitamin_k: payload.rec_vitamin_k,
-				rec_zinc: payload.rec_zinc
-			})
-		})
+		fetch(
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${payload.id}`,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json"
+				},
+				body: JSON.stringify({
+					rec_beta_carotene: payload.rec_beta_carotene,
+					rec_caffeine: payload.rec_caffeine,
+					rec_calcium: payload.rec_calcium,
+					rec_carbohydrate: payload.rec_carbohydrate,
+					rec_cholesterol: payload.rec_cholesterol,
+					rec_fat: payload.rec_fat,
+					rec_fiber: payload.rec_fiber,
+					rec_folic_acid: payload.rec_folic_acid,
+					rec_iron: payload.rec_iron,
+					rec_niacin: payload.rec_niacin,
+					rec_potassium: payload.rec_potassium,
+					rec_protein: payload.rec_protein,
+					rec_riboflavin: payload.rec_riboflavin,
+					rec_sodium: payload.rec_sodium,
+					rec_sugars: payload.rec_sugars,
+					rec_thiamin: payload.rec_thiamin,
+					rec_vitamin_a: payload.rec_vitamin_a,
+					rec_vitamin_b12: payload.rec_vitamin_b12,
+					rec_vitamin_c: payload.rec_vitamin_c,
+					rec_vitamin_d: payload.rec_vitamin_d,
+					rec_vitamin_e: payload.rec_vitamin_e,
+					rec_vitamin_k: payload.rec_vitamin_k,
+					rec_zinc: payload.rec_zinc
+				})
+			}
+		)
 			.then(res => res.json())
 			.then(response => {
 				dispatch({

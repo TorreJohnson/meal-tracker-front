@@ -19,7 +19,7 @@ class Nutritionists extends React.Component {
 	}
 
 	fetchNutritionists = () => {
-		fetch("http://localhost:3000/api/v1/nutritionists")
+		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/nutritionists")
 			.then(res => res.json())
 			.then(json => {
 				this.setState({

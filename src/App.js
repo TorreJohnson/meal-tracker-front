@@ -14,7 +14,6 @@ import "./App.css";
 
 class App extends Component {
 	componentDidMount() {
-		console.log(process.env);
 		let jwt = localStorage.getItem("token");
 
 		if (jwt && !this.props.currentUser) {

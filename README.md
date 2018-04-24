@@ -6,22 +6,22 @@ Additionally, you can sign up as a nutritionist and set nutritional goals for yo
 
 **For a demo please visit:**
 
-
+* [torrejohnson.com](http://torrejohnson.com)
 
 **Sign in as a client with the following credentials:**
 
-- username: demo
-- password: 123
+* username: demo
+* password: 123
 
 **The front end was built with:**
 
-- [React](https://reactjs.org/)
-- [Redux](https://redux.js.org/)
-- [QuaggaJS](https://serratus.github.io/quaggaJS/)
-- JavaScript
-- [Semantic for React](https://react.semantic-ui.com/)
-- CSS
-- HTML
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [QuaggaJS](https://serratus.github.io/quaggaJS/)
+* JavaScript
+* [Semantic for React](https://react.semantic-ui.com/)
+* CSS
+* HTML
 
 **The back end was built with:**
 
@@ -29,6 +29,6 @@ Ruby on Rails
 
 **The following APIs are used in this project:**
 
-- [Nutritionix API](https://www.nutritionix.com/)
-- [Google Maps API](https://developers.google.com/maps/)
-- [FileStack API](https://www.filestack.com/docs)
+* [Nutritionix API](https://www.nutritionix.com/)
+* [Google Maps API](https://developers.google.com/maps/)
+* [FileStack API](https://www.filestack.com/docs)

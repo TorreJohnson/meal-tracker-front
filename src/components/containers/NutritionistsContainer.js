@@ -27,7 +27,16 @@ class NutritionistsContainer extends React.Component {
 		const { activeItem } = this.state;
 		return (
 			<div>
-				<Menu pointing>
+				<Menu pointing className="fixed-nav-bar">
+					<Menu.Item
+						as={Link}
+						to="/"
+						name="home"
+						onClick={this.handleItemClick}
+					>
+						<img src="./004-bars-chart.png" alt="meal tracker logo" />
+						<strong> MealTracker</strong>
+					</Menu.Item>
 					<Menu.Item
 						as={Link}
 						to="/"
@@ -51,7 +60,7 @@ class NutritionistsContainer extends React.Component {
 					</Menu.Menu>
 				</Menu>
 
-				<Segment>
+				<Segment id="main-container">
 					<div>
 						<Route exact path="/" component={ClientsList} />
 						<Route exact path="/nutritionists/messages" component={Messages} />

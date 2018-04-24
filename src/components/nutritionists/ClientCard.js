@@ -156,12 +156,9 @@ class ClientCard extends React.Component {
 				<Modal
 					trigger={
 						<Card>
+							<Image src={this.props.client.profile_photo} />
 							<Card.Content header={this.props.client.name} />
 							<Card.Content description={this.props.client.goal} />
-							<Card.Content extra>
-								<Icon name="user" />
-								4 Friends
-							</Card.Content>
 						</Card>
 					}
 				>

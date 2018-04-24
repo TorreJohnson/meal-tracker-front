@@ -11,7 +11,7 @@ class ClientsList extends React.Component {
 	};
 
 	render() {
-		return <div>{this.mappedClients()}</div>;
+		return <div className="flex-container">{this.mappedClients()}</div>;
 	}
 }
 

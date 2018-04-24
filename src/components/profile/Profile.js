@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateUser } from "../actions/Actions";
-import { config } from "../../config.js";
 import ReactFilestack from "filestack-react";
 import {
 	Header,
@@ -164,7 +163,7 @@ class Profile extends React.Component {
 												<Grid.Column>
 													<Image src={this.props.currentUser.profile_photo} />
 													<ReactFilestack
-														apikey={config.fileStackApiKey}
+														apikey={process.env.fileStackApiKey}
 														buttonText="Change Profile Photo"
 														buttonClass="classname"
 														options={this.fileStackOptions}

@@ -6,12 +6,11 @@ import {
 	GoogleMap,
 	Marker
 } from "react-google-maps";
-import { config } from "../../config.js";
 
 const NutritionistMap = compose(
 	withProps({
 		googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
-			config.googleApiKey
+			process.env.googleApiKey
 		}&v=3.exp&libraries=geometry,drawing,places`,
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: (

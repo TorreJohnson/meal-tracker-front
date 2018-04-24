@@ -3,7 +3,6 @@ import { signUp } from "../actions/Actions";
 import { connect } from "react-redux";
 import ReactFilestack from "filestack-react";
 import { Form, Icon, Image, Grid, Segment } from "semantic-ui-react";
-import { config } from "../../config.js";
 
 class NutritionistSignUp extends React.Component {
 	state = {
@@ -79,7 +78,7 @@ class NutritionistSignUp extends React.Component {
 									<Icon name="user circle outline" size="massive" />
 								)}
 								<ReactFilestack
-									apikey={config.fileStackApiKey}
+									apikey={process.env.fileStackApiKey}
 									buttonText="Add a Profile Photo"
 									buttonClass="classname"
 									options={this.fileStackOptions}

@@ -5,7 +5,6 @@ import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 import GroupOneRadarGraph from "../graphs/groupOneRadarGraph";
 import GroupTwoRadarGraph from "../graphs/groupTwoRadarGraph";
 import GroupThreeRadarGraph from "../graphs/groupThreeRadarGraph";
-import { config } from "../../config.js";
 
 class NutritionistPage extends React.Component {
 	render() {
@@ -37,7 +36,7 @@ class NutritionistPage extends React.Component {
 								<Image
 									src={`https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${
 										this.props.nutritionist.office_address
-									}&key=${config.googleApiKey}`}
+									}&key=${process.env.googleApiKey}`}
 									alt="office street view"
 								/>
 							</Grid.Column>

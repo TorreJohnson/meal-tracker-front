@@ -1,9 +1,7 @@
-import { config } from "../../config.js";
-
 export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
-		let id = config.id;
-		let key = config.key;
+		let id = process.env.id;
+		let key = process.env.key;
 		if (action.payload.itemName.length) {
 			fetch(`https://trackapi.nutritionix.com/v2/natural/nutrients`, {
 				method: "POST",
@@ -205,7 +203,7 @@ export function signUp(payload, history, nutritionist) {
 			fetch(
 				`https://maps.googleapis.com/maps/api/geocode/json?address=${
 					payload.officeAddress
-				}&key=${config.googleApiKey}`
+				}&key=${process.env.googleApiKey}`
 			)
 				.then(res => res.json())
 				.then(response => {
@@ -248,7 +246,7 @@ export function signUp(payload, history, nutritionist) {
 			fetch(
 				`https://maps.googleapis.com/maps/api/geocode/json?address=${
 					payload.address
-				}&key=${config.googleApiKey}`
+				}&key=${process.env.googleApiKey}`
 			)
 				.then(res => res.json())
 				.then(response => {
@@ -481,7 +479,7 @@ export function updateUser(payload, jwt) {
 		fetch(
 			`https://maps.googleapis.com/maps/api/geocode/json?address=${
 				payload.address
-			}&key=${config.googleApiKey}`
+			}&key=${process.env.googleApiKey}`
 		)
 			.then(res => res.json())
 			.then(response => {

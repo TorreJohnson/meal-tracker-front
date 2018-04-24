@@ -163,7 +163,7 @@ class Profile extends React.Component {
 												<Grid.Column>
 													<Image src={this.props.currentUser.profile_photo} />
 													<ReactFilestack
-														apikey={process.env.fileStackApiKey}
+														apikey={process.env.REACT_APP_FILESTACK_API_KEY}
 														buttonText="Change Profile Photo"
 														buttonClass="classname"
 														options={this.fileStackOptions}

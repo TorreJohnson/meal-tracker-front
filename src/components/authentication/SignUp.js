@@ -81,7 +81,7 @@ class SignUp extends React.Component {
 									<Icon name="user circle outline" size="massive" />
 								)}
 								<ReactFilestack
-									apikey={process.env.fileStackApiKey}
+									apikey={process.env.REACT_APP_FILESTACK_API_KEY}
 									buttonText="Add a Profile Photo"
 									buttonClass="classname"
 									options={this.fileStackOptions}

@@ -10,7 +10,7 @@ import {
 const NutritionistMap = compose(
 	withProps({
 		googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
-			process.env.googleApiKey
+			process.env.REACT_APP_GOOGLE_API_KEY
 		}&v=3.exp&libraries=geometry,drawing,places`,
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: (

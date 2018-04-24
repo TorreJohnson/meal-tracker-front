@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import reducer from "./components/reducers/Reducer";
 import thunk from "redux-thunk";
 
+require("dotenv").config();
+
 const middleware = applyMiddleware(thunk);
 
 const store = createStore(

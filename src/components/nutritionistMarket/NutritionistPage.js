@@ -36,7 +36,7 @@ class NutritionistPage extends React.Component {
 								<Image
 									src={`https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${
 										this.props.nutritionist.office_address
-									}&key=${process.env.googleApiKey}`}
+									}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}
 									alt="office street view"
 								/>
 							</Grid.Column>

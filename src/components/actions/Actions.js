@@ -1,7 +1,7 @@
 export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
-		let id = process.env.id;
-		let key = process.env.key;
+		let id = process.env.REACT_APP_NUTRITIONIX_ID;
+		let key = process.env.REACT_APP_NUTRITIONIX_KEY;
 		if (action.payload.itemName.length) {
 			fetch(`https://trackapi.nutritionix.com/v2/natural/nutrients`, {
 				method: "POST",
@@ -203,7 +203,7 @@ export function signUp(payload, history, nutritionist) {
 			fetch(
 				`https://maps.googleapis.com/maps/api/geocode/json?address=${
 					payload.officeAddress
-				}&key=${process.env.googleApiKey}`
+				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
 				.then(res => res.json())
 				.then(response => {
@@ -246,7 +246,7 @@ export function signUp(payload, history, nutritionist) {
 			fetch(
 				`https://maps.googleapis.com/maps/api/geocode/json?address=${
 					payload.address
-				}&key=${process.env.googleApiKey}`
+				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
 				.then(res => res.json())
 				.then(response => {
@@ -479,7 +479,7 @@ export function updateUser(payload, jwt) {
 		fetch(
 			`https://maps.googleapis.com/maps/api/geocode/json?address=${
 				payload.address
-			}&key=${process.env.googleApiKey}`
+			}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 		)
 			.then(res => res.json())
 			.then(response => {

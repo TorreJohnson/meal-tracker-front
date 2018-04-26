@@ -37,7 +37,9 @@ class App extends Component {
 			<div>
 				<div className="App">
 					{this.routeUsersOrNutritionists()}
-					<Route exact path="/" component={WelcomeCard} />
+					{this.props.currentUser ? null : (
+						<Route exact path="/" component={WelcomeCard} />
+					)}
 					<Route exact path="/signup" component={SignUp} />
 					<Route exact path="/login" component={LogIn} />
 					<Route

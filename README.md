@@ -6,7 +6,7 @@ Additionally, you can sign up as a nutritionist and set nutritional goals for yo
 
 **For a demo please visit:**
 
-* [torrejohnson.com](http://torrejohnson.com)
+* [meal-tracker-front.herokuapp.com/](https://meal-tracker-front.herokuapp.com/)
 
 **Sign in as a client with the following credentials:**
 

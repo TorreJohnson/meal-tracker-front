@@ -27,7 +27,7 @@ Additionally, you can sign up as a nutritionist and set nutritional goals for yo
 
 Ruby on Rails
 
-**The back end code can be found at:**
+**The back end repo can be found at:**
 
 https://github.com/TorreJohnson/meal-tracker-back
 

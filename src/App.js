@@ -40,18 +40,20 @@ class App extends Component {
 					{this.props.currentUser ? null : (
 						<Route exact path="/" component={WelcomeCard} />
 					)}
-					<Route exact path="/signup" component={SignUp} />
-					<Route exact path="/login" component={LogIn} />
-					<Route
-						exact
-						path="/nutritionists/signup"
-						component={NutritionistSignUp}
-					/>
-					<Route
-						exact
-						path="/nutritionists/login"
-						component={NutritionistLogIn}
-					/>
+					<div>
+						<Route exact path="/signup" component={SignUp} />
+						<Route exact path="/login" component={LogIn} />
+						<Route
+							exact
+							path="/nutritionists/signup"
+							component={NutritionistSignUp}
+						/>
+						<Route
+							exact
+							path="/nutritionists/login"
+							component={NutritionistLogIn}
+						/>
+					</div>
 				</div>
 				<Segment
 					inverted

@@ -1,7 +1,7 @@
 import React from "react";
 import { logIn } from "../actions/Actions";
 import { connect } from "react-redux";
-import { Button, Form, Segment, Grid } from "semantic-ui-react";
+import { Button, Form, Segment } from "semantic-ui-react";
 
 class LogIn extends React.Component {
 	state = {
@@ -27,53 +27,34 @@ class LogIn extends React.Component {
 
 	render() {
 		return (
-			<Grid>
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row />
-				<Grid.Row>
-					<Grid.Column width={6} />
-					<Grid.Column width={4}>
-						<Segment>
-							<Form onSubmit={this.handleSubmit}>
-								<Form.Field>
-									<label>Username</label>
-									<input
-										name="username"
-										value={this.state.username}
-										onChange={this.handleChange}
-										placeholder="Username..."
-									/>
-								</Form.Field>
-								<Form.Field>
-									<label>Password</label>
-									<input
-										type="password"
-										name="password"
-										value={this.state.password}
-										onChange={this.handleChange}
-										placeholder="Password..."
-									/>
-								</Form.Field>
-								<Button type="submit" basic color="green">
-									Submit
-								</Button>
-							</Form>
-						</Segment>
-					</Grid.Column>
-					<Grid.Column width={6} />
-				</Grid.Row>
-			</Grid>
+			<div className="login-box">
+				<Segment>
+					<Form onSubmit={this.handleSubmit}>
+						<Form.Field>
+							<label>Username</label>
+							<input
+								name="username"
+								value={this.state.username}
+								onChange={this.handleChange}
+								placeholder="Username..."
+							/>
+						</Form.Field>
+						<Form.Field>
+							<label>Password</label>
+							<input
+								type="password"
+								name="password"
+								value={this.state.password}
+								onChange={this.handleChange}
+								placeholder="Password..."
+							/>
+						</Form.Field>
+						<Button type="submit" basic color="green">
+							Submit
+						</Button>
+					</Form>
+				</Segment>
+			</div>
 		);
 	}
 }

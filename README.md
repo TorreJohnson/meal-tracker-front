@@ -6,7 +6,7 @@ Additionally, you can sign up as a nutritionist and set nutritional goals for yo
 
 **For a demo please visit:**
 
-* [torrejohnson.com](http://torrejohnson.com)
+* [meal-tracker-front.herokuapp.com/](https://meal-tracker-front.herokuapp.com/)
 
 **Sign in as a client with the following credentials:**
 
@@ -26,6 +26,10 @@ Additionally, you can sign up as a nutritionist and set nutritional goals for yo
 **The back end was built with:**
 
 Ruby on Rails
+
+**The back end repo can be found at:**
+
+https://github.com/TorreJohnson/meal-tracker-back
 
 **The following APIs are used in this project:**
 

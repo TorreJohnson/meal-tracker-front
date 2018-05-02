@@ -13,24 +13,18 @@ require("dotenv").config();
 
 const middleware = applyMiddleware(thunk);
 
-const store = createStore(
-	reducer,
-	compose(
-		middleware,
-		window.navigator.userAgent.includes("Chrome")
-			? window.__REDUX_DEVTOOLS_EXTENSION__ &&
-			  window.__REDUX_DEVTOOLS_EXTENSION__()
-			: compose
-	)
-);
-
 // const store = createStore(
 // 	reducer,
 // 	compose(
 // 		middleware,
-// 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// 		window.navigator.userAgent.includes("Chrome")
+// 			? window.__REDUX_DEVTOOLS_EXTENSION__ &&
+// 			  window.__REDUX_DEVTOOLS_EXTENSION__()
+// 			: compose
 // 	)
 // );
+
+const store = createStore(reducer, compose(middleware));
 
 ReactDOM.render(
 	<Router>

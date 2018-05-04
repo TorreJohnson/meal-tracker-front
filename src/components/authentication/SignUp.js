@@ -1,5 +1,5 @@
 import React from "react";
-import { signUp } from "../actions/Actions";
+import { signUp } from "../actions/authActions";
 import { connect } from "react-redux";
 import { Button, Form, Image, Icon, Segment } from "semantic-ui-react";
 import ReactFilestack from "filestack-react";

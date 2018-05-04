@@ -1,5 +1,5 @@
 import React from "react";
-import { logIn } from "../actions/Actions";
+import { logIn } from "../actions/authActions";
 import { connect } from "react-redux";
 import { Button, Form, Segment } from "semantic-ui-react";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
-import { postMessage } from "../actions/Actions";
+import { postMessage } from "../actions/messageActions";
 import { connect } from "react-redux";
 
 class NewMessage extends React.Component {

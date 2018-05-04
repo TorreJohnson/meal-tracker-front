@@ -10,7 +10,7 @@ import {
 	TextArea
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { postMessage, updateReadMessage } from "../actions/Actions";
+import { postMessage, updateReadMessage } from "../actions/messageActions";
 
 class MessageCard extends React.Component {
 	state = {

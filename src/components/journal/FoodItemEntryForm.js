@@ -11,7 +11,7 @@ import {
 	Segment
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { fetchNutrients } from "../actions/Actions";
+import { fetchNutrients } from "../actions/nutritionixApiFetchActions";
 import { NdbNos } from "./NdbNos";
 import UpcCamera from "../Camera/UpcCamera";
 import cuid from "cuid";

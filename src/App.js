@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUser } from "./components/actions/Actions";
+import { getUser } from "./components/actions/authActions";
 import { Route, withRouter } from "react-router-dom";
 import UsersContainer from "./components/containers/UsersContainer";
 import NutritionistsContainer from "./components/containers/NutritionistsContainer";

@@ -7,7 +7,7 @@ import Home from "../Home";
 import Messages from "../messages/Messages";
 import FoodItemEntryForm from "../journal/FoodItemEntryForm";
 import Nutritionists from "../nutritionistMarket/Nutritionists";
-import { logOut } from "../actions/Actions";
+import { logOut } from "../actions/authActions";
 import Profile from "../profile/Profile";
 
 class UsersContainer extends React.Component {

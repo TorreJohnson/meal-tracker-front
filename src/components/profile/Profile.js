@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateUser } from "../actions/Actions";
+import { updateUser } from "../actions/patchUserActions";
 import ReactFilestack from "filestack-react";
 import {
 	Header,

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { hireFireNutritionist } from "../actions/Actions";
+import { hireFireNutritionist } from "../actions/patchUserActions";
 import NutritionistMapContainer from "../maps/NutritionistMapContainer";
 import {
 	Card,

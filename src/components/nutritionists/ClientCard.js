@@ -9,7 +9,7 @@ import {
 	Button,
 	Form
 } from "semantic-ui-react";
-import { sendUserRecNutrients } from "../actions/Actions";
+import { sendUserRecNutrients } from "../actions/patchUserActions";
 import { connect } from "react-redux";
 
 class ClientCard extends React.Component {

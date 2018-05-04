@@ -13,6 +13,8 @@ require("dotenv").config();
 
 const middleware = applyMiddleware(thunk);
 
+// For using Chrome Redux Dev Tools
+
 // const store = createStore(
 // 	reducer,
 // 	compose(

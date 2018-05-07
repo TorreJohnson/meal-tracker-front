@@ -9,14 +9,36 @@ class Messages extends React.Component {
 	state = {
 		activeItem: "inbox",
 		searchTerm: "",
-		open: false
+		open: false,
+		nutritionist: {}
 	};
 
 	componentDidMount() {
 		if (!this.props.currentUser) {
 			this.props.history.push("/login");
 		}
+		if (this.props.currentUser.nutritionist_id) {
+			this.fetchNutritionist();
+		}
 	}
+
+	fetchNutritionist = () => {
+		fetch(
+			`https://peaceful-beyond-60313.herokuapp.com/api/v1/nutritionists/${
+				this.props.currentUser.nutritionist_id
+			}`,
+			{
+				"Content-Type": "application/json",
+				accept: "application/json"
+			}
+		)
+			.then(res => res.json())
+			.then(result => {
+				this.setState({
+					nutritionist: result
+				});
+			});
+	};
 
 	getUnreadMessageCount = () => {
 		if (this.props.nutritionistLoggedIn) {
@@ -193,7 +215,9 @@ class Messages extends React.Component {
 							</Menu.Item>
 						</Menu>
 						<Modal dimmer={dimmer} open={open} onClose={this.close}>
-							<Modal.Header>New Message</Modal.Header>
+							<Modal.Header>
+								Send New Message to {this.state.nutritionist.name}
+							</Modal.Header>
 							<Modal.Content image>
 								<Modal.Description>
 									<NewMessage onSubmit={this.close} />

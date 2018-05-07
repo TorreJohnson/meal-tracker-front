@@ -182,7 +182,6 @@ class GroupOneRadarGraph extends React.Component {
 	};
 
 	render() {
-		console.log(this.props);
 		return (
 			<div>
 				<Radar data={this.props.recValues ? this.data2() : this.data()} />

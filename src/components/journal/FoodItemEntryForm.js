@@ -8,7 +8,8 @@ import {
 	Label,
 	Menu,
 	Grid,
-	Segment
+	Segment,
+	Popup
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchNutrients } from "../actions/nutritionixApiFetchActions";
@@ -225,11 +226,16 @@ class FoodItemEntryForm extends React.Component {
 		for (let i = 0; i < this.state.rows; i++) {
 			rows.push(
 				<div key={this.state.items[i].key} id="food">
-					<Icon
-						name="camera"
-						circular
-						id={i}
-						onClick={this.handleCameraButtonToggle}
+					<Popup
+						trigger={
+							<Icon
+								name="camera"
+								circular
+								id={i}
+								onClick={this.handleCameraButtonToggle}
+							/>
+						}
+						content="Turn on the camera to scan a UPC code"
 					/>
 					{this.state.cameraSelected[i].selected ? (
 						<Form.Group>

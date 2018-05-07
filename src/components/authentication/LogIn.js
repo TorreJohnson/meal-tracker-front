@@ -1,12 +1,13 @@
 import React from "react";
 import { logIn } from "../actions/authActions";
 import { connect } from "react-redux";
-import { Button, Form, Segment } from "semantic-ui-react";
+import { Button, Form, Segment, Dimmer, Loader } from "semantic-ui-react";
 
 class LogIn extends React.Component {
 	state = {
 		username: "",
-		password: ""
+		password: "",
+		loading: false
 	};
 
 	handleChange = e => {
@@ -17,6 +18,9 @@ class LogIn extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		this.setState({
+			loading: true
+		});
 		this.props.logIn(
 			this.state.username,
 			null,
@@ -29,6 +33,11 @@ class LogIn extends React.Component {
 		return (
 			<div className="login-box">
 				<Segment>
+					{this.state.loading ? (
+						<Dimmer active>
+							<Loader>Loading</Loader>
+						</Dimmer>
+					) : null}
 					<Form onSubmit={this.handleSubmit}>
 						<Form.Field>
 							<label>Username</label>

@@ -2,7 +2,7 @@ import React from "react";
 import { signUp } from "../actions/authActions";
 import { connect } from "react-redux";
 import ReactFilestack from "filestack-react";
-import { Form, Icon, Image, Segment } from "semantic-ui-react";
+import { Form, Icon, Image, Segment, Dimmer, Loader } from "semantic-ui-react";
 
 class NutritionistSignUp extends React.Component {
 	state = {
@@ -13,7 +13,8 @@ class NutritionistSignUp extends React.Component {
 		acceptingPatients: true,
 		bio: "",
 		companyName: "",
-		profilePhoto: ""
+		profilePhoto: "",
+		loading: false
 	};
 
 	handleChange = e => {
@@ -30,6 +31,9 @@ class NutritionistSignUp extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		this.setState({
+			loading: true
+		});
 		this.props.signUp(this.state, this.props.history, true);
 	};
 
@@ -58,6 +62,11 @@ class NutritionistSignUp extends React.Component {
 		return (
 			<div className="nut-signup-box">
 				<Segment>
+					{this.state.loading ? (
+						<Dimmer active>
+							<Loader>Loading</Loader>
+						</Dimmer>
+					) : null}
 					{this.state.profilePhoto.length ? (
 						<Image src={this.state.profilePhoto} size="medium" rounded />
 					) : (

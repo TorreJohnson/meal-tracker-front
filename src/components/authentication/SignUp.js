@@ -1,7 +1,15 @@
 import React from "react";
 import { signUp } from "../actions/authActions";
 import { connect } from "react-redux";
-import { Button, Form, Image, Icon, Segment } from "semantic-ui-react";
+import {
+	Button,
+	Form,
+	Image,
+	Icon,
+	Segment,
+	Dimmer,
+	Loader
+} from "semantic-ui-react";
 import ReactFilestack from "filestack-react";
 
 class SignUp extends React.Component {
@@ -17,7 +25,8 @@ class SignUp extends React.Component {
 		height: "",
 		birthday: "",
 		age: "",
-		bmi: ""
+		bmi: "",
+		loading: false
 	};
 
 	handleChange = e => {
@@ -40,6 +49,9 @@ class SignUp extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		this.setState({
+			loading: true
+		});
 		this.props.signUp(this.state, this.props.history, false);
 	};
 
@@ -63,7 +75,11 @@ class SignUp extends React.Component {
 		return (
 			<div className="user-signup-box">
 				<Segment>
-					{" "}
+					{this.state.loading ? (
+						<Dimmer active>
+							<Loader>Loading</Loader>
+						</Dimmer>
+					) : null}{" "}
 					{this.state.profilePhoto.length ? (
 						<Image src={this.state.profilePhoto} size="medium" rounded />
 					) : (

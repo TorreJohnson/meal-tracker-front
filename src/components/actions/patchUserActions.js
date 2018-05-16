@@ -1,3 +1,6 @@
+// patches the backend either creating or deleting a relationship between
+// users and a nutritionist, which is a one (user) to many (nutritionist)
+// relationship. sends response from backend to reducer to update state.
 export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 	return dispatch => {
 		let body;
@@ -34,6 +37,8 @@ export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 	};
 }
 
+// patches user information after they have edited their profile. sends backend
+// response to reducer so that state can be updated.
 export function updateUser(payload, jwt) {
 	return dispatch => {
 		fetch(
@@ -80,9 +85,10 @@ export function updateUser(payload, jwt) {
 	};
 }
 
+// patches recommendations from a nutritionist to a user in the backend and
+// sends response to reducer to update state.
 export function sendUserRecNutrients(payload) {
 	return dispatch => {
-		console.log(payload);
 		fetch(
 			`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${payload.id}`,
 			{

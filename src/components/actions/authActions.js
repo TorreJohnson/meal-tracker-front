@@ -125,8 +125,9 @@ export function logIn(username, name, password, history) {
 	};
 }
 
-// fetches user information based on JWT token found in local storage and sets
-// user information to state. redirects user to home page.
+// fetches user information based on JWT token found in local storage and sends
+// user information to reducer so that state can be updated. redirects user to
+// home page.
 export function getUser(jwt, history) {
 	return dispatch => {
 		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/get_user", {

@@ -1,5 +1,6 @@
 // when a nutritionist logs in, the app fetches the user information for all
-// of their clients one at a time and sets it in state
+// of their clients one at a time and sends it to ther reducer to be set in
+// state
 export function fetchClients(id, jwt) {
 	return dispatch => {
 		fetch(

@@ -1,3 +1,7 @@
+// indivual foods are sent to either the Nutritionix API endpoint for UPC
+// codes or into Nutritionix API that parses natural langauge. Results are
+// formatted and sent to backend for persistence. response from backend is
+// sent to reducer so that it can be added to state.
 export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
 		let id = process.env.REACT_APP_NUTRITIONIX_ID;

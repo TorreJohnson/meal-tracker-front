@@ -1,3 +1,5 @@
+// when a nutritionist logs in, the app fetches the user information for all
+// of their clients one at a time and sets it in state
 export function fetchClients(id, jwt) {
 	return dispatch => {
 		fetch(

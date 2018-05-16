@@ -1,3 +1,5 @@
+// posts new messages to the backend server for persistence and then adds the
+// new message to state.
 export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	return dispatch => {
 		let body;
@@ -40,6 +42,8 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	};
 }
 
+// posts whether message is marked as read or unread to the backend server for
+// persistence and then updates state with current read status.
 export function updateReadMessage(payload) {
 	return dispatch => {
 		fetch(

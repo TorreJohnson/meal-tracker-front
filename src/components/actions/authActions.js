@@ -1,3 +1,7 @@
+// allows a new user to sign up for an account and finds their location
+// coordinates through google maps api fetch. sets their account as either a
+// client or nutritionist depending on which portal they signed up on. adds a
+// JWT token to user's browser. redirects user to home page.
 export function signUp(payload, history, nutritionist) {
 	return dispatch => {
 		if (nutritionist) {
@@ -90,6 +94,9 @@ export function signUp(payload, history, nutritionist) {
 	};
 }
 
+// checks database for user and if credentials are in order assigns user a
+// JWT token. otherwise user receives an alert with the error returned from
+// log in attempt. redirects user to home page.
 export function logIn(username, name, password, history) {
 	return dispatch => {
 		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/login", {
@@ -118,6 +125,8 @@ export function logIn(username, name, password, history) {
 	};
 }
 
+// fetches user information based on JWT token found in local storage and sets
+// user information to state. redirects user to home page.
 export function getUser(jwt, history) {
 	return dispatch => {
 		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/get_user", {
@@ -138,6 +147,7 @@ export function getUser(jwt, history) {
 	};
 }
 
+// removes JWT token from local storage and redirects user to the login page.
 export function logOut(history) {
 	return dispatch => {
 		localStorage.clear();

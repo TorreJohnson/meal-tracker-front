@@ -45,55 +45,62 @@ class FoodItemEntryForm extends React.Component {
 		}
 	}
 
-	quantityOptions = [
-		{ key: ".25", text: "1/4", value: 1 / 4 },
-		{ key: ".33", text: "1/3", value: 1 / 3 },
-		{ key: ".5", text: "1/2", value: 1 / 2 },
-		{ key: ".66", text: "2/3", value: 2 / 3 },
-		{ key: ".75", text: "3/4", value: 3 / 4 },
-		{ key: "1", text: "1", value: 1 },
-		{ key: "1.25", text: "1 1/4", value: 5 / 4 },
-		{ key: "1.33", text: "1 1/3", value: 4 / 3 },
-		{ key: "1.5", text: "1 1/2", value: 3 / 2 },
-		{ key: "1.66", text: "1 2/3", value: 5 / 3 },
-		{ key: "1.75", text: "1 3/4", value: 7 / 4 },
-		{ key: "2", text: "2", value: 2 },
-		{ key: "2.25", text: "2 1/4", value: 9 / 4 },
-		{ key: "2.33", text: "2 1/3", value: 7 / 3 },
-		{ key: "2.5", text: "2 1/2", value: 5 / 2 },
-		{ key: "2.66", text: "2 2/3", value: 8 / 3 },
-		{ key: "2.75", text: "2 3/4", value: 11 / 4 },
-		{ key: "3", text: "3", value: 3 },
-		{ key: "3.25", text: "3 1/4", value: 13 / 4 },
-		{ key: "3.33", text: "3 1/3", value: 10 / 3 },
-		{ key: "3.5", text: "3 1/2", value: 7 / 2 },
-		{ key: "3.66", text: "3 2/3", value: 11 / 3 },
-		{ key: "3.75", text: "3 3/4", value: 15 / 8 },
-		{ key: "4", text: "4", value: 4 },
-		{ key: "5", text: "5", value: 5 },
-		{ key: "6", text: "6", value: 6 },
-		{ key: "7", text: "7", value: 7 },
-		{ key: "8", text: "8", value: 8 },
-		{ key: "9", text: "9", value: 9 },
-		{ key: "10", text: "10", value: 10 },
-		{ key: "11", text: "11", value: 11 },
-		{ key: "12", text: "12", value: 12 },
-		{ key: "13", text: "13", value: 13 },
-		{ key: "14", text: "14", value: 14 },
-		{ key: "15", text: "15", value: 15 },
-		{ key: "16", text: "16", value: 16 }
-	];
+	// Create fractional options up until 4 for quantity options
+	quantityOptions = () => {
+		let options = [];
+		let divisors = [4, 3, 4, 3, 4, 1];
+		let fourth = 0.25;
+		let third = 0.33;
+		let whole = 1;
+		for (let i = 0; i < 30; i++) {
+			if (i < 24) {
+				let index = i % 6;
+				if (divisors[index] === 1) {
+					options.push({
+						key: whole.toString(),
+						text: whole.toString(),
+						value: whole
+					});
+					fourth += 0.25;
+					third += 0.34;
+					whole++;
+				} else if (divisors[index] === 4) {
+					options.push({
+						key: fourth.toString(),
+						text: fourth.toString(),
+						value: fourth.toFixed(2)
+					});
+					fourth += 0.25;
+				} else if (divisors[index] === 3) {
+					options.push({
+						key: third.toString(),
+						text: third.toString(),
+						value: third.toFixed(2)
+					});
+					third += 0.33;
+				}
+			} else {
+				options.push({
+					key: whole.toString(),
+					text: whole.toString(),
+					value: whole
+				});
+				whole++;
+			}
+		}
+		return options;
+	};
 
 	unitOptions = [
-		{ key: "teaspoon", text: "Teaspoon", value: "teaspoon" },
-		{ key: "tablespoon", text: "Tablespoon", value: "tablespoon" },
-		{ key: "ounces", text: "Ounce", value: "ounce" },
-		{ key: "cup", text: "Cup", value: "cup" },
-		{ key: "pound", text: "Pound", value: "pound" },
-		{ key: "fluid ounces", text: "Fluid Ounces", value: "fluid ounces" },
-		{ key: "pint", text: "Pint", value: "pint" },
-		{ key: "quart", text: "Quart", value: "quart" },
-		{ key: "gallon", text: "Gallon", value: "gallon" },
+		{ key: "teaspoon", text: "Teaspoon(s)", value: "teaspoon" },
+		{ key: "tablespoon", text: "Tablespoon(s)", value: "tablespoon" },
+		{ key: "ounce", text: "Ounce(s)", value: "ounce" },
+		{ key: "cup", text: "Cup(s)", value: "cup" },
+		{ key: "pound", text: "Pound(s)", value: "pound" },
+		{ key: "fluid ounce", text: "Fluid Ounce(s)", value: "fluid ounce" },
+		{ key: "pint", text: "Pint(s)", value: "pint" },
+		{ key: "quart", text: "Quart(s)", value: "quart" },
+		{ key: "gallon", text: "Gallon(s)", value: "gallon" },
 		{ key: "piece", text: "Piece(s)", value: "piece" },
 		{ key: "slice", text: "Slice(s)", value: "slice" }
 	];
@@ -102,10 +109,7 @@ class FoodItemEntryForm extends React.Component {
 	servingOptions = () => {
 		let options = [{ key: "1", text: "1 Serving", value: 1 }];
 		for (let i = 2; i <= 10; i++) {
-			let key = i.toString();
-			let text = `${i} Servings`;
-			let value = i;
-			let obj = { key: key, text: text, value: value };
+			let obj = { key: i.toString(), text: `${i} Servings`, value: i };
 			options.push(obj);
 		}
 		return options;

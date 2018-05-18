@@ -98,18 +98,18 @@ class FoodItemEntryForm extends React.Component {
 		{ key: "slice", text: "Slice(s)", value: "slice" }
 	];
 
-	servingOptions = [
-		{ key: "1", text: "1 Serving", value: 1 },
-		{ key: "2", text: "2 Servings", value: 2 },
-		{ key: "3", text: "3 Servings", value: 3 },
-		{ key: "4", text: "4 Servings", value: 4 },
-		{ key: "5", text: "5 Servings", value: 5 },
-		{ key: "6", text: "6 Servings", value: 6 },
-		{ key: "7", text: "7 Servings", value: 7 },
-		{ key: "8", text: "8 Servings", value: 8 },
-		{ key: "9", text: "9 Servings", value: 9 },
-		{ key: "10", text: "10 Servings", value: 10 }
-	];
+	// Creates an array of serving options from 1 to 10
+	servingOptions = () => {
+		let options = [{ key: "1", text: "1 Serving", value: 1 }];
+		for (let i = 2; i <= 10; i++) {
+			let key = i.toString();
+			let text = `${i} Servings`;
+			let value = i;
+			let obj = { key: key, text: text, value: value };
+			options.push(obj);
+		}
+		return options;
+	};
 
 	handleItemChange = e => {
 		let index = parseInt(e.target.name, 10);

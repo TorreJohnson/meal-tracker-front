@@ -45,48 +45,60 @@ class FoodItemEntryForm extends React.Component {
 		}
 	}
 
-	// Create fractional options up until 4 for quantity options
+	// Create object with fractional values up until 4 for quantity
+	// options in form dropdown
 	quantityOptions = () => {
 		let options = [];
 		let divisors = [4, 3, 4, 3, 4, 1];
 		let fourth = 0.25;
+		let fourthFraction = "";
 		let third = 0.33;
 		let whole = 1;
-		for (let i = 0; i < 30; i++) {
-			if (i < 24) {
-				let index = i % 6;
-				if (divisors[index] === 1) {
-					options.push({
-						key: whole.toString(),
-						text: whole.toString(),
-						value: whole
-					});
-					fourth += 0.25;
-					third += 0.34;
-					whole++;
-				} else if (divisors[index] === 4) {
-					options.push({
-						key: fourth.toString(),
-						text: fourth.toString(),
-						value: fourth.toFixed(2)
-					});
-					fourth += 0.25;
-				} else if (divisors[index] === 3) {
-					options.push({
-						key: third.toString(),
-						text: third.toString(),
-						value: third.toFixed(2)
-					});
-					third += 0.33;
-				}
-			} else {
+		for (let i = 0; i < 24; i++) {
+			let index = i % 6;
+			if (divisors[index] === 1) {
 				options.push({
 					key: whole.toString(),
 					text: whole.toString(),
 					value: whole
 				});
+				fourth = fourth + 0.25;
+				third = third + 0.34;
 				whole++;
+			} else if (divisors[index] === 4) {
+				let text = "";
+				if (fourth > 1) {
+					text = `${Math.floor(fourth / 1)} ${(fourth % 1) / 0.25}/4`;
+				} else {
+					text = `${(fourth % 1) / 0.25}/4`;
+				}
+				options.push({
+					key: fourth.toString(),
+					text: text,
+					value: fourth
+				});
+				fourth = fourth + 0.25;
+			} else if (divisors[index] === 3) {
+				let text = "";
+				if (third > 1) {
+					text = `${Math.floor(third / 1)} ${Math.floor((third % 1) / 0.33)}/3`;
+				} else {
+					text = `${(third % 1) / 0.33}/3`;
+				}
+				options.push({
+					key: third.toFixed(2),
+					text: text,
+					value: Math.round(third * 1e2) / 1e2
+				});
+				third = third + 0.33;
 			}
+		}
+		for (let i = 5; i < 11; i++) {
+			options.push({
+				key: i.toString(),
+				text: i.toString(),
+				value: i
+			});
 		}
 		return options;
 	};

@@ -14,11 +14,18 @@ export function fetchClients(id, jwt) {
 			}
 		)
 			.then(res => res.json())
-			.then(response => {
-				dispatch({
-					type: "ADD_CLIENTS",
-					payload: response
-				});
-			});
+			.then(
+				response => {
+					dispatch({
+						type: "ADD_CLIENTS",
+						payload: response
+					});
+				},
+				error => {
+					if (error) {
+						console.log(error);
+					}
+				}
+			);
 	};
 }

@@ -1,5 +1,3 @@
-import { handleErrors } from "./errorHandling";
-
 // allows a new user to sign up for an account and finds their location
 // coordinates through google maps api fetch. sets their account as either a
 // client or nutritionist depending on which portal they signed up on. adds a
@@ -12,10 +10,8 @@ export function signUp(payload, history, nutritionist) {
 					payload.officeAddress
 				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
-				.then(handleErrors)
 				.then(res => res.json())
 				.then(response => {
-					console.log(response);
 					fetch(
 						"https://peaceful-beyond-60313.herokuapp.com/api/v1/nutritionists",
 						{
@@ -38,15 +34,21 @@ export function signUp(payload, history, nutritionist) {
 							})
 						}
 					)
-						.then(handleErrors)
 						.then(res => res.json())
-						.then(response => {
-							localStorage.setItem("token", response.jwt);
-							dispatch({
-								type: "GET_USER",
-								payload: response.user
-							});
-						})
+						.then(
+							response => {
+								localStorage.setItem("token", response.jwt);
+								dispatch({
+									type: "GET_USER",
+									payload: response.user
+								});
+							},
+							error => {
+								if (error) {
+									console.log(error);
+								}
+							}
+						)
 						.then(() => {
 							history.push("/");
 						});
@@ -57,8 +59,14 @@ export function signUp(payload, history, nutritionist) {
 					payload.address
 				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
-				.then(handleErrors)
-				.then(res => res.json())
+				.then(
+					res => res.json(),
+					error => {
+						if (error) {
+							console.log(error);
+						}
+					}
+				)
 				.then(response => {
 					fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/signup", {
 						method: "POST",
@@ -83,15 +91,21 @@ export function signUp(payload, history, nutritionist) {
 							longitude: response.results[0].geometry.location.lng
 						})
 					})
-						.then(handleErrors)
 						.then(res => res.json())
-						.then(response => {
-							localStorage.setItem("token", response.jwt);
-							dispatch({
-								type: "GET_USER",
-								payload: response.user
-							});
-						})
+						.then(
+							response => {
+								localStorage.setItem("token", response.jwt);
+								dispatch({
+									type: "GET_USER",
+									payload: response.user
+								});
+							},
+							error => {
+								if (error) {
+									console.log(error);
+								}
+							}
+						)
 						.then(() => {
 							history.push("/");
 						});
@@ -113,19 +127,25 @@ export function logIn(username, name, password, history) {
 			},
 			body: JSON.stringify({ username, name, password })
 		})
-			.then(handleErrors)
 			.then(res => res.json())
-			.then(response => {
-				if (response.error) {
-					alert(response.error);
-				} else {
-					localStorage.setItem("token", response.jwt);
-					dispatch({
-						type: "GET_USER",
-						payload: response
-					});
+			.then(
+				response => {
+					if (response.error) {
+						alert(response.error);
+					} else {
+						localStorage.setItem("token", response.jwt);
+						dispatch({
+							type: "GET_USER",
+							payload: response
+						});
+					}
+				},
+				error => {
+					if (error) {
+						console.log(error);
+					}
 				}
-			})
+			)
 			.then(() => {
 				history.push("/");
 			});
@@ -142,14 +162,20 @@ export function getUser(jwt, history) {
 				Authorization: jwt
 			}
 		})
-			.then(handleErrors)
 			.then(res => res.json())
-			.then(response => {
-				dispatch({
-					type: "GET_USER",
-					payload: response
-				});
-			})
+			.then(
+				response => {
+					dispatch({
+						type: "GET_USER",
+						payload: response
+					});
+				},
+				error => {
+					if (error) {
+						console.log(error);
+					}
+				}
+			)
 			.then(() => {
 				history.push("/");
 			});

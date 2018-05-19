@@ -14,9 +14,6 @@ class Messages extends React.Component {
 	};
 
 	componentDidMount() {
-		if (!this.props.currentUser) {
-			this.props.history.push("/login");
-		}
 		if (this.props.currentUser.nutritionist_id) {
 			this.fetchNutritionist();
 		}

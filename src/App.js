@@ -16,9 +16,10 @@ import "./App.css";
 class App extends Component {
 	componentDidMount() {
 		let jwt = localStorage.getItem("token");
-
 		if (jwt && !this.props.currentUser) {
 			this.props.getUser(jwt, this.props.history);
+		} else {
+			this.props.history.push("/");
 		}
 	}
 
@@ -38,22 +39,22 @@ class App extends Component {
 				<div className="App">
 					{this.routeUsersOrNutritionists()}
 					{this.props.currentUser ? null : (
-						<Route exact path="/" component={WelcomeCard} />
+						<div>
+							<Route exact path="/" component={WelcomeCard} />
+							<Route exact path="/signup" component={SignUp} />
+							<Route exact path="/login" component={LogIn} />
+							<Route
+								exact
+								path="/nutritionists/signup"
+								component={NutritionistSignUp}
+							/>
+							<Route
+								exact
+								path="/nutritionists/login"
+								component={NutritionistLogIn}
+							/>
+						</div>
 					)}
-					<div>
-						<Route exact path="/signup" component={SignUp} />
-						<Route exact path="/login" component={LogIn} />
-						<Route
-							exact
-							path="/nutritionists/signup"
-							component={NutritionistSignUp}
-						/>
-						<Route
-							exact
-							path="/nutritionists/login"
-							component={NutritionistLogIn}
-						/>
-					</div>
 				</div>
 				<Segment
 					inverted

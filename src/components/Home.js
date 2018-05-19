@@ -32,9 +32,7 @@ class Home extends React.Component {
 	};
 
 	componentDidMount() {
-		if (!this.props.currentUser) {
-			this.props.history.push("/login");
-		} else if (this.props.currentUser.nutritionist_id) {
+		if (this.props.currentUser.nutritionist_id) {
 			this.fetchNutritionist();
 		}
 	}

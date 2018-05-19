@@ -23,7 +23,6 @@ class FoodItemEntryForm extends React.Component {
 		items: [
 			{
 				itemName: "",
-
 				quantity: "",
 				unit: "",
 				upc: "",
@@ -39,19 +38,12 @@ class FoodItemEntryForm extends React.Component {
 		searchTerm: ""
 	};
 
-	componentDidMount() {
-		if (!this.props.currentUser) {
-			this.props.history.push("/login");
-		}
-	}
-
 	// Create object with fractional values up until 4 for quantity
 	// options in form dropdown
 	quantityOptions = () => {
 		let options = [];
 		let divisors = [4, 3, 4, 3, 4, 1];
 		let fourth = 0.25;
-		let fourthFraction = "";
 		let third = 0.33;
 		let whole = 1;
 		for (let i = 0; i < 24; i++) {
@@ -268,7 +260,7 @@ class FoodItemEntryForm extends React.Component {
 								selection
 								name={i}
 								onChange={this.handleServingsChange}
-								options={this.servingOptions}
+								options={this.servingOptions()}
 								value={this.state.items[i].servings}
 								placeholder="Servings..."
 							/>
@@ -288,7 +280,7 @@ class FoodItemEntryForm extends React.Component {
 								selection
 								name={i}
 								onChange={this.handleQuantityChange}
-								options={this.quantityOptions}
+								options={this.quantityOptions()}
 								value={this.state.items[i].quantity}
 								placeholder="Quantity"
 							/>

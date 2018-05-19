@@ -12,9 +12,6 @@ class Nutritionists extends React.Component {
 	};
 
 	componentDidMount() {
-		if (!this.props.currentUser) {
-			this.props.history.push("/login");
-		}
 		this.fetchNutritionists();
 	}
 

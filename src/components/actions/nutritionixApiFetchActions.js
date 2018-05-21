@@ -6,6 +6,32 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
 		let id = process.env.REACT_APP_NUTRITIONIX_ID;
 		let key = process.env.REACT_APP_NUTRITIONIX_KEY;
+		let nutrients = {
+			beta_carotene: 0,
+			caffeine: 0,
+			calcium: 0,
+			carbohydrate: 0,
+			cholesterol: 0,
+			calories: 0,
+			fat: 0,
+			fiber: 0,
+			folic_acid: 0,
+			iron: 0,
+			niacin: 0,
+			potassium: 0,
+			protein: 0,
+			riboflavin: 0,
+			sodium: 0,
+			sugars: 0,
+			thiamin: 0,
+			vitamin_a: 0,
+			vitamin_b12: 0,
+			vitamin_c: 0,
+			vitamin_d: 0,
+			vitamin_e: 0,
+			vitamin_k: 0,
+			zinc: 0
+		};
 		if (action.payload.itemName.length) {
 			fetch(`https://trackapi.nutritionix.com/v2/natural/nutrients`, {
 				method: "POST",
@@ -27,18 +53,22 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 				.then(
 					json => {
 						if (json.foods) {
-							let nutrients = {};
 							json.foods[0].full_nutrients.forEach(nutrient => {
-								nutrients = Object.assign({}, nutrients, {
-									[NdbNos[nutrient.attr_id]]: nutrient.value
-								});
+								let nutrientName = NdbNos[nutrient.attr_id];
+								if (nutrients.hasOwnProperty(nutrientName)) {
+									nutrients = Object.assign({}, nutrients, {
+										[nutrientName]: nutrient.value
+									});
+								}
 							});
 							let capitalizedWord = json.foods[0].food_name
 								.split("_")
 								.map(word => word[0].toUpperCase() + word.slice(1))
 								.join(" ");
-							let body = {
-								food_item: {
+							let body = {};
+							body.food_item = Object.assign(
+								{},
+								{
 									user_id: userId,
 									meal_type: "lunch",
 									date: new Date(),
@@ -46,30 +76,6 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 									upc: action.payload.upc,
 									measurement: action.payload.unit,
 									quantity: action.payload.quantity,
-									beta_carotene: nutrients.beta_carotene || 0,
-									caffeine: nutrients.caffeine || 0,
-									calcium: nutrients.calcium || 0,
-									carbohydrate: nutrients.carbohydrate || 0,
-									cholesterol: nutrients.cholesterol || 0,
-									calories: nutrients.calories || 0,
-									fat: nutrients.fat || 0,
-									fiber: nutrients.fiber || 0,
-									folic_acid: nutrients.folic_acid || 0,
-									iron: nutrients.iron || 0,
-									niacin: nutrients.niacin || 0,
-									potassium: nutrients.potassium || 0,
-									protein: nutrients.protein || 0,
-									riboflavin: nutrients.riboflavin || 0,
-									sodium: nutrients.sodium || 0,
-									sugars: nutrients.sugars || 0,
-									thiamin: nutrients.thiamin || 0,
-									vitamin_a: nutrients.vitamin_a || 0,
-									vitamin_b12: nutrients.vitamin_b12 || 0,
-									vitamin_c: nutrients.vitamin_c || 0,
-									vitamin_d: nutrients.vitamin_d || 0,
-									vitamin_e: nutrients.vitamin_e || 0,
-									vitamin_k: nutrients.vitamin_k || 0,
-									zinc: nutrients.zinc || 0,
 									image: json.foods[0].photo.thumb,
 									high_res: json.foods[0].photo.highres,
 									serving: json.foods[0].serving_qty,
@@ -78,8 +84,10 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 									brand: json.foods[0].brand_name,
 									ndb_no: json.foods[0].ndb_no,
 									ingredients: json.foods[0].nf_ingredient_statement
-								}
-							};
+								},
+								nutrients
+							);
+							console.log(body);
 							fetch(
 								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
 								{
@@ -136,16 +144,19 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 				.then(res => res.json())
 				.then(
 					json => {
-						let nutrients = {};
 						if (json.foods) {
 							json.foods[0].full_nutrients.forEach(nutrient => {
-								nutrients = Object.assign({}, nutrients, {
-									[NdbNos[nutrient.attr_id]]:
-										nutrient.value * action.payload.servings
-								});
+								let nutrientName = NdbNos[nutrient.attr_id];
+								if (nutrients.hasOwnProperty(nutrientName)) {
+									nutrients = Object.assign({}, nutrients, {
+										[nutrientName]: nutrient.value
+									});
+								}
 							});
-							let body = {
-								food_item: {
+							let body = {};
+							body.food_item = Object.assign(
+								{},
+								{
 									user_id: userId,
 									meal_type: "lunch",
 									date: new Date(),
@@ -153,30 +164,6 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 									upc: action.payload.upc,
 									measurement: action.payload.unit,
 									quantity: action.payload.quantity,
-									beta_carotene: nutrients.beta_carotene || 0,
-									caffeine: nutrients.caffeine || 0,
-									calcium: nutrients.calcium || 0,
-									carbohydrate: nutrients.carbohydrate || 0,
-									cholesterol: nutrients.cholesterol || 0,
-									calories: nutrients.calories || 0,
-									fat: nutrients.fat || 0,
-									fiber: nutrients.fiber || 0,
-									folic_acid: nutrients.folic_acid || 0,
-									iron: nutrients.iron || 0,
-									niacin: nutrients.niacin || 0,
-									potassium: nutrients.potassium || 0,
-									protein: nutrients.protein || 0,
-									riboflavin: nutrients.riboflavin || 0,
-									sodium: nutrients.sodium || 0,
-									sugars: nutrients.sugars || 0,
-									thiamin: nutrients.thiamin || 0,
-									vitamin_a: nutrients.vitamin_a || 0,
-									vitamin_b12: nutrients.vitamin_b12 || 0,
-									vitamin_c: nutrients.vitamin_c || 0,
-									vitamin_d: nutrients.vitamin_d || 0,
-									vitamin_e: nutrients.vitamin_e || 0,
-									vitamin_k: nutrients.vitamin_k || 0,
-									zinc: nutrients.zinc || 0,
 									image: json.foods[0].photo.thumb,
 									high_res: json.foods[0].photo.highres,
 									serving: json.foods[0].serving_qty,
@@ -185,8 +172,9 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 									brand: json.foods[0].brand_name,
 									ndb_no: json.foods[0].ndb_no,
 									ingredients: json.foods[0].nf_ingredient_statement
-								}
-							};
+								},
+								nutrients
+							);
 							fetch(
 								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
 								{

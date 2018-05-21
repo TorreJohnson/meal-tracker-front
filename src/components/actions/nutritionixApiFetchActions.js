@@ -6,6 +6,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 	return dispatch => {
 		let id = process.env.REACT_APP_NUTRITIONIX_ID;
 		let key = process.env.REACT_APP_NUTRITIONIX_KEY;
+		// Set initial values of all nutrients to zero
 		let nutrients = {
 			beta_carotene: 0,
 			caffeine: 0,
@@ -32,6 +33,8 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 			vitamin_k: 0,
 			zinc: 0
 		};
+		// POST to the nutritionix back end if the food item was
+		// entered in as plain text
 		if (action.payload.itemName.length) {
 			fetch(`https://trackapi.nutritionix.com/v2/natural/nutrients`, {
 				method: "POST",
@@ -52,6 +55,10 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 				.then(res => res.json())
 				.then(
 					json => {
+						// If a valid response was received from the Nutritionix API,
+						// update nutrients object with values for the food item. If the
+						// item does not have any values for a particular nutrient, the
+						// value will stay at zero
 						if (json.foods) {
 							json.foods[0].full_nutrients.forEach(nutrient => {
 								let nutrientName = NdbNos[nutrient.attr_id];
@@ -87,7 +94,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								},
 								nutrients
 							);
-							console.log(body);
+							// POST data about the food item to our back end
 							fetch(
 								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
 								{
@@ -116,6 +123,8 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								.then(() => {
 									history.push("/");
 								});
+							// If the Nutritionix API returns with an error, the user is
+							// advised to check their spelling
 						} else {
 							alert("Please check Spelling");
 						}
@@ -126,6 +135,8 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 						}
 					}
 				);
+			// If the user has entered in a UPC code, the item will be sent to the
+			// Nutritionix UPC endpoint
 		} else {
 			fetch(
 				`https://trackapi.nutritionix.com/v2/search/item?upc=${
@@ -144,6 +155,10 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 				.then(res => res.json())
 				.then(
 					json => {
+						// If a valid response was received from the Nutritionix API,
+						// update nutrients object with values for the food item. If the
+						// item does not have any values for a particular nutrient, the
+						// value will stay at zero
 						if (json.foods) {
 							json.foods[0].full_nutrients.forEach(nutrient => {
 								let nutrientName = NdbNos[nutrient.attr_id];
@@ -175,6 +190,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								},
 								nutrients
 							);
+							// POST data about the food item to our back end
 							fetch(
 								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
 								{
@@ -203,6 +219,8 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								.then(() => {
 									history.push("/");
 								});
+							// If the Nutritionix API returns with an error, the user is
+							// advised to check their spelling
 						} else {
 							alert("Please check UPC Code");
 						}

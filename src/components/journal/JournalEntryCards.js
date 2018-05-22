@@ -36,6 +36,68 @@ class JournalEntryCard extends React.Component {
 		}
 	};
 
+	capitalizeNutrientName(word) {
+		let splitWord = word.split("_");
+		let capitalizedWord = [];
+		for (let i = 0; i < splitWord.length; i++) {
+			let word = splitWord[i][0].toUpperCase() + splitWord[i].slice(1);
+			capitalizedWord.push(word);
+		}
+		return capitalizedWord.join(" ");
+	}
+
+	nutrients = [
+		"beta_carotene",
+		"caffeine",
+		"calcium",
+		"carbohydrate",
+		"cholesterol",
+		"fat",
+		"fiber",
+		"folic_acid",
+		"iron",
+		"niacin",
+		"potassium",
+		"protein",
+		"riboflavin",
+		"sodium",
+		"sugars",
+		"thiamin",
+		"vitamin_a",
+		"vitamin_b12",
+		"vitamin_c",
+		"vitamin_d",
+		"vitamin_e",
+		"vitamin_k",
+		"zinc"
+	];
+
+	createNutrientValuesListOne = () => {
+		let nutrientValues = [];
+		for (let i = 0; i < 11; i++) {
+			nutrientValues.push(
+				<List.Item>
+					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
+					{this.props.foodItem[this.nutrients[i]]}
+				</List.Item>
+			);
+		}
+		return nutrientValues;
+	};
+
+	createNutrientValuesListTwo = () => {
+		let nutrientValues = [];
+		for (let i = 11; i < this.nutrients.length; i++) {
+			nutrientValues.push(
+				<List.Item>
+					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
+					{this.props.food_item[this.nutrients[i]]}
+				</List.Item>
+			);
+		}
+		return nutrientValues;
+	};
+
 	render() {
 		const { open, dimmer } = this.state;
 		return (
@@ -83,76 +145,10 @@ class JournalEntryCard extends React.Component {
 									<Header>Nutrient Values</Header>
 									<Grid columns={2}>
 										<Grid.Column>
-											<List>
-												<List.Item>
-													Beta Carotene: {this.props.foodItem.beta_carotene}
-												</List.Item>
-												<List.Item>
-													Caffeine: {this.props.foodItem.caffeine}
-												</List.Item>
-												<List.Item>
-													Calcium: {this.props.foodItem.calcium}
-												</List.Item>
-												<List.Item>
-													Carbohydrates: {this.props.foodItem.carbohydrate}
-												</List.Item>
-												<List.Item>
-													Cholesterol: {this.props.foodItem.cholesterol}
-												</List.Item>
-												<List.Item>
-													Calories: {this.props.foodItem.calories}
-												</List.Item>
-												<List.Item>Fat: {this.props.foodItem.fat}</List.Item>
-												<List.Item>
-													Fiber: {this.props.foodItem.fiber}
-												</List.Item>
-												<List.Item>
-													Folic Acid: {this.props.foodItem.folic_acid}
-												</List.Item>
-												<List.Item>Iron: {this.props.foodItem.iron}</List.Item>
-												<List.Item>
-													Niacin: {this.props.foodItem.calcium}
-												</List.Item>
-											</List>
+											<List>{this.createNutrientValuesListOne()}</List>
 										</Grid.Column>
 										<Grid.Column>
-											<List.Item>
-												Potassium: {this.props.foodItem.potassium}
-											</List.Item>
-											<List.Item>
-												Protein: {this.props.foodItem.protein}
-											</List.Item>
-											<List.Item>
-												Riboflavin: {this.props.foodItem.riboflavin}
-											</List.Item>
-											<List.Item>
-												Sodium: {this.props.foodItem.sodium}
-											</List.Item>
-											<List.Item>
-												Sugars: {this.props.foodItem.sugars}
-											</List.Item>
-											<List.Item>
-												Thiamin: {this.props.foodItem.thiamin}
-											</List.Item>
-											<List.Item>
-												Vitamin A: {this.props.foodItem.vitamin_a}
-											</List.Item>
-											<List.Item>
-												Vitamin B12: {this.props.foodItem.vitamin_b12}
-											</List.Item>
-											<List.Item>
-												Vitamin C: {this.props.foodItem.vitamin_c}
-											</List.Item>
-											<List.Item>
-												Vitamin D: {this.props.foodItem.vitamin_d}
-											</List.Item>
-											<List.Item>
-												Vitamin E: {this.props.foodItem.vitamin_e}
-											</List.Item>
-											<List.Item>
-												Vitamin K: {this.props.foodItem.vitamin_k}
-											</List.Item>
-											<List.Item>Zinc: {this.props.foodItem.zinc}</List.Item>
+											<List>{this.createNutrientValuesListOne()}</List>
 										</Grid.Column>
 									</Grid>
 								</Segment>

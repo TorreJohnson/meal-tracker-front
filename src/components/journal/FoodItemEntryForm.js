@@ -38,8 +38,8 @@ class FoodItemEntryForm extends React.Component {
 		searchTerm: ""
 	};
 
-	// Create object with fractional values up until 4 for quantity
-	// options in form dropdown
+	// Create object with fractional values up until 4, and then whole values
+	// up until 24 for quantity options in form dropdown
 	quantityOptions = () => {
 		let options = [];
 		let divisors = [4, 3, 4, 3, 4, 1];

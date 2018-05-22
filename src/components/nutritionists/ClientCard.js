@@ -11,6 +11,7 @@ import {
 } from "semantic-ui-react";
 import { sendUserRecNutrients } from "../actions/patchUserActions";
 import { connect } from "react-redux";
+import cuid from "cuid";
 
 class ClientCard extends React.Component {
 	state = {
@@ -111,6 +112,62 @@ class ClientCard extends React.Component {
 		this.props.sendUserRecNutrients(payload);
 	};
 
+	capitalizeNutrientName(word) {
+		let splitWord = word.split("_");
+		let capitalizedWord = [];
+		for (let i = 1; i < splitWord.length; i++) {
+			let word = splitWord[i][0].toUpperCase() + splitWord[i].slice(1);
+			capitalizedWord.push(word);
+		}
+		return capitalizedWord.join(" ");
+	}
+
+	createRecommendedNutrientForm = () => {
+		let nutrients = [
+			"rec_beta_carotene",
+			"rec_caffeine",
+			"rec_calcium",
+			"rec_carbohydrate",
+			"rec_cholesterol",
+			"rec_fat",
+			"rec_fiber",
+			"rec_folic_acid",
+			"rec_iron",
+			"rec_niacin",
+			"rec_potassium",
+			"rec_protein",
+			"rec_riboflavin",
+			"rec_sodium",
+			"rec_sugars",
+			"rec_thiamin",
+			"rec_vitamin_a",
+			"rec_vitamin_b12",
+			"rec_vitamin_c",
+			"rec_vitamin_d",
+			"rec_vitamin_e",
+			"rec_vitamin_k",
+			"rec_zinc"
+		];
+		let recommendedNutrientForm = [];
+		for (let i = 0; i < nutrients.length; i++) {
+			recommendedNutrientForm.push(
+				<Grid.Column key={cuid()}>
+					<Form.Group widths="equal">
+						<Form.Input
+							fluid
+							label={this.capitalizeNutrientName(nutrients[i])}
+							name={nutrients[i]}
+							type="number"
+							onChange={this.handleNutrientCountChange}
+							placeholder={this.state[nutrients[i].slice(4)]}
+						/>
+					</Form.Group>
+				</Grid.Column>
+			);
+		}
+		return recommendedNutrientForm;
+	};
+
 	render() {
 		return (
 			<div>
@@ -155,283 +212,7 @@ class ClientCard extends React.Component {
 								{this.state.assignClientNutrientGoals ? (
 									<Grid.Row columns={2}>
 										<Form onSubmit={this.handleSubmit}>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Beta Carotene"
-														name="rec_beta_carotene"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.beta_carotene}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Caffeine"
-														name="rec_beta_caffeine"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.caffeine}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Calcium"
-														name="rec_beta_calcium"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.calcium}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Carbohydrates"
-														name="rec_carbohydrate"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.carbohydrate}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Cholesterol"
-														name="rec_cholesterol"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.cholesterol}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Fat"
-														name="rec_fat"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.fat}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Fiber"
-														name="rec_fiber"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.fiber}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Folic Acid"
-														name="rec_folic_acid"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.folic_acid}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Iron"
-														name="rec_iron"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.iron}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Niacin"
-														name="rec_niacin"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.niacin}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Potassium"
-														name="rec_potassium"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.potassium}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Protein"
-														name="rec_protein"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.protein}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Riboflavin"
-														name="rec_riboflavin"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.riboflavin}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Sodium"
-														name="rec_sodium"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.sodium}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Sugars"
-														name="rec_sugars"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.sugars}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Thiamin"
-														name="rec_thiamin"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.thiamin}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin A"
-														name="rec_vitamin_a"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_a}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin B12"
-														name="rec_vitamin_b12"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_b12}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin C"
-														name="rec_vitamin_c"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_c}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin D"
-														name="rec_vitamin_d"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_d}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin E"
-														name="rec_vitamin_e"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_e}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Vitamin K"
-														name="rec_vitamin_k"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.vitamin_k}
-													/>
-												</Form.Group>
-											</Grid.Column>
-											<Grid.Column>
-												<Form.Group widths="equal">
-													<Form.Input
-														fluid
-														label="Zinc"
-														name="rec_zinc"
-														type="number"
-														onChange={this.handleNutrientCountChange}
-														placeholder={this.state.zinc}
-													/>
-												</Form.Group>
-												<Form.Button>Submit</Form.Button>
-											</Grid.Column>
+											{this.createRecommendedNutrientForm()}
 										</Form>
 									</Grid.Row>
 								) : (

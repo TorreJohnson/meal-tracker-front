@@ -53,79 +53,41 @@ class ClientCard extends React.Component {
 	};
 
 	mapNutrientCountsInState(items) {
-		let beta_carotene = 0;
-		let caffeine = 0;
-		let calcium = 0;
-		let carbohydrate = 0;
-		let cholesterol = 0;
-		let fat = 0;
-		let fiber = 0;
-		let folic_acid = 0;
-		let iron = 0;
-		let niacin = 0;
-		let potassium = 0;
-		let protein = 0;
-		let riboflavin = 0;
-		let sodium = 0;
-		let sugars = 0;
-		let thiamin = 0;
-		let vitamin_a = 0;
-		let vitamin_b12 = 0;
-		let vitamin_c = 0;
-		let vitamin_d = 0;
-		let vitamin_e = 0;
-		let vitamin_k = 0;
-		let zinc = 0;
-		items.forEach(item => {
-			beta_carotene += item.beta_carotene;
-			caffeine += item.caffeine;
-			calcium += item.calcium;
-			carbohydrate += item.carbohydrate;
-			cholesterol += item.cholesterol;
-			fat += item.fat;
-			fiber += item.fiber;
-			folic_acid += item.folic_acid;
-			iron += item.iron;
-			niacin += item.niacin;
-			potassium += item.potassium;
-			protein += item.protein;
-			riboflavin += item.riboflavin;
-			sodium += item.sodium / 1000;
-			sugars += item.sugars;
-			thiamin += item.thiamin;
-			vitamin_a += item.vitamin_a;
-			vitamin_b12 += item.vitamin_b12;
-			vitamin_c += item.vitamin_c;
-			vitamin_d += item.vitamin_d;
-			vitamin_e += item.vitamin_e;
-			vitamin_k += item.vitamin_k;
-			zinc += item.zinc;
+		let nutrientCounts = {
+			beta_carotene: 0,
+			caffeine: 0,
+			calcium: 0,
+			carbohydrate: 0,
+			cholesterol: 0,
+			fat: 0,
+			fiber: 0,
+			folic_acid: 0,
+			iron: 0,
+			niacin: 0,
+			potassium: 0,
+			protein: 0,
+			riboflavin: 0,
+			sodium: 0,
+			sugars: 0,
+			thiamin: 0,
+			vitamin_a: 0,
+			vitamin_b12: 0,
+			vitamin_c: 0,
+			vitamin_d: 0,
+			vitamin_e: 0,
+			vitamin_k: 0,
+			zinc: 0
+		};
+		items.forEach(itemObj => {
+			for (let nutrient in itemObj) {
+				if (nutrient === "sodium") {
+					nutrientCounts.sodium += itemObj.sodium / 1000;
+				} else {
+					nutrientCounts[nutrient] += itemObj[nutrient];
+				}
+			}
 		});
-		this.setState({
-			beta_carotene: beta_carotene,
-			caffeine: caffeine,
-			calcium: calcium,
-			carbohydrate: carbohydrate,
-			cholesterol: cholesterol,
-			fat: fat,
-			fiber: fiber,
-			folic_acid: folic_acid,
-			iron: iron,
-			niacin: niacin,
-			potassium: potassium,
-			protein: protein,
-			riboflavin: riboflavin,
-			sodium: sodium,
-			sugars: sugars,
-			thiamin: thiamin,
-			vitamin_a: vitamin_a,
-			vitamin_b12: vitamin_b12,
-			vitamin_c: vitamin_c,
-			vitamin_d: vitamin_d,
-			vitamin_e: vitamin_e,
-			vitamin_k: vitamin_k,
-			zinc: zinc
-		});
+		this.setState(nutrientCounts);
 	}
 
 	handleGoalValueClick = () => {

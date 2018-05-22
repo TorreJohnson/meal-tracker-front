@@ -122,44 +122,71 @@ class ClientCard extends React.Component {
 		return capitalizedWord.join(" ");
 	}
 
+	nutrients = [
+		"rec_beta_carotene",
+		"rec_caffeine",
+		"rec_calcium",
+		"rec_carbohydrate",
+		"rec_cholesterol",
+		"rec_fat",
+		"rec_fiber",
+		"rec_folic_acid",
+		"rec_iron",
+		"rec_niacin",
+		"rec_potassium",
+		"rec_protein",
+		"rec_riboflavin",
+		"rec_sodium",
+		"rec_sugars",
+		"rec_thiamin",
+		"rec_vitamin_a",
+		"rec_vitamin_b12",
+		"rec_vitamin_c",
+		"rec_vitamin_d",
+		"rec_vitamin_e",
+		"rec_vitamin_k",
+		"rec_zinc"
+	];
+
+	createNutrientValuesListOne = () => {
+		let nutrientValues = [];
+		for (let i = 0; i < 11; i++) {
+			nutrientValues.push(
+				<List.Item>
+					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
+					{this.state[this.nutrients[i].slice(4)]}
+				</List.Item>
+			);
+		}
+		return nutrientValues;
+	};
+
+	createNutrientValuesListTwo = () => {
+		let nutrientValues = [];
+		for (let i = 11; i < this.nutrients.length; i++) {
+			nutrientValues.push(
+				<List.Item>
+					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
+					{this.state[this.nutrients[i].slice(4)]}
+				</List.Item>
+			);
+		}
+		return nutrientValues;
+	};
+
 	createRecommendedNutrientForm = () => {
-		let nutrients = [
-			"rec_beta_carotene",
-			"rec_caffeine",
-			"rec_calcium",
-			"rec_carbohydrate",
-			"rec_cholesterol",
-			"rec_fat",
-			"rec_fiber",
-			"rec_folic_acid",
-			"rec_iron",
-			"rec_niacin",
-			"rec_potassium",
-			"rec_protein",
-			"rec_riboflavin",
-			"rec_sodium",
-			"rec_sugars",
-			"rec_thiamin",
-			"rec_vitamin_a",
-			"rec_vitamin_b12",
-			"rec_vitamin_c",
-			"rec_vitamin_d",
-			"rec_vitamin_e",
-			"rec_vitamin_k",
-			"rec_zinc"
-		];
 		let recommendedNutrientForm = [];
-		for (let i = 0; i < nutrients.length; i++) {
+		for (let i = 0; i < this.nutrients.length; i++) {
 			recommendedNutrientForm.push(
 				<Grid.Column key={cuid()}>
 					<Form.Group widths="equal">
 						<Form.Input
 							fluid
-							label={this.capitalizeNutrientName(nutrients[i])}
-							name={nutrients[i]}
+							label={this.capitalizeNutrientName(this.nutrients[i])}
+							name={this.nutrients[i]}
 							type="number"
 							onChange={this.handleNutrientCountChange}
-							placeholder={this.state[nutrients[i].slice(4)]}
+							placeholder={this.state[this.nutrients[i].slice(4)]}
 						/>
 					</Form.Group>
 				</Grid.Column>
@@ -218,53 +245,13 @@ class ClientCard extends React.Component {
 								) : (
 									<Grid.Row columns={2}>
 										<Grid.Column>
-											<List>
-												<List.Item>
-													Beta Carotene: {this.state.beta_carotene}
-												</List.Item>
-												<List.Item>Caffeine: {this.state.caffeine}</List.Item>
-												<List.Item>Calcium: {this.state.calcuim}</List.Item>
-												<List.Item>
-													Carbohydrates: {this.state.carbohydrate}
-												</List.Item>
-												<List.Item>
-													Cholesterol: {this.state.cholesterol}
-												</List.Item>
-												<List.Item>Fat: {this.state.fat}</List.Item>
-												<List.Item>Fiber: {this.state.fiber}</List.Item>
-												<List.Item>
-													Folic Acid: {this.state.folic_acid}
-												</List.Item>
-												<List.Item>Iron: {this.state.iron}</List.Item>
-												<List.Item>Niacin: {this.state.niacin}</List.Item>
-												<List.Item>Pottasium: {this.state.potassium}</List.Item>
-											</List>
+											<List>{this.createNutrientValuesListOne()}</List>
 										</Grid.Column>
 										<Grid.Column>
-											<List>
-												<List.Item>Protein: {this.state.protein}</List.Item>
-												<List.Item>
-													Riboflavin: {this.state.riboflavin}
-												</List.Item>
-												<List.Item>
-													Sodium: {this.state.sodium.toFixed(2)}
-												</List.Item>
-												<List.Item>Sugars: {this.state.sugars}</List.Item>
-												<List.Item>Thiamin: {this.state.thiamin}</List.Item>
-												<List.Item>Vitamin A: {this.state.vitamin_a}</List.Item>
-												<List.Item>
-													Vitamin B12: {this.state.vitamin_b12}
-												</List.Item>
-												<List.Item>Vitamin C: {this.state.vitamin_c}</List.Item>
-												<List.Item>Vitamin D: {this.state.vitamin_d}</List.Item>
-												<List.Item>Vitamin E: {this.state.vitamin_e}</List.Item>
-												<List.Item>Vitamin K: {this.state.vitamin_k}</List.Item>
-												<List.Item>Zinc: {this.state.zinc}</List.Item>
-											</List>
+											<List>{this.createNutrientValuesListTwo()}</List>
 										</Grid.Column>
 									</Grid.Row>
 								)}
-
 								<Grid.Row>
 									<Grid.Column>
 										<Button onClick={this.handleGoalValueClick}>

@@ -31,10 +31,10 @@ class ClientCard extends React.Component {
 		);
 	}
 
-	createDefaultNutrientObj(nutrientArray) {
+	createDefaultNutrientObj(nutrientArray, defaultValue = 0) {
 		let nutrientObj = {};
 		for (let i = 0; i < nutrientArray.length; i++) {
-			nutrientObj[nutrientArray[i]] = 0;
+			nutrientObj[nutrientArray[i]] = defaultValue;
 		}
 		return nutrientObj;
 	}
@@ -63,27 +63,6 @@ class ClientCard extends React.Component {
 		});
 		this.setState(nutrientCounts);
 	}
-
-	handleGoalValueClick = () => {
-		this.setState({
-			assignClientNutrientGoals: !this.state.assignClientNutrientGoals
-		});
-	};
-
-	handleNutrientCountChange = e => {
-		this.setState({
-			[e.target.name]: parseInt(e.target.value, 10)
-		});
-	};
-
-	handleSubmit = e => {
-		e.preventDefault();
-		let payload = {
-			...this.state,
-			id: this.props.client.id
-		};
-		this.props.sendUserRecNutrients(payload);
-	};
 
 	createNutrientValuesListOne = () => {
 		let nutrientValues = [];
@@ -130,6 +109,33 @@ class ClientCard extends React.Component {
 			);
 		}
 		return recommendedNutrientForm;
+	};
+
+	handleGoalValueClick = () => {
+		this.setState({
+			assignClientNutrientGoals: !this.state.assignClientNutrientGoals
+		});
+	};
+
+	handleNutrientCountChange = e => {
+		this.setState({
+			[e.target.name]: parseInt(e.target.value, 10)
+		});
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+		let nutrientPayload = {};
+		for (let i = 0; i < recommendedNutrients; i++) {
+			nutrientPayload[recommendedNutrients[i]] = this.state[
+				recommendedNutrients[i]
+			];
+		}
+		let payload = {
+			nutrients: nutrientPayload,
+			id: this.props.client.id
+		};
+		this.props.sendUserRecNutrients(payload);
 	};
 
 	render() {

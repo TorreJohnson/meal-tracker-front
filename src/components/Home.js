@@ -10,10 +10,6 @@ import NutrientsThroughTime from "./graphs/NutrientsThroughTime";
 import NutritionistPage from "./nutritionistMarket/NutritionistPage";
 import { NutrientDefinitions } from "./nutrients/NutrientDefinitions";
 import NutrientProgressBar from "./graphs/NutrientProgressBar";
-import {
-	capitalizedNutrients,
-	snakeCasedNutrients
-} from "./nutrients/NutrientLists";
 import cuid from "cuid";
 import {
 	Label,
@@ -113,17 +109,32 @@ class Home extends React.Component {
 		});
 	};
 
-	nutrientOptions = () => {
-		let nutrientOptions = [];
-		for (let i = 0; i < capitalizedNutrients.length; i++) {
-			nutrientOptions.push({
-				key: capitalizedNutrients[i],
-				text: capitalizedNutrients[i],
-				value: snakeCasedNutrients[i]
-			});
-		}
-		return nutrientOptions;
-	};
+	nutrientOptions = [
+		{ key: "Beta Carotene", text: "Beta Carotene", value: "beta_carotene" },
+		{ key: "Caffeine", text: "Caffeine", value: "caffeine" },
+		{ key: "Calcium", text: "Calcium", value: "calcium" },
+		{ key: "Carbohydrates", text: "Carbohydrates", value: "carbohydrate" },
+		{ key: "Cholesterol", text: "Cholesterol", value: "cholesterol" },
+		{ key: "Calories", text: "Calories", value: "calories" },
+		{ key: "Fat", text: "Fat", value: "fat" },
+		{ key: "Fiber", text: "Fiber", value: "fiber" },
+		{ key: "Folic Acid", text: "Folic Acid", value: "folic_acid" },
+		{ key: "Iron", text: "Iron", value: "iron" },
+		{ key: "Niacin", text: "Niacin", value: "niacin" },
+		{ key: "Potassium", text: "Potassium", value: "potassium" },
+		{ key: "Protein", text: "Protein", value: "protein" },
+		{ key: "Riboflavin", text: "Riboflavin", value: "riboflavin" },
+		{ key: "Sodium", text: "Sodium", value: "sodium" },
+		{ key: "Sugars", text: "Sugars", value: "sugars" },
+		{ key: "Thiamin", text: "Thiamin", value: "thiamin" },
+		{ key: "Vitamin A", text: "Vitamin A", value: "vitamin_a" },
+		{ key: "Vitamin B12", text: "Vitamin B12", value: "vitamin_b12" },
+		{ key: "Vitamin C", text: "Vitamin C", value: "vitamin_c" },
+		{ key: "Vitamin D", text: "Vitamin D", value: "vitamin_d" },
+		{ key: "Vitamin E", text: "Vitamin E", value: "vitamin_e" },
+		{ key: "Vitamin K", text: "Vitamin K", value: "vitamin_k" },
+		{ key: "Zinc", text: "Zinc", value: "zinc" }
+	];
 
 	toggleBetweenNutrientsAndGraphs = () => {
 		if (this.state.searchInput.length) {
@@ -271,7 +282,6 @@ class Home extends React.Component {
 								)}
 								Today
 							</Menu.Item>
-
 							<Menu.Item
 								name="Weekly"
 								active={activeItem === "Weekly"}

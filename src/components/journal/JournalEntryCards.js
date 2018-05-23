@@ -1,6 +1,10 @@
 import React from "react";
 import cuid from "cuid";
 import {
+	snakeCasedNutrients,
+	capitalizedNutrients
+} from "../nutrients/NutrientLists";
+import {
 	Segment,
 	Header,
 	Image,
@@ -36,49 +40,13 @@ class JournalEntryCard extends React.Component {
 		}
 	};
 
-	capitalizeNutrientName(word) {
-		let splitWord = word.split("_");
-		let capitalizedWord = [];
-		for (let i = 0; i < splitWord.length; i++) {
-			let word = splitWord[i][0].toUpperCase() + splitWord[i].slice(1);
-			capitalizedWord.push(word);
-		}
-		return capitalizedWord.join(" ");
-	}
-
-	nutrients = [
-		"beta_carotene",
-		"caffeine",
-		"calcium",
-		"carbohydrate",
-		"cholesterol",
-		"fat",
-		"fiber",
-		"folic_acid",
-		"iron",
-		"niacin",
-		"potassium",
-		"protein",
-		"riboflavin",
-		"sodium",
-		"sugars",
-		"thiamin",
-		"vitamin_a",
-		"vitamin_b12",
-		"vitamin_c",
-		"vitamin_d",
-		"vitamin_e",
-		"vitamin_k",
-		"zinc"
-	];
-
 	createNutrientValuesListOne = () => {
 		let nutrientValues = [];
 		for (let i = 0; i < 11; i++) {
 			nutrientValues.push(
 				<List.Item>
-					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
-					{this.props.foodItem[this.nutrients[i]]}
+					{capitalizedNutrients[i]}:{" "}
+					{this.props.foodItem[snakeCasedNutrients[i]]}
 				</List.Item>
 			);
 		}
@@ -87,11 +55,11 @@ class JournalEntryCard extends React.Component {
 
 	createNutrientValuesListTwo = () => {
 		let nutrientValues = [];
-		for (let i = 11; i < this.nutrients.length; i++) {
+		for (let i = 11; i < snakeCasedNutrients.length; i++) {
 			nutrientValues.push(
 				<List.Item>
-					{this.capitalizeNutrientName(this.nutrients[i])}:{" "}
-					{this.props.food_item[this.nutrients[i]]}
+					{capitalizedNutrients[i]}:{" "}
+					{this.props.food_item[snakeCasedNutrients[i]]}
 				</List.Item>
 			);
 		}

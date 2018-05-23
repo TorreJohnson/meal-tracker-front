@@ -13,7 +13,8 @@ import { sendUserRecNutrients } from "../actions/patchUserActions";
 import { connect } from "react-redux";
 import {
 	recommendedNutrients,
-	snakeCasedNutrients
+	snakeCasedNutrients,
+	capitalizedNutrients
 } from "../nutrients/NutrientLists";
 import cuid from "cuid";
 
@@ -84,22 +85,12 @@ class ClientCard extends React.Component {
 		this.props.sendUserRecNutrients(payload);
 	};
 
-	capitalizeNutrientName(word) {
-		let splitWord = word.split("_");
-		let capitalizedWord = [];
-		for (let i = 1; i < splitWord.length; i++) {
-			let word = splitWord[i][0].toUpperCase() + splitWord[i].slice(1);
-			capitalizedWord.push(word);
-		}
-		return capitalizedWord.join(" ");
-	}
-
 	createNutrientValuesListOne = () => {
 		let nutrientValues = [];
 		for (let i = 0; i < 11; i++) {
 			nutrientValues.push(
 				<List.Item key={cuid()}>
-					{this.capitalizeNutrientName(recommendedNutrients[i])}:{" "}
+					{capitalizedNutrients[i]}:{" "}
 					{this.state[recommendedNutrients[i].slice(4)]}
 				</List.Item>
 			);
@@ -112,7 +103,7 @@ class ClientCard extends React.Component {
 		for (let i = 11; i < recommendedNutrients.length; i++) {
 			nutrientValues.push(
 				<List.Item key={cuid()}>
-					{this.capitalizeNutrientName(recommendedNutrients[i])}:{" "}
+					{capitalizedNutrients[i]}:{" "}
 					{this.state[recommendedNutrients[i].slice(4)]}
 				</List.Item>
 			);
@@ -128,7 +119,7 @@ class ClientCard extends React.Component {
 					<Form.Group widths="equal">
 						<Form.Input
 							fluid
-							label={this.capitalizeNutrientName(recommendedNutrients[i])}
+							label={capitalizedNutrients[i]}
 							name={recommendedNutrients[i]}
 							type="number"
 							onChange={this.handleNutrientCountChange}

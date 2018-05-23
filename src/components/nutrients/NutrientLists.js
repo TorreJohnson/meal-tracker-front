@@ -49,3 +49,29 @@ export const snakeCasedNutrients = [
 	"vitamin_k",
 	"zinc"
 ];
+
+export const capitalizedNutrients = [
+	"Beta Carotene",
+	"Caffeine",
+	"Calcium",
+	"Carbohydrate",
+	"Cholesterol",
+	"Fat",
+	"Fiber",
+	"Folic Acid",
+	"Iron",
+	"Niacin",
+	"Potassium",
+	"Protein",
+	"Riboflavin",
+	"Sodium",
+	"Sugars",
+	"Thiamin",
+	"Vitamin A",
+	"Vitamin B12",
+	"Vitamin C",
+	"Vitamin D",
+	"Vitamin E",
+	"Vitamin K",
+	"Zinc"
+];

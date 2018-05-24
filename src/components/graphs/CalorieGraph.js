@@ -7,7 +7,8 @@ class CalorieGraph extends React.Component {
 	filterFoodItems = () => {
 		if (this.props.filter === "Daily" && this.props.currentUser.food_items) {
 			const items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 86400000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) < 1000 * 60 * 60 * 24
 			);
 			return this.mapNutrientCountsInState(items);
 		} else if (
@@ -15,7 +16,9 @@ class CalorieGraph extends React.Component {
 			this.props.currentUser.food_items
 		) {
 			const items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 604800000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) <
+					1000 * 60 * 60 * 24 * 7
 			);
 			return this.mapNutrientCountsInState(items);
 		} else if (
@@ -23,7 +26,9 @@ class CalorieGraph extends React.Component {
 			this.props.currentUser.food_items
 		) {
 			const items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) <
+					1000 * 60 * 60 * 24 * 30
 			);
 			return this.mapNutrientCountsInState(items);
 		}

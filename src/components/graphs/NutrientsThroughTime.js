@@ -14,7 +14,8 @@ class NutrientsThroughTime extends React.Component {
 		const items = this.props.currentUser.food_items.filter(
 			item =>
 				Date.now() - Date.parse(item.date.split("T")[0]) < ms &&
-				Date.now() - Date.parse(item.date.split("T")[0]) > ms - 86400000
+				Date.now() - Date.parse(item.date.split("T")[0]) >
+					ms - 1000 * 60 * 60 * 24
 		);
 		const arrayedItems = items.map(item => item[this.props.nutrient]);
 		return arrayedItems.reduce((a, b) => a + b, 0);
@@ -23,12 +24,12 @@ class NutrientsThroughTime extends React.Component {
 	nutrientValuesThroughTime = () => {
 		if (this.props.nutrient.length) {
 			let i = 31;
-			let ms = 2592000000;
+			let ms = 1000 * 60 * 60 * 24 * 30;
 			let counts = [];
 			while (i > 0) {
 				counts.push(this.filteredSum(ms));
 				i--;
-				ms -= 86400000;
+				ms -= 1000 * 60 * 60 * 24;
 			}
 			return counts;
 		} else {

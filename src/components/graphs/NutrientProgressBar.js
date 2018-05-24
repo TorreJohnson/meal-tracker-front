@@ -5,7 +5,9 @@ import { Progress } from "semantic-ui-react";
 class NutrientProgressBar extends React.Component {
 	monthlySum = () => {
 		const items = this.props.currentUser.food_items.filter(
-			item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
+			item =>
+				Date.now() - Date.parse(item.date.split("T")[0]) <
+				1000 * 60 * 60 * 24 * 30
 		);
 		const arrayedItems = items.map(item => item[this.props.nutrient]);
 		return arrayedItems.reduce((a, b) => a + b, 0);

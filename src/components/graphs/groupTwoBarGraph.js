@@ -7,21 +7,26 @@ class GroupTwoBarGraph extends React.Component {
 		let items;
 		if (this.props.filter === "Daily" && this.props.currentUser.food_items) {
 			items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 86400000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) < 1000 * 60 * 60 * 24
 			);
 		} else if (
 			this.props.filter === "Weekly" &&
 			this.props.currentUser.food_items
 		) {
 			items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 604800000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) <
+					1000 * 60 * 60 * 24 * 7
 			);
 		} else if (
 			this.props.filter === "Monthly" &&
 			this.props.currentUser.food_items
 		) {
 			items = this.props.currentUser.food_items.filter(
-				item => Date.now() - Date.parse(item.date.split("T")[0]) < 2592000000
+				item =>
+					Date.now() - Date.parse(item.date.split("T")[0]) <
+					1000 * 60 * 60 * 24 * 30
 			);
 		}
 		return this.mapNutrientCountsInState(items);

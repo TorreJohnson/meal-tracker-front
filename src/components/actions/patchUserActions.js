@@ -27,20 +27,20 @@ export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 				body: JSON.stringify(body)
 			}
 		)
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "UPDATE_NUTRITIONIST",
-						payload: response.nutritionist_id
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_NUTRITIONIST",
+					payload: response.nutritionist_id
+				});
+			})
+			.catch(console.log);
 	};
 }
 
@@ -53,56 +53,56 @@ export function updateUser(payload, jwt) {
 				payload.address
 			}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 		)
-			.then(res => res.json())
-			.then(
-				response => {
-					fetch(
-						`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${
-							payload.id
-						}`,
-						{
-							method: "PATCH",
-							headers: {
-								"Content-Type": "application/json",
-								accept: "application/json",
-								Authorization: jwt
-							},
-							body: JSON.stringify({
-								name: payload.name,
-								username: payload.username,
-								email: payload.email,
-								address: payload.address,
-								birthday: payload.birthday,
-								weight: payload.weight,
-								height: payload.height,
-								goal: payload.goal,
-								profile_photo: payload.profilePhoto,
-								latitude: response.results[0].geometry.location.lat,
-								longitude: response.results[0].geometry.location.lng
-							})
-						}
-					)
-						.then(res => res.json())
-						.then(
-							response => {
-								dispatch({
-									type: "UPDATE_USER",
-									payload: response
-								});
-							},
-							error => {
-								if (error) {
-									console.log(error);
-								}
-							}
-						);
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				fetch(
+					`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${
+						payload.id
+					}`,
+					{
+						method: "PATCH",
+						headers: {
+							"Content-Type": "application/json",
+							accept: "application/json",
+							Authorization: jwt
+						},
+						body: JSON.stringify({
+							name: payload.name,
+							username: payload.username,
+							email: payload.email,
+							address: payload.address,
+							birthday: payload.birthday,
+							weight: payload.weight,
+							height: payload.height,
+							goal: payload.goal,
+							profile_photo: payload.profilePhoto,
+							latitude: response.results[0].geometry.location.lat,
+							longitude: response.results[0].geometry.location.lng
+						})
+					}
+				)
+					.then(res => {
+						if (!res.ok) {
+							throw Error(res.statusText);
+						}
+						return res;
+					})
+					.then(res => res.json())
+					.then(response => {
+						dispatch({
+							type: "UPDATE_USER",
+							payload: response
+						});
+					})
+					.catch(console.log);
+			})
+			.catch(console.log);
 	};
 }
 
@@ -121,19 +121,19 @@ export function sendUserRecNutrients(payload) {
 				body: JSON.stringify(payload.nutrients)
 			}
 		)
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "UPDATE_CLIENT",
-						payload: response
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_CLIENT",
+					payload: response
+				});
+			})
+			.catch(console.log);
 	};
 }

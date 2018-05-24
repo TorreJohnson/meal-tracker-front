@@ -52,89 +52,89 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					timezone: "US/Eastern"
 				})
 			})
-				.then(res => res.json())
-				.then(
-					json => {
-						// If a valid response was received from the Nutritionix API,
-						// update nutrients object with values for the food item. If the
-						// item does not have any values for a particular nutrient, the
-						// value will stay at zero
-						if (json.foods) {
-							json.foods[0].full_nutrients.forEach(nutrient => {
-								let nutrientName = NdbNos[nutrient.attr_id];
-								if (nutrients.hasOwnProperty(nutrientName)) {
-									nutrients = Object.assign({}, nutrients, {
-										[nutrientName]: nutrient.value
-									});
-								}
-							});
-							let capitalizedWord = json.foods[0].food_name
-								.split("_")
-								.map(word => word[0].toUpperCase() + word.slice(1))
-								.join(" ");
-							let body = {};
-							body.food_item = Object.assign(
-								{},
-								{
-									user_id: userId,
-									meal_type: "lunch",
-									date: new Date(),
-									name: capitalizedWord,
-									upc: action.payload.upc,
-									measurement: action.payload.unit,
-									quantity: action.payload.quantity,
-									image: json.foods[0].photo.thumb,
-									high_res: json.foods[0].photo.highres,
-									serving: json.foods[0].serving_qty,
-									serving_unit: json.foods[0].serving_unit,
-									serving_in_grams: json.foods[0].serving_weight_grams,
-									brand: json.foods[0].brand_name,
-									ndb_no: json.foods[0].ndb_no,
-									ingredients: json.foods[0].nf_ingredient_statement
-								},
-								nutrients
-							);
-							// POST data about the food item to our back end
-							fetch(
-								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
-								{
-									method: "POST",
-									headers: {
-										"Content-Type": "application/json",
-										accept: "application/json"
-									},
-									body: JSON.stringify(body)
-								}
-							)
-								.then(res => res.json())
-								.then(
-									response => {
-										dispatch({
-											type: "ADD_NUTRIENTS",
-											payload: response
-										});
-									},
-									error => {
-										if (error) {
-											console.log(error);
-										}
-									}
-								)
-								.then(() => {
-									history.push("/");
-								});
-							// If the Nutritionix API returns with an error, the user is
-							// advised to check their spelling
-						} else {
-							alert("Please check Spelling");
-						}
-					},
-					error => {
-						if (error) {
-							console.log(error);
-						}
+				.then(res => {
+					if (!res.ok) {
+						throw Error(res.statusText);
 					}
-				);
+					return res;
+				})
+				.then(res => res.json())
+				.then(json => {
+					// If a valid response was received from the Nutritionix API,
+					// update nutrients object with values for the food item. If the
+					// item does not have any values for a particular nutrient, the
+					// value will stay at zero
+					if (json.foods) {
+						json.foods[0].full_nutrients.forEach(nutrient => {
+							let nutrientName = NdbNos[nutrient.attr_id];
+							if (nutrients.hasOwnProperty(nutrientName)) {
+								nutrients = Object.assign({}, nutrients, {
+									[nutrientName]: nutrient.value
+								});
+							}
+						});
+						let capitalizedWord = json.foods[0].food_name
+							.split("_")
+							.map(word => word[0].toUpperCase() + word.slice(1))
+							.join(" ");
+						let body = {};
+						body.food_item = Object.assign(
+							{},
+							{
+								user_id: userId,
+								meal_type: "lunch",
+								date: new Date(),
+								name: capitalizedWord,
+								upc: action.payload.upc,
+								measurement: action.payload.unit,
+								quantity: action.payload.quantity,
+								image: json.foods[0].photo.thumb,
+								high_res: json.foods[0].photo.highres,
+								serving: json.foods[0].serving_qty,
+								serving_unit: json.foods[0].serving_unit,
+								serving_in_grams: json.foods[0].serving_weight_grams,
+								brand: json.foods[0].brand_name,
+								ndb_no: json.foods[0].ndb_no,
+								ingredients: json.foods[0].nf_ingredient_statement
+							},
+							nutrients
+						);
+						// POST data about the food item to our back end
+						fetch(
+							"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
+							{
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+									accept: "application/json"
+								},
+								body: JSON.stringify(body)
+							}
+						)
+							.then(res => {
+								if (!res.ok) {
+									throw Error(res.statusText);
+								}
+								return res;
+							})
+							.then(res => res.json())
+							.then(response => {
+								dispatch({
+									type: "ADD_NUTRIENTS",
+									payload: response
+								});
+							})
+							.then(() => {
+								history.push("/");
+							})
+							.catch(console.log);
+						// If the Nutritionix API returns with an error, the user is
+						// advised to check their spelling
+					} else {
+						alert("Please check Spelling");
+					}
+				})
+				.catch(console.log);
 			// If the user has entered in a UPC code, the item will be sent to the
 			// Nutritionix UPC endpoint
 		} else {
@@ -152,85 +152,85 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					}
 				}
 			)
-				.then(res => res.json())
-				.then(
-					json => {
-						// If a valid response was received from the Nutritionix API,
-						// update nutrients object with values for the food item. If the
-						// item does not have any values for a particular nutrient, the
-						// value will stay at zero
-						if (json.foods) {
-							json.foods[0].full_nutrients.forEach(nutrient => {
-								let nutrientName = NdbNos[nutrient.attr_id];
-								if (nutrients.hasOwnProperty(nutrientName)) {
-									nutrients = Object.assign({}, nutrients, {
-										[nutrientName]: nutrient.value
-									});
-								}
-							});
-							let body = {};
-							body.food_item = Object.assign(
-								{},
-								{
-									user_id: userId,
-									meal_type: "lunch",
-									date: new Date(),
-									name: json.foods[0].food_name,
-									upc: action.payload.upc,
-									measurement: action.payload.unit,
-									quantity: action.payload.quantity,
-									image: json.foods[0].photo.thumb,
-									high_res: json.foods[0].photo.highres,
-									serving: json.foods[0].serving_qty,
-									serving_unit: json.foods[0].serving_unit,
-									serving_in_grams: json.foods[0].serving_weight_grams,
-									brand: json.foods[0].brand_name,
-									ndb_no: json.foods[0].ndb_no,
-									ingredients: json.foods[0].nf_ingredient_statement
-								},
-								nutrients
-							);
-							// POST data about the food item to our back end
-							fetch(
-								"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
-								{
-									method: "POST",
-									headers: {
-										"Content-Type": "application/json",
-										accept: "application/json"
-									},
-									body: JSON.stringify(body)
-								}
-							)
-								.then(res => res.json())
-								.then(
-									response => {
-										dispatch({
-											type: "ADD_NUTRIENTS",
-											payload: response
-										});
-									},
-									error => {
-										if (error) {
-											console.log(error);
-										}
-									}
-								)
-								.then(() => {
-									history.push("/");
-								});
-							// If the Nutritionix API returns with an error, the user is
-							// advised to check their spelling
-						} else {
-							alert("Please check UPC Code");
-						}
-					},
-					error => {
-						if (error) {
-							console.log(error);
-						}
+				.then(res => {
+					if (!res.ok) {
+						throw Error(res.statusText);
 					}
-				);
+					return res;
+				})
+				.then(res => res.json())
+				.then(json => {
+					// If a valid response was received from the Nutritionix API,
+					// update nutrients object with values for the food item. If the
+					// item does not have any values for a particular nutrient, the
+					// value will stay at zero
+					if (json.foods) {
+						json.foods[0].full_nutrients.forEach(nutrient => {
+							let nutrientName = NdbNos[nutrient.attr_id];
+							if (nutrients.hasOwnProperty(nutrientName)) {
+								nutrients = Object.assign({}, nutrients, {
+									[nutrientName]: nutrient.value
+								});
+							}
+						});
+						let body = {};
+						body.food_item = Object.assign(
+							{},
+							{
+								user_id: userId,
+								meal_type: "lunch",
+								date: new Date(),
+								name: json.foods[0].food_name,
+								upc: action.payload.upc,
+								measurement: action.payload.unit,
+								quantity: action.payload.quantity,
+								image: json.foods[0].photo.thumb,
+								high_res: json.foods[0].photo.highres,
+								serving: json.foods[0].serving_qty,
+								serving_unit: json.foods[0].serving_unit,
+								serving_in_grams: json.foods[0].serving_weight_grams,
+								brand: json.foods[0].brand_name,
+								ndb_no: json.foods[0].ndb_no,
+								ingredients: json.foods[0].nf_ingredient_statement
+							},
+							nutrients
+						);
+						// POST data about the food item to our back end
+						fetch(
+							"https://peaceful-beyond-60313.herokuapp.com/api/v1/food_items",
+							{
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+									accept: "application/json"
+								},
+								body: JSON.stringify(body)
+							}
+						)
+							.then(res => {
+								if (!res.ok) {
+									throw Error(res.statusText);
+								}
+								return res;
+							})
+							.then(res => res.json())
+							.then(response => {
+								dispatch({
+									type: "ADD_NUTRIENTS",
+									payload: response
+								});
+							})
+							.then(() => {
+								history.push("/");
+							})
+							.catch(console.log);
+						// If the Nutritionix API returns with an error, the user is
+						// advised to check their spelling
+					} else {
+						alert("Please check UPC Code");
+					}
+				})
+				.catch(console.log);
 		}
 	};
 }

@@ -32,20 +32,20 @@ export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 			},
 			body: JSON.stringify(body)
 		})
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "ADD_MESSAGE",
-						payload: response
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "ADD_MESSAGE",
+					payload: response
+				});
+			})
+			.catch(console.log);
 	};
 }
 
@@ -68,19 +68,19 @@ export function updateReadMessage(payload) {
 				})
 			}
 		)
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "UPDATE_MESSAGE",
-						payload: response
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "UPDATE_MESSAGE",
+					payload: response
+				});
+			})
+			.catch(console.log);
 	};
 }

@@ -13,19 +13,19 @@ export function fetchClients(id, jwt) {
 				}
 			}
 		)
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "ADD_CLIENTS",
-						payload: response
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			);
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "ADD_CLIENTS",
+					payload: response
+				});
+			})
+			.catch(console.log);
 	};
 }

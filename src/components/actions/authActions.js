@@ -10,6 +10,12 @@ export function signUp(payload, history, nutritionist) {
 					payload.officeAddress
 				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
+				.then(res => {
+					if (!res.ok) {
+						throw Error(res.statusText);
+					}
+					return res;
+				})
 				.then(res => res.json())
 				.then(response => {
 					fetch(
@@ -34,24 +40,24 @@ export function signUp(payload, history, nutritionist) {
 							})
 						}
 					)
-						.then(res => res.json())
-						.then(
-							response => {
-								localStorage.setItem("token", response.jwt);
-								dispatch({
-									type: "GET_USER",
-									payload: response.user
-								});
-							},
-							error => {
-								if (error) {
-									console.log(error);
-								}
+						.then(res => {
+							if (!res.ok) {
+								throw Error(res.statusText);
 							}
-						)
+							return res;
+						})
+						.then(res => res.json())
+						.then(response => {
+							localStorage.setItem("token", response.jwt);
+							dispatch({
+								type: "GET_USER",
+								payload: response.user
+							});
+						})
 						.then(() => {
 							history.push("/");
-						});
+						})
+						.catch(console.log);
 				});
 		} else {
 			fetch(
@@ -59,14 +65,13 @@ export function signUp(payload, history, nutritionist) {
 					payload.address
 				}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 			)
-				.then(
-					res => res.json(),
-					error => {
-						if (error) {
-							console.log(error);
-						}
+				.then(res => {
+					if (!res.ok) {
+						throw Error(res.statusText);
 					}
-				)
+					return res;
+				})
+				.then(res => res.json())
 				.then(response => {
 					fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/signup", {
 						method: "POST",
@@ -91,24 +96,24 @@ export function signUp(payload, history, nutritionist) {
 							longitude: response.results[0].geometry.location.lng
 						})
 					})
-						.then(res => res.json())
-						.then(
-							response => {
-								localStorage.setItem("token", response.jwt);
-								dispatch({
-									type: "GET_USER",
-									payload: response.user
-								});
-							},
-							error => {
-								if (error) {
-									console.log(error);
-								}
+						.then(res => {
+							if (!res.ok) {
+								throw Error(res.statusText);
 							}
-						)
+							return res;
+						})
+						.then(res => res.json())
+						.then(response => {
+							localStorage.setItem("token", response.jwt);
+							dispatch({
+								type: "GET_USER",
+								payload: response.user
+							});
+						})
 						.then(() => {
 							history.push("/");
-						});
+						})
+						.catch(console.log);
 				});
 		}
 	};
@@ -127,28 +132,28 @@ export function logIn(username, name, password, history) {
 			},
 			body: JSON.stringify({ username, name, password })
 		})
-			.then(res => res.json())
-			.then(
-				response => {
-					if (response.error) {
-						alert(response.error);
-					} else {
-						localStorage.setItem("token", response.jwt);
-						dispatch({
-							type: "GET_USER",
-							payload: response
-						});
-					}
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			)
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				if (response.error) {
+					alert(response.error);
+				} else {
+					localStorage.setItem("token", response.jwt);
+					dispatch({
+						type: "GET_USER",
+						payload: response
+					});
+				}
+			})
 			.then(() => {
 				history.push("/");
-			});
+			})
+			.catch(console.log);
 	};
 }
 
@@ -162,23 +167,23 @@ export function getUser(jwt, history) {
 				Authorization: jwt
 			}
 		})
-			.then(res => res.json())
-			.then(
-				response => {
-					dispatch({
-						type: "GET_USER",
-						payload: response
-					});
-				},
-				error => {
-					if (error) {
-						console.log(error);
-					}
+			.then(res => {
+				if (!res.ok) {
+					throw Error(res.statusText);
 				}
-			)
+				return res;
+			})
+			.then(res => res.json())
+			.then(response => {
+				dispatch({
+					type: "GET_USER",
+					payload: response
+				});
+			})
 			.then(() => {
 				history.push("/");
-			});
+			})
+			.catch(console.log);
 	};
 }
 

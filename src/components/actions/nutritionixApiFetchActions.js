@@ -33,6 +33,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 			vitamin_k: 0,
 			zinc: 0
 		};
+		const { upc, unit, quantity, itemName } = action.payload;
 		// POST to the nutritionix back end if the food item was
 		// entered in as plain text
 		if (action.payload.itemName.length) {
@@ -46,9 +47,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					"x-remote-user-id": "0"
 				},
 				body: JSON.stringify({
-					query: `${action.payload.quantity} ${action.payload.unit} ${
-						action.payload.itemName
-					}`,
+					query: `${quantity} ${unit} ${itemName}`,
 					timezone: "US/Eastern"
 				})
 			})
@@ -65,7 +64,18 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					// item does not have any values for a particular nutrient, the
 					// value will stay at zero
 					if (json.foods) {
-						json.foods[0].full_nutrients.forEach(nutrient => {
+						const {
+							full_nutrients,
+							food_name,
+							photo,
+							serving_qty,
+							serving_unit,
+							serving_weight_grams,
+							brand_name,
+							ndb_no,
+							nf_ingredient_statement
+						} = json.foods[0];
+						full_nutrients.forEach(nutrient => {
 							let nutrientName = NdbNos[nutrient.attr_id];
 							if (nutrients.hasOwnProperty(nutrientName)) {
 								nutrients = Object.assign({}, nutrients, {
@@ -73,7 +83,7 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								});
 							}
 						});
-						let capitalizedWord = json.foods[0].food_name
+						let capitalizedWord = food_name
 							.split("_")
 							.map(word => word[0].toUpperCase() + word.slice(1))
 							.join(" ");
@@ -85,17 +95,17 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								meal_type: "lunch",
 								date: new Date(),
 								name: capitalizedWord,
-								upc: action.payload.upc,
-								measurement: action.payload.unit,
-								quantity: action.payload.quantity,
-								image: json.foods[0].photo.thumb,
-								high_res: json.foods[0].photo.highres,
-								serving: json.foods[0].serving_qty,
-								serving_unit: json.foods[0].serving_unit,
-								serving_in_grams: json.foods[0].serving_weight_grams,
-								brand: json.foods[0].brand_name,
-								ndb_no: json.foods[0].ndb_no,
-								ingredients: json.foods[0].nf_ingredient_statement
+								upc: upc,
+								measurement: unit,
+								quantity: quantity,
+								image: photo.thumb,
+								high_res: photo.highres,
+								serving: serving_qty,
+								serving_unit: serving_unit,
+								serving_in_grams: serving_weight_grams,
+								brand: brand_name,
+								ndb_no: ndb_no,
+								ingredients: nf_ingredient_statement
 							},
 							nutrients
 						);
@@ -138,20 +148,15 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 			// If the user has entered in a UPC code, the item will be sent to the
 			// Nutritionix UPC endpoint
 		} else {
-			fetch(
-				`https://trackapi.nutritionix.com/v2/search/item?upc=${
-					action.payload.upc
-				}`,
-				{
-					headers: {
-						"x-app-id": id,
-						"x-app-key": key,
-						"content-type": "application/json",
-						accept: "application/json",
-						"x-remote-user-id": "0"
-					}
+			fetch(`https://trackapi.nutritionix.com/v2/search/item?upc=${upc}`, {
+				headers: {
+					"x-app-id": id,
+					"x-app-key": key,
+					"content-type": "application/json",
+					accept: "application/json",
+					"x-remote-user-id": "0"
 				}
-			)
+			})
 				.then(res => {
 					if (!res.ok) {
 						throw Error(res.statusText);
@@ -165,6 +170,17 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 					// item does not have any values for a particular nutrient, the
 					// value will stay at zero
 					if (json.foods) {
+						const {
+							full_nutrients,
+							food_name,
+							photo,
+							serving_qty,
+							serving_unit,
+							serving_weight_grams,
+							brand_name,
+							ndb_no,
+							nf_ingredient_statement
+						} = json.foods[0];
 						json.foods[0].full_nutrients.forEach(nutrient => {
 							let nutrientName = NdbNos[nutrient.attr_id];
 							if (nutrients.hasOwnProperty(nutrientName)) {
@@ -180,18 +196,18 @@ export function fetchNutrients(action, userId, NdbNos, history) {
 								user_id: userId,
 								meal_type: "lunch",
 								date: new Date(),
-								name: json.foods[0].food_name,
-								upc: action.payload.upc,
-								measurement: action.payload.unit,
-								quantity: action.payload.quantity,
-								image: json.foods[0].photo.thumb,
-								high_res: json.foods[0].photo.highres,
-								serving: json.foods[0].serving_qty,
-								serving_unit: json.foods[0].serving_unit,
-								serving_in_grams: json.foods[0].serving_weight_grams,
-								brand: json.foods[0].brand_name,
-								ndb_no: json.foods[0].ndb_no,
-								ingredients: json.foods[0].nf_ingredient_statement
+								name: food_name,
+								upc: upc,
+								measurement: unit,
+								quantity: quantity,
+								image: photo.thumb,
+								high_res: photo.highres,
+								serving: serving_qty,
+								serving_unit: serving_unit,
+								serving_in_grams: serving_weight_grams,
+								brand: brand_name,
+								ndb_no: ndb_no,
+								ingredients: nf_ingredient_statement
 							},
 							nutrients
 						);

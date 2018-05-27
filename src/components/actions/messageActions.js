@@ -2,26 +2,27 @@
 // response to reducer and added to state.
 export function postMessage(payload, currentUser, nutritionistLoggedIn) {
 	return dispatch => {
+		const { clientId, subject, body, parent_message } = payload;
 		let body;
 		if (nutritionistLoggedIn) {
 			body = {
-				user_id: payload.clientId,
+				user_id: clientId,
 				nutritionist_id: currentUser.id,
-				subject: payload.subject,
-				body: payload.body,
+				subject: subject,
+				body: body,
 				sender_type: "nutritionist",
 				sender_id: currentUser.id,
-				parent_message: payload.parent_message
+				parent_message: parent_message
 			};
 		} else {
 			body = {
 				user_id: currentUser.id,
 				nutritionist_id: currentUser.nutritionist_id,
-				subject: payload.subject,
-				body: payload.body,
+				subject: subject,
+				body: body,
 				sender_type: "user",
 				sender_id: currentUser.id,
-				parent_message: payload.parent_message
+				parent_message: parent_message
 			};
 		}
 		fetch("https://peaceful-beyond-60313.herokuapp.com/api/v1/messages", {

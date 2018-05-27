@@ -4,6 +4,24 @@
 // JWT token to user's browser. redirects user to home page.
 export function signUp(payload, history, nutritionist) {
 	return dispatch => {
+		const {
+			name,
+			username,
+			password,
+			age,
+			weight,
+			bmi,
+			address,
+			goal,
+			profilePhoto,
+			height,
+			birthday,
+			email,
+			officeAddress,
+			acceptingPatients,
+			bio,
+			companyName
+		} = payload;
 		if (nutritionist) {
 			fetch(
 				`https://maps.googleapis.com/maps/api/geocode/json?address=${
@@ -27,14 +45,14 @@ export function signUp(payload, history, nutritionist) {
 								accept: "application/json"
 							},
 							body: JSON.stringify({
-								name: payload.name,
-								email: payload.email,
-								password: payload.password,
-								office_address: payload.officeAddress,
-								accepts_new_patients: payload.acceptingPatients,
-								biography: payload.bio,
-								profile_photo: payload.profilePhoto,
-								company_name: payload.companyName,
+								name: name,
+								email: email,
+								password: password,
+								office_address: officeAddress,
+								accepts_new_patients: acceptingPatients,
+								biography: bio,
+								profile_photo: profilePhoto,
+								company_name: companyName,
 								office_latitude: response.results[0].geometry.location.lat,
 								office_longitude: response.results[0].geometry.location.lng
 							})
@@ -80,18 +98,18 @@ export function signUp(payload, history, nutritionist) {
 							accept: "application/json"
 						},
 						body: JSON.stringify({
-							name: payload.name,
-							username: payload.username,
-							password: payload.password,
-							age: payload.age,
-							weight: payload.weight,
-							bmi: payload.bmi,
-							address: payload.address,
-							goal: payload.goal,
-							profile_photo: payload.profilePhoto,
-							height: payload.height,
-							birthday: payload.birthday,
-							email: payload.email,
+							name: name,
+							username: username,
+							password: password,
+							age: age,
+							weight: weight,
+							bmi: bmi,
+							address: address,
+							goal: goal,
+							profile_photo: profilePhoto,
+							height: height,
+							birthday: birthday,
+							email: email,
 							latitude: response.results[0].geometry.location.lat,
 							longitude: response.results[0].geometry.location.lng
 						})

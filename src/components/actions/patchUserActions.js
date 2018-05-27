@@ -48,10 +48,23 @@ export function hireFireNutritionist(currentUser, nutritionistId, jwt) {
 // response to reducer so that state can be updated.
 export function updateUser(payload, jwt) {
 	return dispatch => {
+		const {
+			address,
+			id,
+			name,
+			username,
+			email,
+			address,
+			birthday,
+			weight,
+			height,
+			goal,
+			profilePhoto
+		} = payload;
 		fetch(
-			`https://maps.googleapis.com/maps/api/geocode/json?address=${
-				payload.address
-			}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+			`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${
+				process.env.REACT_APP_GOOGLE_API_KEY
+			}`
 		)
 			.then(res => {
 				if (!res.ok) {
@@ -62,9 +75,7 @@ export function updateUser(payload, jwt) {
 			.then(res => res.json())
 			.then(response => {
 				fetch(
-					`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${
-						payload.id
-					}`,
+					`https://peaceful-beyond-60313.herokuapp.com/api/v1/users/${id}`,
 					{
 						method: "PATCH",
 						headers: {
@@ -73,15 +84,15 @@ export function updateUser(payload, jwt) {
 							Authorization: jwt
 						},
 						body: JSON.stringify({
-							name: payload.name,
-							username: payload.username,
-							email: payload.email,
-							address: payload.address,
-							birthday: payload.birthday,
-							weight: payload.weight,
-							height: payload.height,
-							goal: payload.goal,
-							profile_photo: payload.profilePhoto,
+							name: name,
+							username: username,
+							email: email,
+							address: address,
+							birthday: birthday,
+							weight: weight,
+							height: height,
+							goal: goal,
+							profile_photo: profilePhoto,
 							latitude: response.results[0].geometry.location.lat,
 							longitude: response.results[0].geometry.location.lng
 						})
